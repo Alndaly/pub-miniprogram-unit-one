@@ -1,0 +1,15 @@
+<!--components/course-comment-item/index.wxml-->
+<view class="comment-item">
+  <view class="left">
+    <view class="left-avatar-box">
+      <van-image round fit="cover" width="40px" height="40px" lazy-load src="https://oss.weixiao.zuowu.cc/image/202303161836370.jpg"></van-image>
+    </view>
+    <view class="time">{{differTime}}</view>
+  </view>
+  <view class="center">
+    <view class="teacher">教师：{{comment.teacher}}</view>
+    <view class="detail">
+      <view>{{comment.content}}</view>
+    </view>
+  </view>
+</view>

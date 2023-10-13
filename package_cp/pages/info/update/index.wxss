@@ -1,0 +1,138 @@
+page {
+  background-attachment: fixed;
+  background-color: var(--default-background-color);
+}
+
+.banner {
+  font-size: 15px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  gap: 10px;
+  padding: 20px;
+  background-color: rgba(243, 245, 246, 0.80);
+  backdrop-filter: blur(20px);
+}
+
+.whole-page {
+  position: absolute;
+  top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+}
+
+.back-button {
+  z-index: 100;
+  color: white;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(243, 245, 246, 0.50);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 40px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.form-label-top {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.form-label-tags {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.submit-button {
+  width: 90%;
+  border-radius: 50px;
+  background-image: linear-gradient(to top, #c1dfc4 0%, #deecdd 100%);
+  font-weight: bold;
+  font-size: 20px;
+  font-family: 'DouYu';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+input {
+  color: #454545;
+}
+
+.bottom-btns {
+  padding: 0 10px;
+  z-index: 100;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: white;
+}
+
+.btn-customer {
+  padding: 10px;
+  margin: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  flex-grow: 0;
+}
+
+.operate-font {
+  line-height: 20px;
+  font-size: 12px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  font-weight: 400;
+  color: #666;
+}
+
+.btn-customer::after {
+  border: none;
+}
+
+.submit-button::after {
+  border: none;
+}
+
+.customer-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.slogan {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.uploader {
+  width: 100px;
+  height: 100px;
+}

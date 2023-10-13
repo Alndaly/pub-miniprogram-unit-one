@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-uploader": "/components/uploader/index",
+    "van-checkbox-group": "/components/checkbox-group/index",
+    "van-cell": "/components/cell/index",
+    "van-cell-group": "/components/cell-group/index",
+    "van-checkbox": "/components/checkbox/index"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-html": "/components/mp-html/index",
+    "van-divider": "/components/divider/index",
+    "user-info": "/components/user-info/index",
+    "van-image": "/components/image/index"
+  }
+}

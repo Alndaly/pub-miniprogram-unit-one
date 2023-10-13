@@ -1,0 +1,11 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "cu-custom": "/components/cu-custom/cu-custom",
+    "ugc": "/components/ugc/index",
+    "van-divider": "/components/divider/index",
+    "van-cell": "/components/cell/index",
+    "van-cell-group": "/components/cell-group/index",
+    "van-image": "/components/image/index"
+  }
+}

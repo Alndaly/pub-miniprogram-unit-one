@@ -1,0 +1,33 @@
+<!--pages/myinfo/editinfo.wxml-->
+<view class="bg-top">
+  <van-image fit="cover" height="100%" width="100%" lazy-load src="{{userInfo.bg_image}}"></van-image>
+</view>
+
+<view class="whole">
+  <!-- 更换头像 -->
+  <view class="top" catchtap="changeAvatar">
+    <van-image class="avatar" round fit="cover" height="100%" width="100%" lazy-load src="{{userInfo.avatar}}"></van-image>
+    <view>点击更换头像</view>
+  </view>
+  <view class="cell-group-box">
+    <van-cell-group customStyle="background-color: white; border-radius: var(--border-radius);" border="{{false}}">
+      <van-cell title="名字" is-link value="{{userInfo.nickname}}" catchtap="goUserName"></van-cell>
+      <van-cell title="简介" is-link value="{{userInfo.signature}}" catchtap="goSignature"></van-cell>
+      <van-cell title="性别" is-link value="{{userInfo.gender}}" catchtap="changeGender"></van-cell>
+      <van-cell title="微信号" is-link value="{{userInfo.wechat}}" catchtap="goWechat"></van-cell>
+      <van-cell title="QQ号" is-link value="{{userInfo.qq}}" catchtap="goQQ"></van-cell>
+      <picker mode="region" bindchange="onChangeRegion">
+        <van-cell title="所在地" is-link value="{{userInfo.province&&userInfo.city&&userInfo.district?userInfo.province+'-'+userInfo.city+'-'+userInfo.district:'请选择'}}"></van-cell>
+      </picker>
+      <picker mode="date" bindchange="onChangeBirthday">
+        <van-cell title="生日" is-link value="{{userInfo.birthday?userInfo.birthday:'请选择'}}"></van-cell>
+      </picker>
+    </van-cell-group>
+  </view>
+</view>
+
+<view class="left-top-button" style="height: {{back_btn_height}}px;top: {{back_btn_top}}px;left: {{back_btn_left}}px;">
+  <view catchtap="goBack">返回</view>
+  <view>|</view>
+  <view catchtap="changeBgImage">更换背景图</view>
+</view>

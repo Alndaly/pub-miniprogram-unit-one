@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "mp-html": "/components/mp-html/index",
+    "van-image": "/components/image/index",
+    "ugc-comment-reply-list": "/components/ugc-comment-reply-list/index"
+  }
+}

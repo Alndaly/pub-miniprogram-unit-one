@@ -1,0 +1,14 @@
+<!--pages/myInfo/myPublish/index.wxml-->
+<cu-custom bgColor="bg-white" isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">我收藏的</view>
+</cu-custom>
+
+<view class="ugc-list">
+  <ugc wx:for="{{myCollectList.list}}" wx:key="id" list-index="{{index}}" class="ugc-list" detail="{{item}}" bind:tapCommentIcon="onShowUgcCommentAction" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
+</view>
+
+<!-- 底部加载中 -->
+<block wx:if="{{isLoading}}">
+  <view class="cu-load  {{'loading'}}"></view>
+</block>

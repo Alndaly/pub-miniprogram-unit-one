@@ -1,0 +1,23 @@
+<!--pages/types/index.wxml-->
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">话题</view>
+</cu-custom>
+<view class="whole" style="height: calc( 100vh - {{CustomBar}}px );">
+
+  <view class="input-box">
+    <input type="text" hold-keyboard="{{true}}" adjust-position="{{false}}" placeholder="搜索标签" model:value="{{label_search_key}}" bindinput="onChangeLabelSearchKey" />
+  </view>
+
+  <scroll-view class="list-box" bindscrolltolower="onNextLabelPage" refresher-enabled scroll-y bindrefresherrefresh="onLabelRefresh" refresher-triggered="{{labelRefresherTriggered}}" show-scrollbar="{{true}}">
+    <view wx:for="{{label_list.list}}" catchtap="goLabelPage" wx:key="id" class="label-box" data-label="{{item}}">
+      <view class="text-black">#{{item.title}}</view>
+      <view class="text-grey text-sm">{{item.exposure}} 浏览</view>
+    </view>
+    <!-- 底部加载中 -->
+    <block wx:if="{{isLoading}}">
+      <view class="cu-load  {{'loading'}}"></view>
+    </block>
+  </scroll-view>
+
+</view>

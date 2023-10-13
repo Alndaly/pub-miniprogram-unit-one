@@ -1,0 +1,189 @@
+page {
+  background-image: linear-gradient(to bottom, #30cfd0 0%, #5e378d 100%);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.banner {
+  padding: 10px;
+  padding-top: 50px;
+}
+
+.title {
+  font-size: 35px;
+  font-family: 'DouYu';
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 15px 15px;
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: #e0f0e9;
+  align-items: center;
+  gap: 20px;
+  padding: 15px;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.identity {
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+.send-button {
+  padding: 10px;
+  min-height: 55px;
+  font-family: 'DouYu';
+  background-color: #392f41;
+  color: white;
+  font-size: 17px;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-box {
+  flex: 1;
+  overflow: auto;
+}
+
+.back-button {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  z-index: 10000;
+  color: white;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(243, 245, 246, 0.50);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 40px;
+}
+
+.bottom-pop-box {
+  padding: 20px;
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.identity-box {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  font-family: 'DouYu';
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.regenerate-box {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.dice-box>.dice-side {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background-image: url("https://oss.kinda.info/image/202307281237217.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+}
+
+.side1 {
+  background-position: 0 0;
+  transform: rotateY(90deg) translateZ(50px);
+}
+
+.side2 {
+  background-position: -100px 0;
+  transform: rotateY(-90deg) translateZ(50px);
+}
+
+.side3 {
+  background-position: -300px 0;
+  transform: rotateX(90deg) translateZ(50px);
+}
+
+.side4 {
+  background-position: -400px 0;
+  transform: rotateX(-90deg) translateZ(50px);
+}
+
+.side5 {
+  background-position: -500px 0;
+  transform: rotateZ(90deg) translateZ(50px);
+}
+
+.side6 {
+  background-position: -600px 0;
+  transform: rotateZ(0deg) translateZ(50px);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+
+  to {
+    transform: rotateX(1turn) rotateY(1turn) rotateZ(0);
+  }
+}
+
+.dice-box {
+  width: 100px;
+  height: 100px;
+  margin: 30px auto;
+  /* 设置3d变形效果 */
+  transform-style: preserve-3d;
+}
+
+.identity-nickname {
+  font-size: 12px;
+  color: #999;
+}
+
+.scroll-box-none {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 15px;
+  color: white;
+}

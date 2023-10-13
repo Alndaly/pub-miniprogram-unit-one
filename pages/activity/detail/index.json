@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "mp-html": "/components/mp-html/index",
+    "van-image": "/components/image/index",
+    "activity-time-and-location": "/components/activity-time-and-location/index",
+    "activity-comment-item": "/components/activity-comment-item/index",
+    "activity-comment-input": "/components/activity-comment-input/index"
+  }
+}

@@ -1,0 +1,317 @@
+page {
+  background-image: url(https://oss.kinda.info/image/202305191405644.JPG);
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.back-button {
+  z-index: 100;
+  color: white;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(243, 245, 246, 0.50);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 40px;
+}
+
+.poem {
+  width: 100%;
+  display: flex;
+}
+
+.poem-box {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: 10px;
+}
+
+.poem-content {
+  font-size: 32px;
+  /* font-family: 'LXGWWenKaiGBScreen'; */
+}
+
+.first {
+  justify-content: flex-start;
+}
+
+.second {
+  justify-content: flex-end;
+}
+
+.poem-author {
+  font-size: 20px;
+  justify-content: flex-end;
+}
+
+.poen-title {
+  font-size: 20px;
+  justify-content: flex-end;
+}
+
+.whole {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  position: relative;
+  background-color: white;
+  border-radius: 50px;
+  font-size: 16px;
+  font-family: 'DouYu';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  padding: 20px;
+}
+
+.bottom {
+  width: 90%;
+  position: fixed;
+  bottom: calc(80px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.cp-info {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.content-box {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
+.content {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.tips {
+  box-sizing: content-box;
+  padding: 5px;
+  width: 16px;
+  height: 16px;
+}
+
+.onUpdateHover {
+  background-color: #ccc;
+  border-radius: 0 0 10px 10px;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background-color: #999;
+}
+
+.update-btn {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-family: "DouYu";
+}
+
+.user-info-list {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nickname {
+  font-size: 20px;
+}
+
+.user-info-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.two-person-banner {
+  width: 100%;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: rgba(243, 245, 246, 0.50);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+}
+
+.banner-center {
+  padding: 20px;
+}
+
+.banner-top {
+  padding: 20px;
+}
+
+.banner-bottom-list {
+  display: flex;
+  align-items: center;
+}
+
+.banner-bottom {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  flex: 1;
+  position: relative;
+}
+
+.text-sm{
+  font-size: 14px;
+}
+
+.to {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.group-tips {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: #666;
+  font-size: 12px;
+}
+
+.specification {
+  padding: 10px;
+  font-size: 15px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.callout {
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.number {
+  padding: 0 2px;
+  font-size: 16px;
+}
+
+.no-satisfying {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  color: #ddd;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.link-button {
+  text-decoration: underline;
+  color: #44cef6;
+}
+
+.join-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.restricted {
+  color: #aaa;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.locked::after {
+  content: '';
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 50px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.locked-button::after{
+  content: '';
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  background-color: rgba(63, 63, 63, 0.1) !important;
+}
+
+.line-thorugh {
+  text-decoration-line: line-through;
+}

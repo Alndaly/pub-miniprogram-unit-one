@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-search": "/components/search/index",
+    "van-divider": "/components/divider/index",
+    "search-ugc-item": "/components/search-ugc-item/index",
+    "user-item": "/components/user-item/index",
+    "van-sticky": "/components/sticky/index",
+    "search-result-box": "/components/search-result-box/index"
+  }
+}

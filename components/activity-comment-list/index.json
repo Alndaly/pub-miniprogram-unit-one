@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-divider": "/components/divider/index",
+    "activity-comment-item": "/components/activity-comment-item/index"
+  }
+}

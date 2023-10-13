@@ -1,0 +1,56 @@
+<!--pages/myInfo/identity/index/index.wxml-->
+<cu-custom isBack="true" bgColor='bg-white'>
+  <view slot="backText">返回</view>
+  <view slot="content">多身份体系</view>
+</cu-custom>
+<view class="whole" style="height: calc( 100vh - {{CustomBar}}px );">
+  <view class="banner">
+    <view>
+      多身份体系是Unit One为了便于用户显示自己的社团或者官方等身份标识所开发的体系。
+    </view>
+    <view>
+      认证通过的用户可具有额外权限。
+    </view>
+  </view>
+  <view class="identity-box">
+    <scroll-view class="identity-list" bindscrolltolower="onNextIdentityPage" refresher-enabled scroll-y bindrefresherrefresh="onIdentityRefresh" refresher-triggered="{{identityRefresherTriggered}}" show-scrollbar="{{true}}">
+      <view wx:if="{{identities.total_size===0}}" class="no-identity">
+        还没有身份噢，尝试去增加吧。
+      </view>
+      <view wx:for="{{identities.list}}" wx:key="id" data-identity="{{item}}" catchtap="goIdentityDetail">
+        <view class="identity-item">
+          <view class="left">
+            <view>
+              <text class="text-grey">身份：</text>
+              {{item.identity_info.name}}
+            </view>
+            <view wx:if="{{item.identity_info.description}}">
+              <text class="text-grey">描述：</text>
+              {{item.identity_info.description}}
+            </view>
+            <view wx:if="{{item.organization_info.name}}">
+              <text class="text-grey">所属组织：</text>
+              {{item.organization_info.name}}
+            </view>
+            <view>
+              <text class="text-grey">审核状态：</text>
+              {{item.status}}
+            </view>
+          </view>
+          <view class="right">
+            <van-image catchtap="deleteIdentity" data-identity="{{item}}" fit="cover" height="25px" width="25px" lazy-load src="/static/images/delete.png"></van-image>
+          </view>
+        </view>
+      </view>
+      <!-- 底部加载中 -->
+      <block wx:if="{{isLoading}}">
+        <view class="cu-load {{'loading'}}"></view>
+      </block>
+    </scroll-view>
+  </view>
+  <view class="bottom">
+    <view class="button" catchtap="goIdentityVerify">
+      增加身份
+    </view>
+  </view>
+</view>

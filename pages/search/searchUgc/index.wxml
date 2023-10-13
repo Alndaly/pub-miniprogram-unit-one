@@ -1,0 +1,29 @@
+<!--pages/search/searchUser/index.wxml-->
+<cu-custom isBack="true" bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">
+    搜帖子
+  </view>
+</cu-custom>
+<view class="whole">
+  <view class="top">
+    <van-sticky offset-top="{{CustomBar}}">
+      <van-search model:value="{{ options.key }}" placeholder="请输入搜索关键词" useActionSlot bind:search="onSearch">
+        <view slot="action" catchtap="clearSearch">
+          清空
+        </view>
+      </van-search>
+    </van-sticky>
+  </view>
+  <view class="list-box" wx:if="{{ugcList && ugcList.list.length!==0}}">
+    <view wx:for="{{ugcList.list}}" wx:key="id">
+      <view class="ugc-item">
+        <search-ugc-item detail="{{item}}" search_key="{{options.key}}"></search-ugc-item>
+      </view>
+    </view>
+    <!-- 底部加载中 -->
+    <block wx:if="{{isLoading}}">
+      <view class="cu-load {{'loading'}}"></view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "ugc": "/components/detail-ugc/index",
+    "ugc-comment-item": "/components/ugc-comment-item/index",
+    "van-divider": "/components/divider/index",
+    "van-image": "/components/image/index"
+  }
+}

@@ -1,0 +1,37 @@
+<!--components/ugc-comment-item/index.wxml-->
+<view class="whole">
+  <!-- 用户头像 -->
+  <view class="avatar-box">
+    <view data-id="{{commentItem.user_info.id}}" class="avatar" style="background-image:url({{commentItem.user_info.avatar}});" catchtap="showUserInfo"></view>
+  </view>
+  <view class="content-box">
+    <view class="top-degree">
+      <view class="comment-detail">
+        <!-- 用户昵称 -->
+        <view class="nickname">{{commentItem.anonymous?'匿名':commentItem.user_info.nickname}}</view>
+        <view class="content" data-target="{{commentItem}}" catchtap="onTapComment">
+          <mp-html markdown="true" showLineNumber="true" scroll-table="true" content="{{computedContent}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
+        </view>
+        <!-- 评论和时间 -->
+        <view class="bottom">
+          <view class="time">{{differTime}}</view>
+          <view>
+            <view catchtap="onTapComment" data-target="{{commentItem}}" class="back-comment">
+              回复
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="comment-operate-box">
+        <image catchtap="onVoteComment" data-comment="{{commentItem}}" class="icon-image" src="/static/images/{{commentItem.is_vote?'like_full':'like'}}.png" />
+        <view class="vote_num" wx:if="{{commentItem.vote_num}}">
+          {{commentItem.vote_num}}
+        </view>
+      </view>
+    </view>
+    <view class="replies">
+      <ugc-comment-reply-list style="width: 100%;" replies="{{commentItem.replies}}" topComment="{{commentItem}}">
+      </ugc-comment-reply-list>
+    </view>
+  </view>
+</view>

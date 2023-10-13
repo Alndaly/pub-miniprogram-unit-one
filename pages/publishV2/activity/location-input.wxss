@@ -1,0 +1,97 @@
+page {
+  background-color: var(--default-background-color);
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.input-box {
+  border-radius: 10px;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bottom {
+  position: fixed;
+  background-color: white;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 20px;
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.submit {
+  width: 100%;
+  font-family: 'DouYu';
+}
+
+button {
+  font-size: 15px;
+  background: none;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-picker {
+  padding: 20px;
+  padding-bottom: calc( env(safe-area-inset-bottom) + 30px );
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+}
+
+.time-input-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.time-input {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.time-input>input {
+  width: 40px;
+  padding: 0 10px;
+  height: 100%;
+  border-radius: 5px;
+  min-height: 25px;
+  background-color: var(--default-background-color);
+}
+
+.buttons>button {
+  min-width: 120px;
+  min-height: 40px;
+}

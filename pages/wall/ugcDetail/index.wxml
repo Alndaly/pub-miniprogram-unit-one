@@ -1,0 +1,82 @@
+<wxs src="../../../utils/util.wxs" module="utils"></wxs>
+<cu-custom isCustom="{{true}}" isBack bgColor="bg-white">
+  <view slot="left">
+    <view class="nav-left">
+      <van-image catch:tap="goBack" round height="1.5rem" width="1.5rem" fit="cover" lazy-load src="/static/images/back_black.png" />
+      <view catch:tap="showUserInfo" class="user-info" wx:if="{{ugcDetail}}">
+        <van-image round height="2rem" width="2rem" fit="cover" lazy-load src="{{ugcDetail.user_info.avatar}}" />
+        <view>{{ugcDetail.user_info.nickname}}</view>
+      </view>
+    </view>
+  </view>
+</cu-custom>
+
+<scroll-view id="scroller" refresher-threshold="40" upper-threshold="50" lower-threshold="100" scroll-y class="whole" refresher-default-style="none" refresher-enabled enable-back-to-top enhanced refresher-triggered="{{refresherTriggered}}" bindscrolltolower="onNextPage" bindrefresherrefresh="onRefresh" style="height: calc( 100vh - 80px - {{CustomBar || 87}}px );">
+  <!-- 替换固有的刷新栏 -->
+  <view slot="refresher" class="top-loading">
+    <van-image height="100%" width="100vw" fit="cover" lazy-load src="https://oss.kinda.info/image/202304271351492.gif" />
+  </view>
+  <ugc wx:if="{{ugcDetail}}" detail="{{ugcDetail}}" isShowTime showMore="true"></ugc>
+  <view class="full-divider"></view>
+  <view id="comment">
+    <ugc-comment-item bind:tapComment="onFocusCommentToCommentInput" wx:for="{{ugcCommentList}}" wx:key="id" commentItem="{{item}}"></ugc-comment-item>
+    <!-- 底部加载中 -->
+    <block wx:if="{{isLoading}}">
+      <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />
+    </block>
+  </view>
+</scroll-view>
+
+<view class="bottom">
+  <view class="input-button" catch:tap="onComment">
+    说点什么...
+  </view>
+  <view class="operate-item" catch:tap="onVote">
+    <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/{{ugcDetail.is_vote?'like_full':'like'}}.png"></van-image>
+    {{ugcDetail.vote?ugcDetail.vote:"点赞"}}
+  </view>
+  <view class="operate-item" catch:tap="onComment">
+    <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/comment.png"></van-image>
+    {{ugcDetail.comment?ugcDetail.comment:"评论"}}
+  </view>
+  <view class="operate-item" catch:tap="onShowSharePopup">
+    <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/share.png"></van-image>
+    {{ugcDetail.share?ugcDetail.share:"分享"}}
+  </view>
+</view>
+
+<view wx:if="{{showCommentBox}}" class="comment-box" style="bottom: {{inputBottom}}px;">
+  <view class="comment-input">
+    <input type="text" adjust-position="false" confirm-type="send" bindconfirm="submitComment" model:value="{{commentContent}}" focus="{{commentInputFocusStatus}}" bindblur="unFocusCommentInput" placeholder="{{currentComment.id!==-1?'回复：'+currentComment.user_info.nickname:'说点什么...'}}" />
+  </view>
+  <view>
+    <van-image catch:tap="onSendImageComment" fit="contain" height="30px" width="30px" src="/static/images/shiliangzhinengduixiang.png" />
+  </view>
+</view>
+
+<page-container round z-index="10000" show="{{showSharePopUp}}" bind:afterleave="onClosePopUp">
+  <view class="bottom-pop-box-share" wx:if="{{showSharePopUp}}">
+    <view>
+      <van-image catch:tap="onShowPosterImage" fit="contain" height="200rpx" width="200rpx" loading src="{{poster_image}}">
+        <van-loading slot="loading" type="spinner" size="20" vertical />
+      </van-image>
+    </view>
+    <van-divider></van-divider>
+    <view class="share-method-boxes">
+      <view class="share-method-box" catch:tap="onShareByPoster">
+        <view class="button-image">
+          <van-image radius="10" fit="contain" height="100rpx" width="100rpx" src="/static/images/shiliangzhinengduixiang.png"></van-image>
+        </view>
+        <view class="button-label">海报分享</view>
+      </view>
+      <view class="share-method-box">
+        <button open-type="share" class="share-button">
+          <view class="button-image">
+            <van-image radius="10" fit="contain" height="100rpx" width="100rpx" src="/static/images/link.png"></van-image>
+          </view>
+          <view class="button-label">链接分享</view>
+        </button>
+      </view>
+    </view>
+  </view>
+</page-container>

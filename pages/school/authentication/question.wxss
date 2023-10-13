@@ -1,0 +1,137 @@
+/* pages/school/authentication/question.wxss */
+page {
+  background-color: #657fca;
+}
+
+.whole {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.top {
+  color: white;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+}
+
+.right {
+  font-size: 13px;
+  font-family: Segoe UI;
+  font-weight: 400;
+  padding: 5px 10px;
+  background-color: #4c5564;
+  border-radius: 12px;
+}
+
+.choose-box {
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 15px;
+  width: 95%;
+  background-color: white;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.right {
+  background: #57c681;
+  color: white;
+}
+
+.checked {
+  background: #57c681;
+  color: white;
+}
+
+.wrong {
+  background-color: #ee0000;
+  color: white;
+}
+
+.answer > view {
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+}
+
+.tip {
+  font-size: 12px;
+  font-family: Segoe UI;
+  font-weight: 400;
+  color: #ffffff;
+  opacity: 0.4;
+  align-self: flex-start;
+  padding: 0 20px;
+}
+
+.progress {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.next-and-before > view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border-radius: 25px;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 0 5px;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-button {
+  width: 300px;
+  height: 40px;
+  background: #e94359;
+  border-radius: 9px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-family: Segoe UI;
+  font-weight: 400;
+  color: #ffeff6;
+}
+
+.block {
+  padding: 30px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  background: #ffffff;
+  border-radius: 20px;
+  gap: 10px;
+}
+
+.next-and-before {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+}

@@ -1,0 +1,26 @@
+<cu-custom isBack="true" bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">Unit One</view>
+</cu-custom>
+<view class="whole-page">
+  <view class="search-box" catchtap="onFocusInput">
+    <van-icon name="search" size="20" />
+    <input bindconfirm="goSearch" bindblur="onUnFocusInput" type="text" placeholder-class="input-placeholder" model:value="{{search_key}}" confirm-type="search" focus="{{inputFocus}}" placeholder="查找你想要的课程" />
+  </view>
+  <view style="width: 85%;">
+    <van-divider />
+  </view>
+  <view class="title">热搜课程</view>
+  <view class="hot">
+    <view wx:if="{{hotCourse.list.length===0||!hotCourse.list}}" class="none-course">暂时没有数据哦</view>
+    <view class="course-list" wx:else>
+      <view class="course-item" wx:for="{{hotCourse.list}}" wx:key="id" data-course="{{item}}" catchtap="toDetail">
+        <view class="margin-right index {{index>=0&&index<=2?'icon':''}}">{{index+1}}</view>
+        <view class="{{item.is_delete?'text-gray':''}}">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="text-grey slogon">
+    <van-divider content-position="center">选课不会选，上微校查一查</van-divider>
+  </view>
+</view>

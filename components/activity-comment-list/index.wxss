@@ -1,0 +1,15 @@
+/* components/ugc-comment-list/index.wxss */
+.whole {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: auto;
+  height: 100%;
+}

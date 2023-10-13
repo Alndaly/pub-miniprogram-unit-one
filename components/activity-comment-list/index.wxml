@@ -1,0 +1,7 @@
+<!--components/ugc-comment/index.wxml-->
+<view class="whole">
+  <!-- 新的评论样式 -->
+  <view class="comment-list">
+    <activity-comment-item wx:for="{{activityCommentList}}" wx:key="id" bind:tapComment="onFocusCommentToComment" commentItem="{{item}}"></ugc-comment-item>
+  </view>
+</view>

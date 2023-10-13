@@ -1,0 +1,295 @@
+/* components/ugc/index.wxss */
+.whole {
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.ai {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  font-family: "DouYu";
+  color: #f2f2f2;
+  padding: 10px;
+  transform: rotateZ(30deg);
+}
+
+.bottom-user-info {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-nick-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  flex-direction: row;
+  color: rgb(153, 153, 153);
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.operate-v2-left {
+  flex: 1;
+}
+
+.top {
+  padding: 20px;
+  border-radius: 25px;
+  background-color: #fff;
+}
+
+.label {
+  font-size: 24rpx;
+  align-items: center;
+  justify-content: center;
+  color: #5a7cab;
+  padding: 4rpx 16rpx;
+  font-family: Helvetica Neue, Helvetica, sans-serif;
+  border: 1rpx solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+}
+
+.labels {
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.name-and-tag {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.images {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: 5px 0;
+}
+.center-content {
+  width: 100%;
+  font-size: 16px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  font-weight: 400;
+}
+
+.vote-and-comment {
+  display: flex;
+  gap: 10px;
+  color: gray;
+}
+
+.operate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.operate-left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.operate-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+}
+
+.icon-image {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-share {
+  border: none;
+  background-color: white;
+  display: block;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 5px;
+  color: #777;
+  font-size: 12px;
+}
+
+.btn-share::after {
+  border: none;
+}
+
+.comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f6fa;
+}
+
+.comment-content {
+  margin: 3px;
+  width: 100%;
+  border-radius: 2px;
+}
+
+.ugc-title {
+  font-size: 16px;
+  color: #292421;
+  font-weight: bold;
+}
+
+.my-operate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.my-operate>.image {
+  width: 30px;
+  height: 30px;
+}
+
+.padding {
+  height: 20px;
+}
+
+.divider {
+  background-color: rgba(166, 166, 166, 0.08);
+  height: 1px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.ugc-content {
+  font-size: 16px;
+  color: #292421;
+  letter-spacing: 0.5px;
+  line-height: 50rpx;
+}
+
+.hide {
+  overflow: hidden;
+  height: 400rpx;
+}
+
+.show-more {
+  font-size: 15px;
+  color: #FF704D;
+  text-decoration: underline;
+}
+
+.location {
+  color: #aaa;
+  margin: 5px 0;
+}
+
+.block {
+  height: 100%;
+  width: 100%;
+  display: block;
+}
+
+.follow {
+  border: 1px solid #D3E3E3;
+  font-size: 14px;
+  color: #7c7878;
+  border-radius: 35px;
+  width: 60px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.more-operate {
+  width: 35px;
+  height: 35px;
+  margin-right: 20px;
+}
+
+.operate-v2 {
+  display: flex;
+  gap: 40rpx;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.operate-v2-comment {
+  width: 100%;
+  height: 33px;
+  font-size: 15px;
+  color: rgba(150, 147, 147, 1);
+  background-color: #f0f0f0b4;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 25rpx;
+  align-items: center;
+  border-radius: 30px;
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 15px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-box {
+  min-width: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.operate-v2-right {
+  display: flex;
+  flex-direction: row;
+  gap: 20rpx;
+  color: #777;
+}
+
+.time {
+  color: rgb(153, 153, 153);
+  font-size: 10px;
+}
+
+.operate-v2-icon {
+  width: 23px;
+  height: 23px;
+}

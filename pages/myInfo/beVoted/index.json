@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "voted-item": "/components/voted-item/index",
+    "van-image": "/components/image/index"
+  }
+}

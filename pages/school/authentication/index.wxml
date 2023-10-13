@@ -1,0 +1,55 @@
+<!--pages/school/authentication/index.wxml-->
+<cu-custom isBack="true">
+  <view slot="backText" catchtap="goBack">返回</view>
+  <view slot="content">校友认证</view>
+</cu-custom>
+<view class="whole">
+  <view class="image-box">
+    <van-image fit="cover" radius="10" height="150px" width="100%" lazy-load src="https://oss.weixiao.zuowu.cc/image/76b592c87157493aaf4471b1cd313328.jpeg"></van-image>
+  </view>
+
+  <view class="group-box">
+    <view class="text-black">为什么需要校友认证？</view>
+    <view class="text-gray margin-top-sm">
+      微校是定位于杭师师生群体的<text class="text-red">本地综合社区</text>，社区内需要统一的<text class="text-red">身份认同</text>，同时抵御社会不良人士的骚扰。
+    </view>
+  </view>
+  <view class="group-box">
+    <view class="top">
+      <view class="text-bold text-lg text-black">第一步 校园认证</view>
+      <view wx:if="{{verifyMethod}}">
+        <van-image round fit="cover" height="18px" width="18px" lazy-load src="/static/images/gou.png"></van-image>
+      </view>
+      <view class="tag" wx:if="{{!verifyMethod}}">未完成</view>
+    </view>
+    <view class="margin-top-xs">请选择以下方式中的任意一种进行认证</view>
+    <view class="my-group margin-top-sm">
+      <van-cell wx:for="{{authMethodList}}" title="{{item.title}}" label="{{item.content}}" center is-link url="{{item.page_url}}" />
+    </view>
+  </view>
+  <view class="group-box">
+    <view class="top">
+      <view class="text-bold text-lg text-black">第二步 手机号授权</view>
+      <view wx:if="{{hasPhoneNumber}}">
+        <van-image round fit="cover" height="18px" width="18px" lazy-load src="/static/images/gou.png"></van-image>
+      </view>
+      <view class="tag" wx:if="{{!hasPhoneNumber}}">
+        未授权
+      </view>
+    </view>
+    <view class="my-group margin-top-sm">
+      <button class="my-btn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+        <view class="btn-left">
+          <view style="font-size:14px;color: #454545;">手机号授权</view>
+          <view style="font-size:12px;color: #969799;">响应国家实名制监管要求，将严格保密</view>
+        </view>
+        <view class="btn-right">
+          <van-icon name="arrow" color="#969799" size="16px" />
+        </view>
+      </button>
+    </view>
+    <view class="text-sm margin-top-xs tip">授权手机号代表你已阅读并同意<text class="text-blue" catchtap="goProtocolWebView">《微校隐私保护指引》</text></view>
+  </view>
+
+  <view class="submit-button" catchtap="finishAuth">完成认证</view>
+</view>

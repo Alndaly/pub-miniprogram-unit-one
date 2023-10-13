@@ -1,0 +1,89 @@
+/* components/user-item/index.wxss */
+.whole {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info {
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}
+
+.username {
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: bold;
+}
+
+.school {
+  font-size: 12px;
+  font-family: Segoe UI;
+  font-weight: 400;
+  color: #7d7d7d;
+}
+
+.signature {
+  font-size: 13px;
+  font-family: Segoe UI;
+  font-weight: 400;
+}
+
+.focus {
+  width: 61px;
+  height: 28px;
+  background: #ffffff;
+  border: 1px solid #df4137;
+  opacity: 1;
+  border-radius: 14px;
+  color: #e24e56;
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.focused {
+  width: 61px;
+  height: 28px;
+  border: 1px solid #df4137;
+  background-color: #df4137;
+  opacity: 1;
+  border-radius: 14px;
+  color: white;
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.center-top {
+  display: flex;
+  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}

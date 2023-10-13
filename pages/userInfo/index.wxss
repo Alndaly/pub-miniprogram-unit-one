@@ -1,0 +1,279 @@
+page {
+  background-color: var(--default-background-color);
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 20px;
+  padding-bottom: env(safe-area-inset-bottom);
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+button {
+  font-size: 16px;
+  background: none;
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  min-height: 50px;
+  box-shadow: 0px 0px 10px 0px rgba(17, 17, 26, 0.18);
+}
+
+.focus-btn {
+  flex: 4;
+}
+
+.unfocus-btn {
+  flex: 4;
+}
+
+.right-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.back-button {
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(243, 245, 246, 0.50);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 40px;
+}
+
+.center-info {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #aaa;
+}
+
+button::after {
+  border: none;
+}
+
+.hower-button {
+  background-color: white;
+}
+
+.whole-page {
+  display: flex;
+  position: absolute;
+  top: 50vh;
+  width: 100%;
+  left: 0;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 100px;
+}
+
+.bg-top {
+  width: 100%;
+  height: 50vh;
+  z-index: -1;
+  position: fixed;
+}
+
+.bg-top::after {
+  content: '';
+  position: absolute;
+  background-image: linear-gradient(to bottom, #a18cd100 0%, var(--default-background-color) 100%);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.gender {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background-color: #f1f1f1;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  padding: 3px;
+  transform: translate(-5px, -5px);
+}
+
+.school {
+  text-align: center;
+}
+
+.quote {
+  width: 20px;
+  height: 20px;
+}
+
+.signature-box {
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #f1f1f1;
+}
+
+.signature {
+  font-size: 15px;
+}
+
+.data {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.data-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.num {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.data-box>.text {
+  font-size: 10px;
+  color: grey;
+}
+
+.data-box.vote {
+  background-color: #ed58361c;
+}
+
+.data-box.collect {
+  background-color: #db5a6b11;
+}
+
+.data-box.comment {
+  background-color: #00e09d1e;
+}
+
+.gender-icon {
+  width: 70%;
+  height: 70%;
+}
+
+.box {
+  background-color: #fff;
+}
+
+.avatar-box {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+}
+
+.nickname {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bolder;
+  margin: 0 auto;
+}
+
+.header-box {
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px 0px rgba(17, 17, 26, 0.18);
+  width: 90%;
+  padding: 20px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 60px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bottom-pop-box {
+  height: 70vh;
+  padding: 10px;
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.ugc-list-box {
+  height: 100%;
+}
+
+.identities-box {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.identity-box {
+  border-radius: 40px;
+  padding: 10px 15px;
+  line-height: 12px;
+  background-color: #afdd2233;
+  white-space: nowrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+
+.row>.box {
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+  flex: 1;
+}
+
+.score {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}

@@ -1,0 +1,65 @@
+/* components/tree-hole-card/index.wxss */
+
+.ai{
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
+  font-family: "DouYu";
+  color: #f2f2f2;
+  padding: 10px;
+  transform: rotateZ(30deg);
+}
+
+.card {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.content-view {
+  /* 网格背景 */
+  background: linear-gradient(90deg, rgba(200, 200, 200, 0.3) 3%, transparent 0),
+    linear-gradient(rgba(200, 200, 200, 0.3) 3%, transparent 0);
+  background-size: 30px 30px;
+  background-position: -20px -20px;
+  font-size: 15px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.user-info>.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nickname {
+  color: #999;
+  font-size: 12px;
+}
+
+.update-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.exposure {
+  color: #999;
+  font-size: 12px;
+}

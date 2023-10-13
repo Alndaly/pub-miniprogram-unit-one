@@ -1,0 +1,34 @@
+<!--pages/collections/index.wxml-->
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">我收到的收藏</view>
+</cu-custom>
+<block wx:if="{{!collect.list.length}}">
+  <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
+    <view class='text-content'>
+      <view class='margin-top-sm'>还没有被别人收藏的项目哦～</view>
+      <view class='margin-top-sm'>快去发表一下吸引人气吧！</view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view>
+    <view class="cu-list menu-avatar">
+      <view data-item="{{item}}" class="cu-item" wx:for="{{collect.list}}" wx:for-item="item" bindtap="toDetail">
+        <view class="cu-avatar round lg" style="background-image:url({{item.user_info.avatar}});"></view>
+        <view class="content">
+          <view>{{item.user_info.nickname}}</view>
+          <view class="text-grey">收藏了你的作品</view>
+          <view class="text-grey">{{item.create_time}}</view>
+        </view>
+        <view wx:if="{{item.to.cover}}" class="action margin-right-sm">
+          <view class="cu-avatar lg" style="background-image:url({{item.to.cover}});"></view>
+        </view>
+      </view>
+      <!-- 底部加载中 -->
+      <block wx:if="{{isLoading}}">
+        <view class="cu-load  {{'loading'}}"></view>
+      </block>
+    </view>
+  </view>
+</block>

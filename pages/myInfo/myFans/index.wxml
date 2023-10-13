@@ -1,0 +1,36 @@
+<!--pages/myInfo/myFans/index.wxml-->
+<cu-custom isBack="true" bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">我的粉丝</view>
+</cu-custom>
+
+<block wx:if="{{!fansList.list.length}}">
+  <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
+    <view class='text-content'>
+      <view class='margin-top-sm'>还没有粉丝哦～</view>
+      <view class='margin-top-sm'>快去发表发表动态增加人气吧！</view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="cu-card dynamic">
+    <view class="cu-item shadow">
+      <view class="cu-list menu-avatar">
+        <view wx:for="{{fansList.list}}" wx:key="id" wx:for-item="item" class="cu-item">
+          <view data-id="{{item.id}}" bindtap="toUserInfo" class="cu-avatar round lg" style="background-image:url({{item.avatar}});">
+          </view>
+          <view data-id="{{item.id}}" bindtap="toUserInfo" class="content flex-sub">
+            <view>{{item.nickname}}</view>
+            <view class="signature">
+              {{item.signature?item.signature:'这个人很懒，什么都没写'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 底部加载中 -->
+  <block wx:if="{{isLoading}}">
+    <view class="cu-load  {{'loading'}}"></view>
+  </block>
+</block>

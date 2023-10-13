@@ -1,0 +1,19 @@
+<!--pages/myInfo/wechat/index.wxml-->
+<cu-custom isBack="true">
+  <view slot="backText">返回</view>
+  <view slot="content">微信号</view>
+</cu-custom>
+<view class="whole">
+  <view class="editor-box">
+    <view class="input-box">
+      <input class="wechat" auto-focus placeholder="编辑微信号" placeholder-style="line-height: 40px;" model:value="{{wechat}}" />
+      <view class="right-icon" catchtap="clearWechat">
+        <van-icon name="cross" size="15" color="gray" />
+      </view>
+    </view>
+    <view class="input-length">{{wechat.length}}</view>
+  </view>
+  <view class="my-button" catchtap="submitChange" hover-class="my-button-hover">
+    保存
+  </view>
+</view>

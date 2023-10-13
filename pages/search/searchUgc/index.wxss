@@ -1,0 +1,13 @@
+/* pages/search/searchUgc/index.wxss */
+page {
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.list-box{
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}

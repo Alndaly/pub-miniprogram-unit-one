@@ -1,0 +1,33 @@
+<!--package_map/pages/home/index.wxml-->
+<view class="back" style="height: {{back_btn_height}}px;width: {{back_btn_height}}px;top: {{back_btn_top}}px;left: {{back_btn_left+10}}px;" catchtap="goBack">
+  <van-image fit="cover" height="100%" width="100%" src="/static/images/back_white.png"></van-image>
+</view>
+
+<map id="myMap" style="width: 100%; height: 100vh;" bindcallouttap="onTapCallout" latitude="{{myLocation.latitude}}" longitude="{{myLocation.longitude}}" markers="{{markers}}" show-location="{{true}}">
+  <cover-view slot="callout">
+    <cover-view wx:for="{{markers}}" wx:key="id" marker-id="{{index}}">
+      <view class="callout">
+        {{markers[index].address}}
+      </view>
+    </cover-view>
+  </cover-view>
+  <view class="search-box" catch:tap="onShowSearchPopUp" style="border-radius: {{inputBottom===0?'50rpx':'0'}};width: {{inputBottom===0?'600rpx;':'100%'}};bottom: {{inputBottom===0?'calc(env(safe-area-inset-bottom) + 50rpx)':inputBottom+'px'}}">
+    <view class="input-box">
+      <van-image width="20" height="20" src="/static/images/search.png"></van-image>
+      <input confirm-type="search" adjust-position="false" type="text" placeholder="输入搜索地点" model:value="{{search_key}}" bindconfirm="goSearchLocation" />
+      <!-- <view>输入搜索地点</view> -->
+    </view>
+  </view>
+</map>
+
+<!-- <page-container show="{{showSearchPopUp}}" round>
+  <view class="search-page">
+    <view class="search-input-box">
+      <van-image width="20" height="20" src="/static/images/search.png"></van-image>
+      <input type="text" placeholder="输入搜索地点" auto-focus style="flex: 1;" />
+    </view>
+    <scroll-view class="locations" scroll-y refresher-enabled style="height: calc( 80vh - 20px - 43px - env(safe-area-inset-bottom) - 10px );" refresher-triggered="searchLocationRefreshStatus" bindrefresherrefresh="onSearchLocationRefresh">
+      <view wx:for="{{2000}}" wx:key="id">111</view>
+    </scroll-view>
+  </view>
+</page-container> -->

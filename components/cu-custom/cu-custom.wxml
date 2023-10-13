@@ -1,0 +1,18 @@
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed {{bgColor}}" style="{{isShadow? 'box-shadow: 2px 2px 5px rgba(0 , 0, 0, 0.08)':''}};height:{{CustomBar}}px;padding-top:{{StatusBar}}px;{{customStyle}};">
+    <view class="left-slot">
+      <slot name="left" />
+      <view class="back" catchtap="goBackPage" wx:if="{{isBack}}">
+        <slot name="backText"></slot>
+      </view>
+    </view>
+    <view class="action border-custom" wx:if="{{isCustom}}" style="width:{{Custom.width}}px;height:{{Custom.height}}px;margin-left:calc(750rpx - {{Custom.right}}px)">
+      <text class="cuIcon-back" bindtap="goBackPage"></text>
+      <text class="cuIcon-homefill" bindtap="goHomePage"></text>
+    </view>
+    <view class="content" style="top:{{StatusBar}}px">
+      <slot name="content"></slot>
+    </view>
+    <slot name="right"></slot>
+  </view>
+</view>

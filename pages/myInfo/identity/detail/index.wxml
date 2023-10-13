@@ -1,0 +1,19 @@
+<!--pages/myInfo/identity/detail/index.wxml-->
+<cu-custom isBack="true" bgColor='bg-white'>
+  <view slot="backText">返回</view>
+  <view slot="content">身份卡</view>
+</cu-custom>
+
+<view class="whole" style="height: calc( 100vh - {{CustomBar}}px );">
+  <view class="box">
+    <view>身份：{{identity.identity_info.name}}</view>
+    <view>身份描述：{{identity.identity_info.description}}</view>
+    <view>所属组织：{{identity.organization_info.name}}</view>
+    <view>审核状态：{{identity.status}}</view>
+    <view>处理理由：{{identity.reason}}</view>
+  </view>
+  <view class="bottom">
+    <view class="button" wx:if="{{identity.status==='拒绝'}}" catchtap="onReSubmit">重新提交审核</view>
+    <view class="button" wx:else="{{identity.status==='拒绝'}}" catchtap="onChange">修改</view>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+/* pages/search/searchUser/index.wxss */
+page {
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.list-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: white;
+}

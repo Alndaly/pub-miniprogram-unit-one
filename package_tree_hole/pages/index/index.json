@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-image": "/components/image/index",
+    "mp-html": "/components/mp-html/index",
+    "tree-hole-comment-item": "/components/tree-hole-comment-item/index",
+    "tree-hole-comment-input": "/components/tree-hole-comment-input/index"
+  }
+}

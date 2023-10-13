@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "van-divider": "/components/divider/index",
+    "van-cell": "/components/cell/index",
+    "van-cell-group": "/components/cell-group/index",
+    "van-empty": "/components/empty/index"
+  }
+}

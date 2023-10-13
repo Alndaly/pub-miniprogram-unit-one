@@ -1,0 +1,46 @@
+<view class="back-button" style="height: {{back_btn_height}}px;width: {{back_btn_width}}px;top: {{back_btn_top}}px;left: {{back_btn_left}}px;" catchtap="goBackPage">
+  返回
+</view>
+
+<view wx:if="{{activity.list.length===0}}" class="no-activity">
+  <van-empty description="你还没有参与任何活动噢，快去发现页逛逛吧。">
+    <view class="button" catchtap="goActivityPage">确定</view>
+  </van-empty>
+</view>
+
+<view id="cd-timeline" class="cd-container" wx:if="{{activity.list.length!==0}}">
+  <view class="cd-timeline-block" wx:for="{{activity.list}}">
+    <view class="cd-timeline-img cd-picture">
+    </view>
+    <view class="cd-timeline-content" data-activity="{{item}}" catchtap="goToActivity">
+      <view class="top-info">
+        <view class="h4">{{item.activity_info.title}}</view>
+        <view class="tags">
+          <view class="tag" wx:if="{{item.type==='join'}}">
+            报名
+          </view>
+          <view class="tag" wx:if="{{item.type==='activity'}}">
+            活动
+          </view>
+        </view>
+      </view>
+      <view class="time-box">
+        <van-image lazy-load src="/static/images/time_fill.png" width="20" height="20" />
+        <view wx:if="{{item.start_time}}">
+          起: {{item.start_time}}
+        </view>
+        <view wx:if="{{item.end_time}}">
+          结: {{item.end_time}}
+        </view>
+      </view>
+      <view class="location-box" catchtap="goLocation" data-location="{{item.location_info}}">
+        <van-image lazy-load src="/static/images/round_location_fill.png" width="20" height="20" />
+        <view>
+          {{item.location_info.address}}
+        </view>
+      </view>
+      <!-- <mp-html class="detail" content="{{item.activity_info.detail}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" /> -->
+      <van-image height="100px" radius="10" webp="true" lazy-load fit="cover" src="{{item.activity_info.bg_image}}"></van-image>
+    </view>
+  </view>
+</view>

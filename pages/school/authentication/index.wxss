@@ -1,0 +1,83 @@
+/* pages/school/authentication/index.wxss */
+.whole {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: calc( env(safe-area-inset-bottom) + 70px );
+}
+
+.my-group {
+  width: 100%;
+  border-radius: 15px;
+  background-color: #f6f6f6;
+}
+
+.my-btn {
+  padding: 3px 17px;
+  border-radius: 15px;
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-left {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.my-btn::after {
+  border: none;
+}
+
+.group-box {
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tip {
+  align-self: flex-end;
+}
+
+.submit-button {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom);
+  width: 80%;
+  padding: 10px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #E94359;
+  border-radius: 30px;
+  color: white;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.image-box{
+  width: 100%;
+  padding: 10px;
+}
+
+.tag {
+  padding: 0px 5px;
+  font-size: 10px;
+  color: red;
+  border-radius: 5px;
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

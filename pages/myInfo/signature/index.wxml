@@ -1,0 +1,16 @@
+<!--pages/myinfo/signature/index.wxml-->
+<cu-custom isBack="true">
+  <view slot="backText">返回</view>
+  <view slot="content">编辑简介</view>
+</cu-custom>
+<view class="whole">
+  <view class="editor-box">
+    <textarea class="signature" bindinput="inputSignature" auto-focus placeholder="编辑简介" placeholder-style="color:gray;" value="{{signature}}" />
+    <view class="box-bottom">
+      <view class="clear" catchtap="clearSignature" hover-class="my-button-hover">清空</view>
+    </view>
+  </view>
+  <view class="my-button" catchtap="submitChange" hover-class="my-button-hover">
+    保存
+  </view>
+</view>

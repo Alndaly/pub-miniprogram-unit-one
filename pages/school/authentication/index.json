@@ -1,0 +1,8 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "van-cell": "/components/cell/index",
+    "van-cell-group": "/components/cell-group/index",
+    "van-image": "/components/image/index"
+  }
+}

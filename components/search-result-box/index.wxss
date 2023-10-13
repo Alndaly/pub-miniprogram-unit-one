@@ -1,0 +1,28 @@
+/* components/search-result-box/index.wxss */
+.whole{
+  width: 100%;
+  padding: 15px;
+  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.title{
+  font-size: 18px;
+  color: #454545;
+}
+
+.divider{
+  height: 1px;
+  width: 100%;
+  background-color: #d2d2d2;
+  opacity: 0.5;
+}
+
+.bottom{
+  width: 100%;
+  display: flex;
+  color: #454545;
+}

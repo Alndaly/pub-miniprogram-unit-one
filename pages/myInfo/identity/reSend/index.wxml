@@ -1,0 +1,72 @@
+<!--pages/myInfo/identity/reSend/index.wxml-->
+<cu-custom isBack="true" bgColor='bg-white'>
+  <view slot="backText">返回</view>
+  <view slot="content">身份审核重提</view>
+</cu-custom>
+<view class="whole" style="height: calc( 100vh - {{CustomBar}}px );">
+  <view class="content">
+
+    <view class="bg-white box">
+      <view class="title">证明身份图片 (1-3张) *</view>
+      <!-- 图片 -->
+      <scroll-view class="images" scroll-x>
+        <van-uploader max-size='20971520' image-fit="aspectFill" bind:oversize="uploadOverSize" preview-size="110px" file-list="{{ attachments }}" max-count="3" sizeType="compressed" bind:click-preview="viewImage" bind:after-read="afterRead" bind:delete="delAttachment" multiple="true" />
+      </scroll-view>
+    </view>
+
+    <view class="bg-white box">
+      <view class="title">具体身份 *</view>
+      <view class="identity-input-box">
+        <input type="text" class="identity-input" placeholder="请输入身份" model:value="{{name}}" />
+      </view>
+    </view>
+
+    <view class="bg-white box">
+      <view class="title">所属组织 *</view>
+      <view class="identity-input-box">
+        <input catchtap="onShowOrganizationPopUp" disabled type="text" class="identity-input" placeholder="点击选择组织" value="{{organization.name}}" />
+      </view>
+    </view>
+
+    <view class="bg-white box">
+      <view class="title">身份描述 (可选)</view>
+      <view class="identity-input-box">
+        <textarea auto-height type="text" class="identity-input" placeholder="请输入身份描述" model:value="{{description}}" />
+      </view>
+    </view>
+
+  </view>
+
+  <view class="bottom">
+    <view class="button" catchtap="onSubmit">
+      确认提交
+    </view>
+  </view>
+</view>
+
+<page-container round z-index="10000" show="{{showOrganizationPopUp}}">
+  <view class="bottom-pop-box">
+    <view class="input-box">
+      <input type="text" hold-keyboard="{{true}}" adjust-position="{{false}}" focus="{{organizationSearchInputFocus}}" placeholder="搜索组织" model:value="{{organization_search_key}}" bindinput="onChangeOrganizationSearchKey" />
+    </view>
+    <scroll-view bindscrolltolower="onNextOrganizationPage" refresher-enabled scroll-y bindrefresherrefresh="onOrganizationRefresh" refresher-triggered="{{organizationRefresherTriggered}}" show-scrollbar="{{true}}" refresher-enabled scroll-y class="organization-list">
+      <view wx:for="{{organizations.list}}" wx:key="id" class="organization-box" catchtap="choseOrganization" data-organization="{{item}}">
+        <view class="title">{{item.name}}</view>
+        <view class="description">{{item.detail}}</view>
+      </view>
+      <!-- 底部加载中 -->
+      <block wx:if="{{isLoading}}">
+        <view class="cu-load {{'loading'}}"></view>
+      </block>
+    </scroll-view>
+    <view class="no-organization">
+      <view class="text-gray">
+        没有想要的组织？
+      </view>
+      <view catchtap="addOrganization" class="add-organization">
+        申请添加组织
+        <van-icon name="add-o" color="blue" />
+      </view>
+    </view>
+  </view>
+</page-container>

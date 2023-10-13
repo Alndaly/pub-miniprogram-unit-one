@@ -1,0 +1,41 @@
+page {
+  background-color: var(--default-background-color);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.ugc-list {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.title {
+  display: flex;
+  padding: 15px;
+  width: 100%;
+  font-size: 15px;
+  color: rgba(56, 57, 65, 1);
+  justify-content: center;
+  align-items: cener;
+}
+
+.popup-whole {
+  height: 100%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comment-list {
+  height: 80%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.none-comment {
+  align-self: center;
+  margin: 0 auto;
+}

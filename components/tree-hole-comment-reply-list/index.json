@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tree-hole-comment-reply-item": "/components/tree-hole-comment-reply-item/index"
+  }
+}

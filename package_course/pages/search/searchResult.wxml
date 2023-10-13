@@ -1,0 +1,41 @@
+<view class="all">
+  <cu-custom isBack="true" customStyle="background-color: rgba(253, 253, 253, 1);">
+    <view slot="backText">返回</view>
+    <view slot="content">Unit One</view>
+  </cu-custom>
+  <view class="whole-page">
+    <view class="input-box {{searchInputFocused?'blur':''}}">
+      <view class="search-icon">
+        <image style="width: 100%;height: 100%;" mode="aspectFit" src="/static/images/search.png"></image>
+      </view>
+      <view class="input">
+        <input bindfocus="focusSearchInput" bindblur="blurSearchInput" type="text" model:value="{{search_key}}" bindconfirm="onSearch" placeholder="输入课程名" />
+      </view>
+    </view>
+    <view class="course-list">
+      <view class="no-course text-grey" wx:if="{{courseList.list.length===0}}">
+        对应关键词下暂没有课程
+      </view>
+      <view wx:for="{{courseList.list}}" class="course-item" data-course="{{item}}" catchtap="goCourseDetail">
+        <view class="item-left">
+          <view class="name text-lg">{{item.name}}</view>
+          <view class="teacher text-grey">{{item.college}} - {{item.teacher_name}}</view>
+        </view>
+        <view class="summary text-bold text-xxl">
+          {{item.count_student?item.avg_credit+'/'+item.count_student:'暂无均绩数据'}}
+          <text wx:if="{{item.count_student}}" class="notes">(平均绩点/人数)</text>
+        </view>
+      </view>
+      <van-divider content-position="center">以上就是关键词下所有的课程啦</van-divider>
+    </view>
+    <view class="none-box text-grey">
+      <view class="none">
+        这里没有想要的课程？
+      </view>
+      <view class="add-button" catchtap="addCourse">
+        <van-icon name="add-o" />
+        点击添加
+      </view>
+    </view>
+  </view>
+</view>

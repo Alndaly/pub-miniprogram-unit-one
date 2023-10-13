@@ -1,0 +1,56 @@
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">发布</view>
+</cu-custom>
+
+<view class="whole" style="height: calc( 100vh - {{CustomBar}}px );">
+  <view class="content">
+
+    <!-- 图片 -->
+    <scroll-view class="images" scroll-x>
+      <van-uploader max-size='20971520' image-fit="aspectFill" bind:oversize="uploadOverSize" preview-size="110px" file-list="{{ activity_attachments }}" max-count="9" sizeType="compressed" bind:click-preview="viewImage" bind:after-read="afterRead" bind:delete="delAttachment" multiple="true" />
+    </scroll-view>
+    <!-- 标题 -->
+    <view class="title">
+      <textarea style="width: 100%;" auto-height model:value="{{activity_title}}" placeholder="活动标题" />
+      <view class="divider" />
+    </view>
+    <!-- 内容详情 -->
+    <view class="detail">
+      <!-- 展示的活动内容 -->
+      <editor id="activity-editor" bindinput="inputActivityContent" value="{{activity_detail}}" placeholder="活动详情..."></editor>
+    </view>
+    <!-- 地点时间 -->
+    <view class="locations" wx:if="{{time_locations.length!=0}}">
+      <block wx:for="{{time_locations}}" wx:key="id">
+        <view class="location">
+          <view class="info">
+            <view class="time-list">
+              <view>{{item.start_time}}</view>
+              <view>{{item.end_time}}</view>
+            </view>
+            <view>{{item.name}}</view>
+          </view>
+          <view class="delete-box" data-index="{{index}}" catchtap="onDeleteTimeLocation">
+            <van-image round fit="cover" height="20px" width="20px" lazy-load src="/static/images/delete.png"></van-image>
+          </view>
+        </view>
+        <view class="divider"></view>
+      </block>
+    </view>
+    <view class="add-location">
+      <button catchtap="onAddLocation">
+        <view>
+          增加地址、时间
+        </view>
+        <van-image round fit="cover" height="20px" width="20px" lazy-load src="/static/images/add-btn.png"></van-image>
+      </button>
+    </view>
+  </view>
+
+  <view class="bottom">
+    <view class="publish" style="background-color: #177cb0;" catchtap="publishActivity" hover-class="button-hover" hover-stay-time="100">
+      发布
+    </view>
+  </view>
+</view>

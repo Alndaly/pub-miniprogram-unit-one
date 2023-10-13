@@ -1,0 +1,63 @@
+/* pages/myInfo/userName/index.wxss */
+page {
+  background-color: #f8f8f8;
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-right: 10px;
+  background-color: white;
+}
+
+.right-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.username {
+  flex: 10;
+  height: 40px;
+  padding: 0 10px;
+}
+
+.input-length{
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  color: gray;
+}
+.my-button {
+  position: absolute;
+  bottom: 40px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(233, 63, 72, 1);
+  font-size: 17px;
+  background-color: white;
+}
+
+.my-button-hover {
+  background-color: #f7f7f7;
+}

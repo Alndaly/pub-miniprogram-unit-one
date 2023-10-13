@@ -1,0 +1,32 @@
+<!--components/kinda-input/index.wxml-->
+<view class="form-item">
+  <view class="form-label">
+    <view class="form-label-top">
+      <view class="form-label-title {{error?'error-title':''}}">{{title}}{{is_required?'*':''}}</view>
+      <view class="form-label-tags">
+        <view class="tag" wx:if="{{type==='multiply-choose'}}">
+          多选
+        </view>
+      </view>
+    </view>
+    <view class="form-label-tips">{{label}}</view>
+  </view>
+  <view class="form-item-container {{error?'error-container':''}}">
+    <input model:value="{{value}}" type="text" wx:if="{{type==='input'}}" class="full-width" />
+    <input model:value="{{value}}" type="digit" wx:if="{{type==='digit'}}" class="full-width" />
+    <textarea auto-height wx:if="{{type==='textarea'}}" class="full-width" maxlength="-1" adjust-keyboard-to="bottom" value="{{value}}" bindinput="changeAnswer" />
+    <van-uploader wx:if="{{type==='multiply-photo'}}" file-list="{{ value }}" max-count="9" sizeType="compressed" bind:click-preview="viewImage" bind:after-read="afterReadImages" bind:delete="delImage" multiple="true" />
+    <picker mode="selector" wx:if="{{type==='radio'}}" range-key="detail" bindchange="changeAnswerByRadio" value="{{answer_index}}" range="{{answer_list}}">
+      <input type="text" value="{{answer_list[answer_index].detail}}" placeholder="{{place_holder}}" disabled />
+    </picker>
+    <van-checkbox-group wx:if="{{type==='multiply-choose'}}" value="{{ value }}" bind:change="changeAnswerByCheckBox">
+      <van-cell-group>
+        <van-cell wx:for="{{ answer_list }}" wx:key="id" title="{{ item.detail }}" value-class="value-class" clickable data-index="{{ index }}" bind:click="toggleCheckBox">
+          <van-checkbox shape="square" catch:tap="noop" class="checkbox-{{ index }}" name="{{ item.id }}">
+          </van-checkbox>
+        </van-cell>
+      </van-cell-group>
+    </van-checkbox-group>
+  </view>
+  <view class="font-count" wx:if="{{font_count}}">{{font_count}}</view>
+</view>

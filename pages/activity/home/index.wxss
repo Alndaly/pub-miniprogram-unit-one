@@ -1,0 +1,60 @@
+/* pages/activity/home/index.wxss */
+page {
+  background-color: var(--default-background-color);
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: white;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+
+.activity-item{
+  box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+  width: 100%;
+  height: 100%;
+}
+
+.activity-item-box {
+  width: 50%;
+  padding: 5px;
+}
+
+.user-info-box {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.activity-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+}
+
+.activity-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 5px 10px;
+}
+
+.activity-title {
+  font-weight: bold;
+  font-size: 15px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}

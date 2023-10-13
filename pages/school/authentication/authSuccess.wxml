@@ -1,0 +1,22 @@
+<!--pages/school/authentication/questionSuccess.wxml-->
+<view class="whole" style="padding-top:{{CustomBar}}px;">
+  <view class="whole-container">
+    <view class="success-title">校友认证成功</view>
+    <view>
+      <van-image fit="cover" radius="10" height="150px" width="100%" lazy-load src="https://oss.weixiao.zuowu.cc/image/76b592c87157493aaf4471b1cd313328.jpeg"></van-image>
+    </view>
+    <view class="tip">
+      <view>你已经成功通过校友认证啦～</view>
+      <view>欢迎回家，快去逛逛新鲜的功能吧！</view>
+    </view>
+    <van-divider contentPosition="center">
+      <view class="unlock-ability">解锁能力</view>
+    </van-divider>
+    <view class="ability">
+      <view>认证用户标签</view>
+    </view>
+  </view>
+</view>
+<view class="my-button-box">
+  <view class="my-button" catchtap="goPageBeforeVerify">好耶</view>
+</view>

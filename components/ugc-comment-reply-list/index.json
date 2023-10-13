@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "ugc-comment-reply-item": "/components/ugc-comment-reply-item/index"
+  }
+}

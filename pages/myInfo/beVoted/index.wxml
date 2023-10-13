@@ -1,0 +1,14 @@
+<!--pages/myInfo/beVoted/index.wxml-->
+<cu-custom isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">被点赞</view>
+</cu-custom>
+<view class="whole-page">
+  <view class="voted-list">
+    <voted-item voted_item="{{item}}" wx:for="{{voted.list}}" wx:key="id" />
+    <!-- 底部加载中 -->
+    <block wx:if="{{isLoading}}">
+      <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />
+    </block>
+  </view>
+</view>

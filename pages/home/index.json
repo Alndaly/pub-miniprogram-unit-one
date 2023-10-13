@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-image": "/components/image/index",
+    "van-sticky": "/components/sticky/index",
+    "ugc": "/components/ugc/index"
+  }
+}

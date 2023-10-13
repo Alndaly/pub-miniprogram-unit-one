@@ -1,0 +1,4 @@
+/* components/tree-hole-comment-reply-list/index.wxss */
+.reply-box {
+  width: 100%;
+}

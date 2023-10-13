@@ -1,0 +1,125 @@
+.all {
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #F3F3F4;
+  overflow: auto;
+}
+
+.notes{
+  margin: 10px;
+}
+
+.all::after {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+  background: inherit;
+  filter: blur(5px);
+  content: "";
+  z-index: 0;
+}
+
+.whole-page {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.comment-item {
+  display: flex;
+  width: 90%;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.row-call {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.row-call > view {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.detail {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  height: 40vh;
+  margin: 20px 0;
+  position: relative;
+  width: 85%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.detail > .section {
+  width: 100%;
+  height: 100%;
+}
+
+.detail textarea {
+  width: 100%;
+  height: 100%;
+}
+
+.textarea-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.textarea-bottom > view {
+  display: flex;
+  align-items: center;
+}
+
+.textarea-bottom > view:first-child {
+  gap: 5px;
+}
+
+.submit {
+  position: fixed;
+  bottom: env(safe-area-inset-bottom);
+  width: 80%;
+  padding: 10px;
+  font-size: 17px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2b65ce;
+  border-radius: 30px;
+  color: white;
+}
+
+.form {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20px;
+}

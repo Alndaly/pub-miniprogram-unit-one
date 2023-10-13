@@ -1,0 +1,47 @@
+<cu-custom isBack="true" bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">
+    搜索
+  </view>
+</cu-custom>
+<view class="whole">
+  <view class="top">
+    <van-sticky offset-top="{{CustomBar}}">
+      <van-search model:value="{{ options.key }}" placeholder="请输入搜索关键词" useActionSlot bind:search="onSearch">
+        <view slot="action" catchtap="clearSearch">
+          清空
+        </view>
+      </van-search>
+    </van-sticky>
+  </view>
+
+  <view class="list-box" wx:if="{{ugcList.list.length!==0}}">
+    <search-result-box title="帖子列表">
+      <view slot="content" class="list-item-box">
+        <view wx:for="{{ugcList.list}}" wx:key="id">
+          <view class="ugc-item">
+            <search-ugc-item detail="{{item}}" search_key="{{options.key}}"></search-ugc-item>
+          </view>
+        </view>
+      </view>
+      <view slot="bottom" class="box-bottom" data-kind="ugc" catchtap="goSearchKindPage">
+        查看更多帖子
+      </view>
+    </search-result-box>
+  </view>
+  <view class="list-box" wx:if="{{userList.list.length!==0}}">
+    <search-result-box title="同学列表">
+      <view slot="content" class="list-item-box">
+        <view wx:for="{{userList.list}}" wx:key="id">
+          <view class="user-item">
+            <user-item detail="{{item}}">
+            </user-item>
+          </view>
+        </view>
+      </view>
+      <view slot="bottom" class="box-bottom" data-kind="user" catchtap="goSearchKindPage">
+        查看更多同学
+      </view>
+    </search-result-box>
+  </view>
+</view>

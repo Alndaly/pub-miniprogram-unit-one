@@ -1,0 +1,4 @@
+/* components/ugc-comment-reply-list/index.wxss */
+.reply-box {
+  width: 100%;
+}

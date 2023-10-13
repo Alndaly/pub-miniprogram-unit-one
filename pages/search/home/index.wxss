@@ -1,0 +1,105 @@
+page {
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.box{
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.search-kinds {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+.search-kind {
+  /* 每列宽度占 33.33%，并减去列之间的间隔 */
+  flex-basis: calc(25%);
+  /* 列之间的间隔 */
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2e4e7e;
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 10px;
+}
+
+.title {
+  font-size: 15px;
+  font-family: Segoe UI;
+  font-weight: bold;
+  color: #202020;
+}
+
+.tag-box {
+  display: flex;
+  overflow: hidden;
+  padding: 7px 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag {
+  line-height: 30px;
+  height: 30px;
+  width: 95%;
+  border: 1px solid #E6E6E6;
+  border-radius: 18px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-align: center;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.clear-history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(147, 147, 147, 1);
+  margin: 10px;
+}
+
+.classify-icon {
+  background-size: cover;
+  width: 36px;
+  height: 36px;
+}
+
+.empty {
+  color: rgba(210, 210, 210, 1);
+  border-radius: 10px;
+  width: 90%;
+  height: 40px;
+  border: 1px dotted rgba(210, 210, 210, 1);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin: 10px auto;
+}
+
+.slogan{
+  position: fixed;
+  padding-bottom: env(safe-area-inset-bottom);
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  color: #aaa;
+  justify-content: center;
+  align-items: center;
+  padding-left: 50px;
+  padding-right: 50px;
+}

@@ -1,0 +1,4 @@
+<!--components/ugc-comment-reply-list/index.wxml-->
+<view wx:for="{{replies}}" wx:key="id" class="reply-box">
+  <ugc-comment-reply-item style="width: 100%;" detail="{{item}}" topComment="{{topComment}}"></ugc-comment-reply-item>
+</view>

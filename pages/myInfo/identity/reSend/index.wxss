@@ -1,0 +1,93 @@
+/* pages/myInfo/identity/reSend/index.wxss */
+page {
+  background-color: var(--default-background-color);
+}
+
+.whole {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.box {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 15px;
+}
+
+.images {
+  display: inline-block;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.button {
+  background-color: #f47983;
+  padding: 10px;
+  min-height: 50px;
+  font-size: 20px;
+  font-family: "DouYu";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50px;
+}
+
+.no-organization {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+}
+
+.add-organization {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.organization-box {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f4798355;
+  margin-bottom: 10px;
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+.bottom-pop-box {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-bottom: env(safe-area-inset-bottom);
+  gap: 10px;
+}
+
+.organization-list {
+  flex: 1;
+  overflow: auto;
+}

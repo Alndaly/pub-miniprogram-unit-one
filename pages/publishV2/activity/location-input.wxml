@@ -1,0 +1,88 @@
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">时间地点增加</view>
+</cu-custom>
+<view class="whole">
+  <view class="input-box">
+    <view class="title">类型</view>
+    <view class="text-grey">
+      <picker bindchange="bindTypeChange" value="{{chosedTypeIndex}}" range="{{types}}">
+        <view wx:if="{{chosedTypeIndex}}">
+          {{types[chosedTypeIndex]}}
+        </view>
+        <view wx:else>
+          请选择时间类型
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class="input-box">
+    <view class="title">开始时间</view>
+    <view class="text-grey" catchtap="onChooseStartTime">
+      <view wx:if="{{start_time}}">{{start_time}}</view>
+      <view wx:else>
+        请选择开始时间
+      </view>
+    </view>
+  </view>
+  <view class="input-box">
+    <view class="title">结束时间</view>
+    <view class="text-grey" catchtap="onChooseEndTime">
+      <view wx:if="{{end_time}}">{{end_time}}</view>
+      <view wx:else>
+        请选择结束时间
+      </view>
+    </view>
+  </view>
+  <view class="input-box">
+    <view class="title">地点名称</view>
+    <input type="text" placeholder="请输入地点名称" model:value="{{name}}" />
+  </view>
+  <view class="input-box">
+    <view class="title">地图位置</view>
+    <view wx:if="{{location}}">
+      <map enable-scroll="{{false}}" style="width: 100%;" enable-building enable-traffic scale="{{16}}" show-location latitude="{{location.latitude}}" longitude="{{location.longitude}}" catchtap="onChooseMap">
+      </map>
+    </view>
+    <input wx:else type="text" disabled placeholder="点击选择地图位置" catchtap="onChooseMap" />
+  </view>
+</view>
+
+<view class="bottom">
+  <button class="submit" catchtap="onSubmit">
+    确认提交
+  </button>
+</view>
+
+<page-container round show="{{showTimePicker}}" z-index="10000">
+  <view class="time-picker">
+    <view class="time-input-list">
+      <view class="time-input">
+        <input type="text" model:value="{{time_hour}}" />时
+      </view>
+      <view>:</view>
+      <view class="time-input">
+        <input type="text" model:value="{{time_minute}}" />分
+      </view>
+      <view>:</view>
+      <view class="time-input">
+        <input type="text" model:value="{{time_second}}" />秒
+      </view>
+    </view>
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" value="{{timePickerIndex}}" bindchange="bindTimeChange">
+      <picker-view-column>
+        <view wx:for="{{years}}" wx:key="id" style="line-height: 50px; text-align: center;">{{item}}年</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{months}}" wx:key="id" style="line-height: 50px; text-align: center;">{{item}}月</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{days}}" wx:key="id" style="line-height: 50px; text-align: center;">{{item}}日</view>
+      </picker-view-column>
+    </picker-view>
+    <view class="buttons">
+      <button type="primary" catchtap="onConfirmTime">确定</button>
+      <button type="default" catchtap="onCancelTime">取消</button>
+    </view>
+  </view>
+</page-container>

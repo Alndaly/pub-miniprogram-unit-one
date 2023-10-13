@@ -1,0 +1,7 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "van-search": "/components/search/index",
+    "van-divider": "/components/divider/index"
+  }
+}

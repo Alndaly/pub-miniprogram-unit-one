@@ -1,0 +1,57 @@
+/* components/user-info/index.wxss */
+.top {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.avatar {
+  margin-right: 10px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  background-size: cover;
+  background-position: center;
+}
+
+.user-info {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.name-and-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name-and-tag {
+  font-size: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.name{
+  font-size: 15px;
+}
+
+.tag {
+  font-size: 10px;
+  border-radius: 20px;
+  border: 1px solid red;
+  padding: 1px 5px;
+}
+
+.left {
+  color: gray;
+  font-size: 24rpx;
+  display: inline-flex;
+}
+
+.right {
+  /* padding: 0 10px; */
+}

@@ -1,0 +1,25 @@
+/* components/commented-item/index.wxss */
+
+.commented-item {
+  border-radius: 10px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.time {
+  color: #aaa;
+}
+
+.left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}

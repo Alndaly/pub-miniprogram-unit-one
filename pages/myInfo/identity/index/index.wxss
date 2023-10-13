@@ -1,0 +1,84 @@
+/* pages/myInfo/identity/index/index.wxss */
+page {
+  background-color: var(--default-background-color);
+  font-size: 15px;
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.no-identity{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+  color: #666;
+}
+
+.banner {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.identity-box {
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.identity-list {
+  height: 100%;
+}
+
+.identity-item {
+  border-radius: 10px;
+  background-color: #f4798322;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.left {
+  flex: 1;
+}
+
+.right {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-grey {
+  color: #666;
+}
+
+.bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.button {
+  background-color: #f47983;
+  padding: 10px;
+  min-height: 50px;
+  font-size: 20px;
+  font-family: "DouYu";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50px;
+}

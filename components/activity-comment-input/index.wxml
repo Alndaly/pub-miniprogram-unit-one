@@ -1,0 +1,47 @@
+<view class="{{inputBottom===0?'whole':'no-safe-padding'}}" style="bottom: {{inputBottom}}px;">
+  <view class="divider" />
+  <view class="operate-v2">
+    <view class="operate-v2-left" style="height: {{inputBottom!==0||inputFocus?'50px':'30px'}}">
+      <textarea style="color: black;" id="commentTextArea" value="{{commentContent}}" bindblur="onInputBlur" bindfocus="onInputFocus" focus="{{inputFocus}}" bindinput="changeCommentContent" placeholder="{{parentComment.id!==-1?'回复：'+parentComment.user_info.nickname:'说点儿什么吧～'}}" confirm-type="return" />
+      <view class="emoji-box">
+        <view wx:if="{{showEmojiBox}}" class="operate-icon" catchtap="onShowJianPanBox">
+          <image class="emoji" src="/static/images/jianpan.png" mode="aspectFill" />
+        </view>
+        <view wx:if="{{!showEmojiBox}}" class="operate-icon" catchtap="onShowEmojiBox">
+          <image class="emoji" src="/static/images/zhayan.png" mode="aspectFill" />
+        </view>
+      </view>
+    </view>
+    <view class="operate-v2-right" wx:if="{{inputBottom===0 && !showEmojiBox}}">
+      <view class="operate-v2-right">
+        <view class="operate-item-box">
+          <button class="btn-share" open-type="contact" catchtap="#">
+            <image class="share-icon" src="/static/images/contact.png" mode="aspectFill" />
+            <view class="operate-font">
+              客服
+            </view>
+          </button>
+        </view>
+        <view class="operate-item-box">
+          <button class="btn-share" open-type="share" catchtap="#" data-detail="{{activityDetail}}">
+            <image class="share-icon" src="/static/images/operate/share.png" mode="aspectFill" />
+            <view class="operate-font">
+              {{activityDetail.share?activityDetail.share:"转发"}}
+            </view>
+          </button>
+        </view>
+      </view>
+    </view>
+    <view class="send-button" catchtap="submitComment" wx:if="{{inputBottom!==0 || showEmojiBox || inputFocus}}">
+      发送
+    </view>
+  </view>
+  <view class="divider-2 divider" wx:if="{{showEmojiBox}}" />
+  <view class="emojis-box" wx:if="{{showEmojiBox}}">
+    <view wx:for="{{emojiList}}" catchtap="onInsertEmoji" class="emoji-item" data-emoji="{{item}}">
+      <view class="emoji-icon">
+        {{item}}
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,64 @@
+/* pages/myInfo/signature/index.wxss */
+page {
+  background-color: #f8f8f8;
+}
+
+.whole {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.editor-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.box-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear {
+  width: 100px;
+  border-radius: 15px;
+  color: gray;
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+}
+
+.signature {
+  padding: 20px;
+  min-height: 200px;
+  border-radius: 12px;
+  width: 100%;
+  background-color: white;
+}
+
+.my-button {
+  position: absolute;
+  bottom: 40px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(233, 63, 72, 1);
+  font-size: 17px;
+  background-color: white;
+}
+
+.my-button-hover {
+  background-color: #f7f7f7;
+}

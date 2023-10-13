@@ -1,0 +1,15 @@
+/* pages/myInfo/beVoted/index.wxss */
+page {
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.whole-page {
+  padding: 10px;
+}
+
+.voted-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

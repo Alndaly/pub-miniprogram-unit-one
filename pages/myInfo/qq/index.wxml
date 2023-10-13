@@ -1,0 +1,20 @@
+<!--pages/myInfo/qq/index.wxml-->
+<!--pages/myInfo/userName/index.wxml-->
+<cu-custom isBack="true">
+  <view slot="backText">返回</view>
+  <view slot="content">QQ号</view>
+</cu-custom>
+<view class="whole">
+  <view class="editor-box">
+    <view class="input-box">
+      <input class="qq" auto-focus placeholder="编辑QQ号" placeholder-style="line-height: 40px;" model:value="{{qq}}" />
+      <view class="right-icon" catchtap="clearQq">
+        <van-icon name="cross" size="15" color="gray" />
+      </view>
+    </view>
+    <view class="input-length">{{qq.length}}</view>
+  </view>
+  <view class="my-button" catchtap="submitChange" hover-class="my-button-hover">
+    保存
+  </view>
+</view>

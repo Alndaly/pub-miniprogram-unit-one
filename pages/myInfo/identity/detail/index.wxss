@@ -1,0 +1,39 @@
+/* pages/myInfo/identity/detail/index.wxss */
+page {
+  background-color: var(--default-background-color);
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: white;
+  padding: 10px;
+  flex: 1;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.bottom {
+  padding: 10px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.button {
+  background-color: #f47983;
+  padding: 10px;
+  min-height: 50px;
+  font-size: 20px;
+  font-family: "DouYu";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50px;
+}

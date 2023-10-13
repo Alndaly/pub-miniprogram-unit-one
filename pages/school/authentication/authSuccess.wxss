@@ -1,0 +1,94 @@
+/* pages/school/authentication/questionSuccess.wxss */
+.whole {
+  color: white;
+  padding: 40px 20px;
+  height: 100vh;
+  width: 100vw;
+  background-color: #2e4e7e;
+  padding-bottom: calc( env(safe-area-inset-bottom) + 100px );
+}
+
+.top-image{
+  margin-bottom: 20px;
+}
+
+.whole-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  z-index: 100;
+}
+/* 
+.whole::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(100px);
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  background-size: coverm;
+} */
+
+.success-title {
+  font-size: 30px;
+  font-family: "DouYu";
+}
+
+.tip {
+  font-size: 20px;
+  font-family: Segoe UI;
+  font-weight: 400;
+}
+
+.ability {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #f2f2f2;
+  color: #454545;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(17, 17, 26, 0.18);
+}
+
+.ability>view {
+  font-size: 17px;
+  font-family: Segoe UI;
+}
+
+.unlock-ability{
+  font-family: 'DouYu';
+  font-size: 20px;
+  color: white;
+}
+
+.my-button-box {
+  z-index: 100;
+  position: fixed;
+  bottom: calc(50px + env(safe-area-inset-bottom));
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.my-button {
+  height: 50px;
+  width: 100%;
+  border-radius: 10px;
+  font-family: 'DouYu';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 17px;
+  background-color: #ffa631;
+  box-shadow: 0px 0px 20px 0px rgba(17, 17, 26, 0.18);
+  font-weight: bold;
+}

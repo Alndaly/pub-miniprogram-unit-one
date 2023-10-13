@@ -1,0 +1,24 @@
+<cu-custom bgColor="bg-grey">
+  <view slot="left">
+    <view class="nav">
+      <van-image catch:tap="goBack" round height="1.2rem" width="1.2rem" fit="cover" lazy-load src="/static/images/back_white.png" />
+      <view class="nav-title">
+        # {{label_info.title}}
+      </view>
+    </view>
+  </view>
+</cu-custom>
+
+<scroll-view id="scroller" refresher-threshold="40" upper-threshold="50" lower-threshold="100" scroll-y class="whole" refresher-default-style="none" refresher-enabled enable-back-to-top enhanced refresher-triggered="{{refresherTriggered}}" bindscrolltolower="onNextPage" bindrefresherrefresh="onRefresh" style="height: calc( 100vh - {{CustomBar || 87}}px );">
+  <!-- 替换固有的刷新栏 -->
+  <view slot="refresher" class="top-loading">
+    <van-image height="100%" width="100vw" fit="cover" lazy-load src="https://oss.kinda.info/image/202304271351492.gif" />
+  </view>
+  <view class="ugc-list">
+    <ugc wx:for="{{ugcList.list}}" showBottom="{{true}}" wx:key="id" list-index="{{index}}" class="ugc-list" detail="{{item}}" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
+  </view>
+  <!-- 底部加载中 -->
+  <block wx:if="{{isLoading}}">
+    <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />
+  </block>
+</scroll-view>

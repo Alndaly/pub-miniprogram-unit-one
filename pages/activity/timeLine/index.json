@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-image": "/components/image/index",
+    "mp-html": "/components/mp-html/index",
+    "van-empty": "/components/empty/index"
+  }
+}

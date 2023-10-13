@@ -1,0 +1,14 @@
+<!--components/voted-item/index.wxml-->
+<view class="voted-item" catchtap="goUgcDetail" data-ugc_id="{{voted_item.ugc_id}}">
+  <view class="left">
+    <van-image radius="10" fit="cover" height="60px" width="60px" lazy-load src="{{voted_item.user_info.avatar}}"></van-image>
+    <view class="center">
+      <view class="nickname">{{voted_item.user_info.nickname}}</view>
+      <view class="vote-content">点赞了你</view>
+      <view class="time">{{differTime}}</view>
+    </view>
+  </view>
+  <view class="right">
+    <van-image wx:if="{{poster}}" fit="cover" height="60px" width="60px" lazy-load src="{{poster}}"></van-image>
+  </view>
+</view>

@@ -1,0 +1,7 @@
+{
+  "disableScroll": true,
+  "usingComponents": {
+    "van-field": "/components/field/index",
+    "van-cell-group": "/components/cell-group/index"
+  }
+}

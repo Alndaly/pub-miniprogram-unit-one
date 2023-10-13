@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "dayjs": "^1.11.1",
+    "miniprogram-computed": "^4.4.0"
+  },
+  "scripts": {},
+  "config": {}
+}

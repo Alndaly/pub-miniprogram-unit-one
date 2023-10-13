@@ -1,0 +1,41 @@
+<!--components/activity-time-and-location/index.wxml-->
+<view class="whole">
+  <view wx:for="{{detail.list}}" wx:key="id" class="item">
+    <view class="time-location-top">
+      <view class="map-box" catchtap="toLocation">
+        <view wx:if="{{item.location_info}}">
+          <map enable-scroll="{{false}}" style="width: {{mapWidth}};" enable-building enable-traffic data-location="{{item.location_info}}" id="maps" scale="{{16}}" show-location="{{true}}" latitude="{{item.location_info.latitude}}" longitude="{{item.location_info.longitude}}" markers="{{[mapCovers[index]]}}">
+            <view class="cover-box" catchtap="toLocation" data-location="{{item.location_info}}">
+              <view class="cover-location">{{item.location_info.campus_info.name}} {{item.location_info.address}}</view>
+              <view class="cover-time">
+                {{item.start_time}} {{item.end_time ? '到 ' + item.end_time : ''}}
+              </view>
+            </view>
+          </map>
+        </view>
+        <view wx:else class="none-map">暂无具体地图信息哦</view>
+      </view>
+    </view>
+    <view class="time-location-bottom">
+      <view class="persons">
+        <view class="no-person" wx:if="{{item.subscribe_users.total_size===0}}">
+          还没人预约哦，快来抢沙发
+        </view>
+        <view wx:for="{{item.subscribe_users.list}}" wx:key="id" wx:for-item="subscribe_user" data-user="{{subscribe_user}}" catchtap="showUserInfo">
+          <van-image class="person" round fit="cover" height="40px" width="40px" lazy-load src="{{subscribe_user.avatar}}"></van-image>
+        </view>
+        <view class="more-person-num person" catchtap="showUserList" wx:if="{{item.subscribe_users.total_size>item.subscribe_users.list.length}}">
+          +{{item.subscribe_users.total_size-item.subscribe_users.list.length}}
+        </view>
+      </view>
+      <view class="subscribe-btn" data-item="{{item}}" data-index="{{index}}" catchtap="subscribeActivity">
+        <view wx:if="{{!item.is_subscribed}}">
+          我也想去
+        </view>
+        <view wx:if="{{item.is_subscribed}}">
+          不想去了
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,34 @@
+<!--pages/myInfo/myAttention.wxml-->
+<cu-custom isBack>
+  <view slot="backText">返回</view>
+  <view slot="content">我的关注</view>
+</cu-custom>
+<block wx:if="{{!focusList.list.length}}">
+  <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
+    <view class='text-content'>
+      <view class='margin-top-sm'>还没有关注哦～</view>
+      <view class='margin-top-sm'>快去社区看看有没有你看上的小伙伴哦！</view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="cu-card dynamic">
+    <view class="cu-item shadow">
+      <view class="cu-list menu-avatar">
+        <view wx:key="index" wx:for="{{focusList.list}}" wx:for-item="item" class="cu-item">
+          <view data-id="{{item.id}}" bindtap="toUserInfo" class="cu-avatar round lg" style="background-image:url({{item.avatar}});">
+          </view>
+          <view data-id="{{item.id}}" bindtap="toUserInfo" class="content flex-sub">
+            <view>{{item.nickname}}</view>
+            <view class="signature">
+              {{item.signature?item.signature:'这个人很懒，什么都没写'}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</block>
+
+<cu-modal modal-name="{{modalName}}">
+</cu-modal>

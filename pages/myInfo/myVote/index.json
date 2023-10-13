@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-cell": "/components/cell/index",
+    "van-divider": "/components/divider/index",
+    "van-field": "/components/field/index",
+    "ugc": "/components/ugc/index"
+  }
+}

@@ -1,0 +1,21 @@
+<!--components/user-item/index.wxml-->
+<view class="whole" catchtap="showUserInfo">
+  <view class="info">
+    <view class="avatar left" style="background-image: url({{detail.avatar}});"></view>
+    <view class="center">
+      <view class="center-top">
+        <view class="username">{{detail.nickname}}</view>
+        <view class="school">{{detail.university}}</view>
+      </view>
+      <view class="signature">{{detail.signature}}</view>
+    </view>
+  </view>
+  <view wx:if="{{!detail.is_focus}}" class="focus right" catchtap="focusTa">
+    <view>关注</view>
+  </view>
+  <view wx:else class="right focused" catchtap="unFocusTa">
+    <view>取关</view>
+  </view>
+</view>
+<!-- 底部插槽 -->
+<slot name="bottom"></slot>

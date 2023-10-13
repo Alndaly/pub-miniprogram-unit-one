@@ -1,0 +1,15 @@
+<!--components/search-result-box/index.wxml-->
+<view class="whole">
+  <view class="title">
+    {{title}}
+  </view>
+  <view class="divider" />
+  <view>
+    <!-- 内容插槽 -->
+    <slot name="content"></slot>
+  </view>
+  <view class="divider" />
+  <view class="bottom">
+    <slot name="bottom"></slot>
+  </view>
+</view>

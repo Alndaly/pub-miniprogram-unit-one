@@ -1,0 +1,141 @@
+/* components/activity-time-and-location/index.wxss */
+.whole {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  overflow: auto;
+}
+
+.subscribe-btn {
+  height: 40px;
+  padding: 20px;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(238, 124, 76);
+}
+
+.no-person{
+  font-size: 12px;
+  color: #aaa;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.map-box {
+  overflow: hidden;
+  border-radius: 10px;
+  transform: translateY(0);
+}
+
+.none-map {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  line-height: 40px;
+}
+
+.cover-time {
+  width: 100%;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.cover-location {
+  text-align: center;
+  width: 100%;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.cover-box {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+  width: 80%;
+  border-radius: 10px;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 0 10px #aaa;
+}
+
+image {
+  width: 100%;
+}
+
+.h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+
+.activity-time-location {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-location-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.time-location-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.more-person-num {
+  width: 40px;
+  flex-shrink: 0;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #e5e5e5;
+  font-weight: bold;
+
+}
+
+.persons {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: auto;
+  gap: 3px;
+}

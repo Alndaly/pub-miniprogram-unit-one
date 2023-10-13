@@ -1,0 +1,22 @@
+{
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "pages/wall/labelUgc/index",
+          "query": "label_id=63",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "setting": {
+    "compileHotReLoad": true,
+    "urlCheck": false,
+    "skylineRenderEnable": true
+  },
+  "libVersion": "2.31.1",
+  "projectname": "pub-miniprogram-unit-one"
+}

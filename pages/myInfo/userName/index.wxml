@@ -1,0 +1,20 @@
+<!--pages/myInfo/userName/index.wxml-->
+<cu-custom isBack="true">
+  <view slot="backText">返回</view>
+  <view slot="content">编辑昵称</view>
+</cu-custom>
+<view class="whole">
+  <view class="editor-box">
+    <view class="input-box">
+      <input class="username" auto-focus placeholder="编辑昵称" placeholder-style="  line-height: 40px;" model:value="{{username}}" />
+      <view class="right-icon" catchtap="clearUserName">
+        <van-icon name="cross" size="15" color="gray" />
+      </view>
+
+    </view>
+    <view class="input-length">{{username.length}}</view>
+  </view>
+  <view class="my-button" catchtap="submitChange" hover-class="my-button-hover">
+    保存
+  </view>
+</view>

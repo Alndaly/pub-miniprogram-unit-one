@@ -1,0 +1,80 @@
+<view class="whole" catchtap="toDetail" catchlongtap="nothing">
+  <view class="top">
+    <view class="ai" wx:if="{{detail.use_gpt}}">
+      AI协助
+    </view>
+    <!-- 用户基础信息 -->
+    <user-info wx:if="{{showTop}}" userInfo="{{userInfo?userInfo:detail.user_info}}">
+      <view slot="left">{{differTime}}</view>
+      <view slot="right">
+        <view wx:if="{{!isMy}}" class="follow" catchtap="onFocusUser">
+          {{detail.user_info.focus?"已关注": "关注"}}
+        </view>
+        <view wx:if="{{isMy}}" class="my-operate" catchtap="moreOperate">
+          <image class="image" src="/static/images/more.png" mode="aspectFill" />
+        </view>
+      </view>
+    </user-info>
+    <view class="divider" wx:if="{{showTop}}" />
+    <!-- 帖子详情 -->
+    <view class="center">
+      <!-- 帖子标题 -->
+      <view wx:if="{{detail.title}}" class="ugc-title">
+        {{detail.title}}
+      </view>
+      <!-- 帖子内容 -->
+      <view class="center-content {{showMore?'':'noShowMore'}}">
+        <mp-html content="{{computedContent}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
+      </view>
+      <!-- 帖子图片 -->
+      <view wx:if="{{detail.attachments&&detail.attachments.length!==0}}" class="images">
+        <block wx:for="{{detail.attachments}}">
+          <van-image width="{{imageWidth}}" height="{{imageWidth}}" radius="5" catchtap="viewImage" data-current="{{item.link}}" wx:if="{{item.type==='image'}}" fit="cover" lazy-load src="{{item.link}}"></van-image>
+        </block>
+      </view>
+      <view class="labels" wx:if="{{detail.label_info}}">
+        <view class="label" wx:for="{{detail.label_info}}" wx:key="id" data-label="{{item}}" catchtap="goLabel">{{item.title}}</view>
+      </view>
+      <view class="location" wx:if="{{detail.location.name}}" catchtap="onOpenLocation">{{detail.location.name}}</view>
+      <view wx:if="{{showBottom}}" class="divider" />
+      <view wx:if="{{showBottom}}" class="operate-v2">
+        <view class="operate-v2-left" catchtap="#">
+          <view class="bottom-user-info" data-user_info="{{detail.user_info}}" catchtap="showUserInfo">
+            <van-image fit="cover" lazy-load width="32" height="32" round src="{{detail.user_info.avatar}}"></van-image>
+            <view class="col">
+              <view class="user-nick-name">
+                {{detail.user_info.nickname}}
+              </view>
+              <view class="time">
+                {{differTime}}
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="operate-v2-right">
+          <view class="icon-box" catchtap="onVote">
+            <image class="operate-v2-icon" src="/static/images/{{detail.is_vote?'like_full':'like'}}.png" mode="aspectFill" />
+            <view>
+              {{detail.vote?detail.vote:'赞'}}
+            </view>
+          </view>
+          <view class="icon-box" catchtap="showComment">
+            <image class="operate-v2-icon" src="/static/images/comment.png" mode="aspectFill" />
+            <view>
+              {{detail.comment?detail.comment:'评'}}
+            </view>
+          </view>
+          <view class="icon-box">
+            <button class="btn-share" open-type="share" catchtap="#" data-detail="{{detail}}">
+              <image class="operate-v2-icon" src="/static/images/fenxiang.png" mode="aspectFill" />
+              <view>
+                {{detail.share?detail.share:'转'}}
+              </view>
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <slot name="bottom"></slot>
+</view>

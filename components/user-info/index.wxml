@@ -1,0 +1,26 @@
+<!--components/user-info/index.wxml-->
+<view class="top">
+  <!-- 左侧用户信息 -->
+  <view class="user-info">
+    <!-- 头像 -->
+    <view class="avatar">
+      <van-image round width="40" height="40" fit="cover" lazy-load src="{{userInfo.avatar}}" catchtap="showUserInfo"></van-image>
+    </view>
+    <!-- 昵称和帖子类型 -->
+    <view class="name-and-time">
+      <!-- 用户昵称 -->
+      <view class="name-and-tag">
+        <view class="name">{{userInfo.nickname}}</view>
+        <view class="tag" wx:if="{{userInfo.role}}">{{userInfo.role}}</view>
+      </view>
+      <!-- 帖子类型标签 -->
+      <view class="left">
+        <slot name="left">
+        </slot>
+      </view>
+    </view>
+  </view>
+  <view class="right">
+    <slot name="right"></slot>
+  </view>
+</view>

@@ -1,0 +1,82 @@
+<view class="back-button" style="height: {{back_btn_height}}px;width: {{back_btn_width}}px;top: {{back_btn_top}}px;left: {{back_btn_left}}px;" catchtap="goBackPage">
+  返回
+</view>
+
+<view class="whole">
+  <view class="poem-box" style="margin-top: {{CustomBar+40}}px;">
+    <view class="poem poem-content first">朝暮与岁月共往，</view>
+    <view class="poem poem-content second">我与你共至天光。</view>
+  </view>
+  <view class="bottom">
+    <view wx:if="{{cp_res && (weekDay || weekDay === 0)}}" class="two-person-banner">
+      <view class="banner-top">
+        <view class="status">{{cp_res.status}}</view>
+      </view>
+      <view class="banner-center">
+        <view class="user-info-list">
+          <view class="user-info">
+            <view class="avatar">
+              <van-image class="person" round fit="cover" height="70px" width="70px" lazy-load src="{{cp_res.self_user.avatar}}"></van-image>
+            </view>
+            <view class="nickname">{{cp_res.self_user.nickname}}</view>
+          </view>
+          <van-image class="to" radius="5" fit="cover" height="50px" width="50px" lazy-load src="{{status_image}}"></van-image>
+          <view class="user-info" catchtap="showUserInfo">
+            <view class="avatar">
+              <van-image class="person" round fit="cover" height="70px" width="70px" lazy-load src="{{cp_res.to_user.avatar?cp_res.to_user.avatar:'https://oss.kinda.info/image/202305222000488.png'}}"></van-image>
+            </view>
+            <view class="nickname">{{cp_res.to_user.nickname?cp_res.to_user.nickname:'...'}}</view>
+          </view>
+        </view>
+      </view>
+      <view wx:if="{{cp_res.status!=='匹配中'}}" class="divider"></view>
+      <view wx:if="{{cp_res.status==='待匹配'}}" class="banner-bottom {{locked?'locked-button':''}}" catchtap="goUpdateForm" hover-class="onUpdateHover" hover-stay-time="50">修改表单</view>
+      <view class="banner-bottom-list">
+        <view wx:if="{{cp_res.status==='匹配成功'}}" catchtap="showCpGroupCode" class="banner-bottom text-sm" hover-stay-time="50" hover-class="onUpdateHover">
+          加入一周CP聊天群组
+        </view>
+        <view wx:if="{{cp_res.status==='匹配成功'}}" catchtap="showOtherUserWeChatId" class="banner-bottom text-sm" hover-stay-time="50" hover-class="onUpdateHover">
+          查看对方微信号
+        </view>
+      </view>
+    </view>
+    <view class="no-satisfying" wx:if="{{cp_res && cp_res.status==='匹配成功' && weekDay}}">
+      <view>匹配对象不满意？</view>
+      <view class="link-button" catchtap="onReMatchCp">重新分配</view>
+    </view>
+    <view wx:if="{{!cp_res && weekDay}}" class="button join-button {{locked?'locked':''}}" catchtap="goEditForm">
+      <view>
+        我的信息和诉求
+      </view>
+    </view>
+
+    <view class="callout" wx:if="{{weekDay<=0 || weekDay>=6}}">
+      <view>
+        距离本次匹配表单收集结束还剩
+        <text class="text-bold number">{{differMondayTime.days}}</text>天
+        <text class="text-bold number">{{differMondayTime.hours}}</text>时
+        <text class="text-bold number">{{differMondayTime.minutes}}</text>分
+        <text class="text-bold number">{{differMondayTime.seconds}}</text>秒
+      </view>
+    </view>
+
+    <view class="callout" wx:if="{{weekDay>0 && weekDay<6}}">
+      <view class="{{!locked?'line-thorugh':''}}">
+        距离下一次匹配开放还剩
+        <text class="text-bold number">{{differSaturdayTime.days}}</text>天
+        <text class="text-bold number">{{differSaturdayTime.hours}}</text>时
+        <text class="text-bold number">{{differSaturdayTime.minutes}}</text>分
+        <text class="text-bold number">{{differSaturdayTime.seconds}}</text>秒
+      </view>
+    </view>
+
+  </view>
+</view>
+
+
+<kinda-modal title="提醒" show="{{showGroupModal}}" showCancel="{{false}}" bind:tapConfirm="hideGroupModal">
+  <view slot="content">
+    <van-image catchtap="viewImage" data-image="{{group_code}}" show-menu-by-longpress radius="10" fit="cover" height="120px" width="120px" lazy-load src="{{group_code}}"></van-image>
+    <view class="group-tips">长按二维码入群</view>
+  </view>
+</kinda-modal>

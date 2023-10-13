@@ -1,0 +1,39 @@
+<!--pages/school/authentication/question.wxml-->
+<cu-custom isBack="true" customStyle="color:white;">
+  <view slot="backText">返回</view>
+  <view slot="content">学生认证</view>
+</cu-custom>
+<view class="whole">
+  <view class="top">
+    <view class="left">当前进度：第{{questionIndex+1}}/{{questionList.length}}题</view>
+    <view class="right" catchtap="onShowRule">规则说明</view>
+  </view>
+  <view class="progress">
+    <van-progress stroke-width="8" percentage="{{100*(questionIndex+1)/questionList.length}}" pivot-text="{{(questionIndex+1) + '/' + questionList.length}}" pivot-color="#57C681" color="#57C681" />
+  </view>
+  <view class="tip margin-top">答对超过3题，即可通过认证哦~</view>
+  <view class="choose-box margin-top-lg">
+    <view class="title text-black text-lg text-black">{{questionList[questionIndex].title}}</view>
+    <view class="answer">
+      <view wx:for="{{questionList[questionIndex].answer}}" wx:key="index" class="{{questionList[questionIndex].chosedAnswerIndex==index?'checked':''}}" catchtap="chooseAnswer" data-index="{{index}}" data-id="{{item.id}}">{{item.content}}</view>
+    </view>
+  </view>
+  <view class="next-and-before">
+    <view catchtap="goPrev">上一题</view>
+    <view wx:if="{{questionIndex+1<questionList.length}}" catchtap="goNext">下一题</view>
+    <view wx:else catchtap="finishQuestion" style="background-color: #E94359;color: white;">完成</view>
+  </view>
+</view>
+<!-- 提示遮罩层 -->
+<van-overlay show="{{ showRule }}">
+  <view class="wrapper">
+    <view class="block">
+      <view class="text-black text-lg text-bold">规则说明</view>
+      <view>
+        通过校友认证后，即可解锁评论/发帖/私聊/发现页更多功能
+      </view>
+      <view>每天至多可以答题三次喔</view>
+      <view class="my-button" catchtap="onCloseRule">我知道啦</view>
+    </view>
+  </view>
+</van-overlay>

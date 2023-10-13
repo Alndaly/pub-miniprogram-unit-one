@@ -1,0 +1,261 @@
+.whole-page {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+
+.ad-box {
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 20px;
+  margin-bottom: calc( env(safe-area-inset-bottom) + 77px );
+}
+
+.item-bottom {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
+}
+
+.teachers-top {
+  font-size: 15px;
+}
+
+.teachers {
+  font-size: 15px;
+}
+
+.divider {
+  background-color: rgba(166, 166, 166, 0.15);
+  height: 1px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.no-teacher {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.add-teacher {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  color: #2b65ce;
+}
+
+.comment {
+  font-size: 15px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 5px;
+  justify-content: space-between;
+}
+
+.top>view:nth-child(2) {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.teachers-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.teachers-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.teachers {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.teachers-top>view:nth-child(1) {
+  flex: 1;
+}
+
+.teachers-top>view:nth-child(2) {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teachers-top>view:nth-child(3) {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.teachers>view:nth-child(1) {
+  flex: 1;
+}
+
+.teachers>view:nth-child(2) {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teachers>view:nth-child(3) {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header {
+  padding: 23px 26px;
+  display: flex;
+  flex-direction: row;
+  /* margin: 20px 12px 15px 12px; */
+}
+
+.shadow-box {
+  padding: 20px;
+  margin: 20px 0 0 0;
+  border-radius: 20px 20px 0 0;
+  /* margin: 20px 12px 15px 12px; */
+  box-shadow: 0px -10px 10px rgba(112, 163, 163, 0.1);
+}
+
+.top-single-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 26.7rpx;
+}
+
+.top-icon-box {
+  width: 38px;
+  height: 38px;
+  background-color: #dde3ea;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-icon {
+  width: 22.8px;
+  height: 22.8px;
+}
+
+.teachers-info {
+  margin-bottom: 15px;
+}
+
+.header>.base-info {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.base-top {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.base-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btns-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-share {
+  border: none;
+  background-color: transparent;
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-comment {
+  border: none;
+  background-color: transparent;
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-share::after {
+  border: none;
+}
+
+.btn-comment::after {
+  border: none;
+}
+
+.shareImage {
+  height: 40px;
+  width: 40px;
+}
+
+.no-comment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px;
+  border: 1px solid #f2f2f2;
+  border-radius: 10px;
+}
+
+.bottom-component {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #cccccc7c;
+}

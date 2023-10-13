@@ -1,0 +1,79 @@
+/* components/kinda-input/index.wxss */
+.form-item {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-label {
+  color: #aaa;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label-top {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.form-label-title {}
+
+.form-label-tags {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center;
+}
+
+.tag {
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 10px;
+  flex-grow: 0;
+  border: 1px solid red;
+}
+
+.form-label-tips {
+  font-size: 10px;
+  color: #ccc;
+}
+
+.form-item-container {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.value-class {
+  flex: none !important;
+}
+
+.error-container {
+  border: 1px solid red;
+}
+
+.error-title {
+  color: red !important;
+}
+
+.font-count {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  color: #ccc;
+}

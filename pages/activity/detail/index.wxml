@@ -1,0 +1,89 @@
+<view wx:if="{{activity.attachments.length===0}}" style="height: {{CustomBar}}px;"></view>
+<view class="top-poster" wx:if="{{activity.attachments.length>0}}">
+  <swiper current="0" indicator-dots="true" style="height:100%;overflow: auto;" bindchange="swiperChange">
+    <swiper-item wx:for="{{activity.attachments}}" wx:key="id" item-id="1" style="overflow: auto;">
+      <van-image catchtap="viewImage" data-current="{{item.link}}" height="500px" webp="true" lazy-load fit="cover" src="{{item.link}}"></van-image>
+    </swiper-item>
+  </swiper>
+</view>
+<view class="back-button" style="height: {{back_btn_height}}px;width: {{back_btn_width}}px;top: {{back_btn_top}}px;left: {{back_btn_left}}px;{{activity.attachments.length?'':'color: #454545;border-color: #454545;'}}" catchtap="goBack">
+  返回
+</view>
+<view class="whole-page">
+  <view class="base-info">
+    <view class="h3 activity-title">
+      {{activity.title}}
+    </view>
+    <view class="user-info-box" catchtap="goUserInfo">
+      <van-image wx:if="{{activity.user_info}}" round height="20px" width="20px" fit="cover" lazy-load src="{{activity.user_info.avatar}}"></van-image>
+      <view wx:if="{{activity.user_info}}" class="text-grey">
+        {{activity.user_info.nickname}}
+      </view>
+      <view class="text-grey">
+        {{differTime}}
+      </view>
+    </view>
+    <view class="organization-box">
+      <view class="organization-item-list">
+        <view class="organization-item" data-organization="{{item}}" catchtap="onGoOrganization" wx:for="{{activity.organization_info}}" wx:key="id" wx:for-item="item">
+          {{item.name}}
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="time-location" wx:if="{{joinLocationTimeUser.total_size!==0||activityLocationTimeUser.total_size!==0}}">
+    <view class="join-time-location" wx:if="{{joinLocationTimeUser.total_size!==0}}">
+      <view class="h4" style="margin-bottom: 5px;">
+        报名时间/位置信息
+      </view>
+      <activity-time-and-location bind:subscribeResult="onSubscribeResult" type="join" detail="{{joinLocationTimeUser}}" mapWidth="{{joinLocationTimeUser.list.length>1?'300px':'100%'}}" />
+    </view>
+    <view class="divider" wx:if="{{joinLocationTimeUser.total_size!==0&&activityLocationTimeUser.total_size!==0}}" />
+    <view class="activity-time-location" wx:if="{{activityLocationTimeUser.total_size!==0}}">
+      <view class="h4" style="margin-bottom: 5px;">
+        活动时间/位置信息
+      </view>
+      <activity-time-and-location bind:subscribeResult="onSubscribeResult" type="activity" detail="{{activityLocationTimeUser}}" mapWidth="{{activityLocationTimeUser.list.length>1?'300px':'100%'}}" />
+    </view>
+  </view>
+  <view class="activity-detail" wx:if="{{activity.detail}}">
+    <view class="h4">
+      活动简介
+    </view>
+    <mp-html content="{{activity.detail}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
+  </view>
+  <view class="activity-comment">
+    <view class="h4">
+      评论 {{activity.comment}}
+    </view>
+    <view>
+      <view wx:if="{{!activityCommentList.total_size}}" class="no-comment">
+        暂无评论哦，快来抢沙发
+      </view>
+      <activity-comment-item bind:tapComment="focusCommentToCommentInput" wx:for="{{activityCommentList.list}}" wx:key="index" commentItem="{{item}}">
+      </activity-comment-item>
+    </view>
+  </view>
+  <view class="other-activity">
+    <view class="box-top">
+      <view class="h4">
+        更多活动
+      </view>
+      <view class="more-button" catchtap="showMoreActivity">
+        查看更多
+      </view>
+    </view>
+    <scroll-view class="scroll-view_H" scroll-x="true">
+      <view wx:for="{{moreActivity.list}}" wx:key="id" class="scroll-view-item_activity" data-activity="{{item}}" catchtap="goActivity">
+        <view class="activity-box">
+          <van-image radius="10" height="180px" width="135px" fit="cover" lazy-load src="{{item.bg_image}}"></van-image>
+          <view class="activity-title">
+            {{item.title}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<activity-comment-input inputBottom="{{inputBottom}}" showCommentIconAndNumber="{{false}}" activityDetail="{{activity}}" parentComment="{{parent}}" inputFocus="{{focus_input}}" bind:submitCommentResult="onSubmitCommentResult"></activity-comment-input>

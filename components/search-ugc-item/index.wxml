@@ -1,0 +1,40 @@
+<!--components/search-ugc-item/index.wxml-->
+<view class="whole" catchtap="toDetail">
+  <!-- 顶部用户信息和帖子分类信息 -->
+  <view class="top">
+    <view class="userinfo" catchtap="showUserInfo">
+      <view class="avatar" style="background-image: url({{detail.user_info.avatar}});"></view>
+      <view class="username">{{detail.user_info.nickname}}</view>
+    </view>
+    <view class="ugc-info">
+      <view>
+        {{detail.create_time}}
+      </view>
+    </view>
+  </view>
+  <view class="center">
+    <!-- 帖子标题 -->
+    <view class="ugc-title">{{detail.title}}</view>
+    <!-- 帖子内容 -->
+    <mp-html content="{{computedContent}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
+    <!-- 帖子图片 -->
+    <view class="ugc-images grid grid-square {{detail.attachments.length>2?'col-3':'col-2'}}">
+      <block wx:for="{{detail.attachments}}" wx:key="id">
+        <view class="bg-img" catchtap="viewImage" data-current="{{item.link}}">
+          <image src='{{item.link}}' mode='aspectFill'></image>
+        </view>
+      </block>
+    </view>
+  </view>
+  <!-- 底部点赞和评论数据和图标 -->
+  <view class="bottom">
+    <view class="icon-and-number" catchtap="onVote">
+      <van-icon name="{{detail.is_vote?'good-job':'good-job-o'}}" size="18px" />
+      <view>{{detail.vote}}</view>
+    </view>
+    <view class="icon-and-number" catchtap="onClickComment">
+      <van-icon name="comment-o" size="18px" />
+      <view>{{detail.comment}}</view>
+    </view>
+  </view>
+</view>

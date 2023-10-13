@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'DouYu';
+  src: url("https://resources.kinda.info/fonts/douyuFont.otf");
+}
+
+page {
+  --theme-color: rgba(35, 75, 127, 0.60);
+  --primary-color: rgba(35, 75, 127, 0.60);
+  --warning-color: rgb(242, 192, 55);
+  --error-color: rgb(193, 0, 21);
+  --secondary-color: rgb(0, 253, 232);
+  --border-radius: 8px;
+  --default-background-color: #f8f8f8;
+}

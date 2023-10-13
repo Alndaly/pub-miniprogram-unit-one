@@ -1,0 +1,28 @@
+<!--pages/uScore/exchange/index.wxml-->
+<cu-custom isBack>
+  <view slot="backText">
+    返回
+  </view>
+  <view slot="content" style="color: white; font-weight: 800;">积分兑换</view>
+</cu-custom>
+
+<scroll-view id="scroller" scroll-y class="whole" style="height: calc( 100vh - {{CustomBar}}px );" refresher-enabled refresher-threshold="40" upper-threshold="50" lower-threshold="100" enable-back-to-top refresher-triggered="{{refresherTriggered}}" show-scrollbar="{{true}}" bindscrolltolower="onNextPage" bindrefresherrefresh="onRefresh">
+  <view class="item-list">
+    <view class="item" wx:for="{{5}}">
+      <view class="item-image">
+        <van-image height="120px" radius="10" width="120px" webp="true" lazy-load fit="cover" src="https://oss.kinda.info/image/202304271351492.gif"></van-image>
+      </view>
+      <view class="item-info">
+        <view class="h4 title">
+          物品名字
+        </view>
+        <view>
+          100积分
+        </view>
+        <view>
+          剩余100件
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

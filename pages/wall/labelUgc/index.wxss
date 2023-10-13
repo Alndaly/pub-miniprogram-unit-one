@@ -1,0 +1,115 @@
+page {
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: rgb(235, 238, 240);
+}
+
+.nav-title {
+  font-size: 1.5rem !important;
+  font-family: 'DouYu';
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.label-info {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  font-weight: bold;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.top-loading {
+  position: relative;
+  width: 100vw;
+  height: 140px;
+}
+
+.inline {
+  display: inline-block;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sub-text {
+  color: rgb(138, 149, 160)
+}
+
+.number {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.gap {
+  color: #ccc;
+}
+
+.label-label {
+  border-radius: 50px;
+  width: 70px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(113, 60, 223);
+  color: white;
+  font-weight: bolder;
+}
+
+.label-image {
+  width: 100%;
+}
+
+.title {
+  display: flex;
+  padding: 15px;
+  width: 100%;
+  font-size: 15px;
+  color: rgba(56, 57, 65, 1);
+  justify-content: center;
+  align-items: cener;
+}
+
+.btn::after {
+  border: none;
+}
+
+.ugc-list {
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.popup-whole {
+  height: 100%;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comment-list {
+  height: 80%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.none-comment {
+  align-self: center;
+  margin: 0 auto;
+}

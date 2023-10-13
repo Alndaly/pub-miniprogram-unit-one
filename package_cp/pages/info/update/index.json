@@ -1,0 +1,12 @@
+{
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "van-image": "/components/image/index",
+    "van-cell": "/components/cell/index",
+    "van-divider": "/components/divider/index",
+    "van-checkbox": "/components/checkbox/index",
+    "van-checkbox-group": "/components/checkbox-group/index",
+    "van-uploader": "/components/uploader/index",
+    "form-item": "/components/form-item/index"
+  }
+}

@@ -1,0 +1,115 @@
+<view class="bg-top">
+  <map wx:if="{{user_info.location}}" enable-scroll="{{false}}" style="width: 100%;height: 100%;" id="maps" scale="{{16}}" show-location latitude="{{user_info.location.latitude}}" longitude="{{user_info.location.longitude}}"></map>
+  <van-image wx:else="{{user_info.location}}" fit="cover" height="100%" width="100%" lazy-load src="{{user_info.bg_image}}"></van-image>
+</view>
+<view class="whole-page">
+  <view class="header-box box">
+    <view class="avatar-box">
+      <view class="avatar">
+        <van-image round lazy-load width="110" height="110" fit="cover" src="{{user_info.avatar}}" />
+      </view>
+      <view wx:if="{{user_info.gender}}" class="gender">
+        <image class="gender-icon" src="/static/images/{{user_info.gender===1?'nanxing':'nvxing'}}.png" mode="aspectFill" />
+      </view>
+    </view>
+    <view class="nickname">
+      {{user_info.nickname?user_info.nickname:"..."}}
+    </view>
+    <view class="center-info">
+      <view class="score">
+        <view>
+          U积分:
+        </view>
+        <view>
+          {{myUserInfo.we_score?myUserInfo.we_score:0}}
+        </view>
+      </view>
+    </view>
+    <scroll-view scroll-x wx:if="{{user_info.identities.total_size}}">
+      <view class="identities-box">
+        <view class="identity-box" wx:for="{{user_info.identities.list}}" wx:key="id">
+          {{item.organization_info.name}} - {{item.identity_info.name}}
+        </view>
+      </view>
+    </scroll-view>
+    <view class="row" wx:if="{{!(!user_info.birthday&&!user_info.city)}}">
+      <view class="box" wx:if="{{user_info.birthday}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
+        <view>{{user_info.birthday}}</view>
+      </view>
+      <view class="box" wx:if="{{user_info.city}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/home.png" />
+        <view>{{user_info.city}} - {{user_info.district}}</view>
+      </view>
+    </view>
+    <view class="row" wx:if="{{!(!user_info.wechat&&!user_info.qq)}}">
+      <view class="box" wx:if="{{user_info.wechat}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/wechat_fill.png" />
+        <view>{{user_info.wechat}}</view>
+      </view>
+      <view class="box" wx:if="{{user_info.qq}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/qq.png" />
+        <view>{{user_info.qq}}</view>
+      </view>
+    </view>
+    <view class="signature-box">
+      <view class="signature">
+        <image class="quote" src="/static/images/quote.png" mode="aspectFill" />
+        {{user_info.signature?user_info.signature:'这个人很懒，什么都没写。'}}
+      </view>
+    </view>
+    <view class="data">
+      <view class="data-box collect" catchtap="onShowPublish">
+        <view class="num">
+          {{user_info.publish_num?user_info.publish_num:0}}
+        </view>
+        <view class="text">
+          TA发布的
+        </view>
+      </view>
+      <view class="data-box vote">
+        <view class="num">
+          {{user_info.receive_vote_num?user_info.receive_vote_num:0}}
+        </view>
+        <view class="text">
+          被点赞
+        </view>
+      </view>
+      <view class="data-box comment">
+        <view class="num">
+          {{user_info.receive_comment_num?user_info.receive_comment_num:0}}
+        </view>
+        <view class="text">
+          被评论
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+
+<view class="back-button" style="height: {{back_btn_height}}px;width: {{back_btn_width}}px;top: {{back_btn_top}}px;left: {{back_btn_left}}px;" catchtap="goBack">
+  返回
+</view>
+
+<view class="bottom">
+  <button class="focus-btn" type="primary" wx:if="{{!user_info.is_focus&&!isMine}}" loading="{{focusLoading}}" catchtap="focusTa">关注TA
+  </button>
+  <button class="unfocus-btn" type="warn" wx:if="{{user_info.is_focus&&!isMine}}" loading="{{unFocusLoading}}" catchtap="unFocusTa">取消关注
+  </button>
+</view>
+
+<page-container round z-index="10000" show="{{showPublishPopUp}}">
+  <view class="bottom-pop-box">
+    <scroll-view class="ugc-list-box" bindscrolltolower="onNextUgcPage" refresher-enabled scroll-y bindrefresherrefresh="onUgcRefresh" refresher-triggered="{{ugcRefresherTriggered}}" show-scrollbar>
+      <view style="margin-bottom: 10px;" wx:for="{{ugcs.list}}" wx:key="id">
+        <ugc detail="{{item}}"></ugc>
+      </view>
+      <!-- 底部加载中 -->
+      <block wx:if="{{isLoading}}">
+        <view class="cu-load {{'loading'}}"></view>
+      </block>
+    </scroll-view>
+  </view>
+</page-container>

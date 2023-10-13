@@ -1,0 +1,36 @@
+page {
+  padding-bottom: env(safe-area-inset-bottom);
+  background-color: var(--default-background-color);
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+  position: relative;
+}
+
+.box-bottom {
+  width: 100%;
+}
+
+.ugc-item {
+  padding: 10px;
+}
+
+.user-item {
+  padding: 10px;
+}
+
+.top {
+  width: 100%;
+}
+
+.list-box {
+  height: 100%;
+  width: 100%;
+  padding: 0 10px;
+}
