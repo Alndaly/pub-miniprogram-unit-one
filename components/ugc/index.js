@@ -178,11 +178,9 @@ Component({
     // 触发父级页面的展示评论函数
     showComment(e) {
       wx.$router.push("/pages/wall/ugcDetail/index", {
-        ugc_id: this.data.detail.id + "&to_location_id=" + "comment",
+        ugc_id: this.data.detail.id,
+        to_location_id: "comment",
       });
-      // var myEventDetail = this.data.detail; // detail对象，提供给事件监听函数
-      // var myEventOption = {}; // 触发事件的选项
-      // this.triggerEvent("tapCommentIcon", myEventDetail, myEventOption);
     },
 
     toDetail(e) {
