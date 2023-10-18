@@ -34,14 +34,6 @@ Page({
         break;
     }
   },
-
-  async onLoad() {
-    // const hotUgc = await ugcApi.getHotUgc();
-    // console.log("热搜前十:", hotUgc);
-    // this.setData({
-    //   hotUgc: hotUgc.data.data,
-    // });
-  },
   searchByHistory(e) {
     let searchKey = e.currentTarget.dataset.content;
     if (!searchKey) {
@@ -74,7 +66,6 @@ Page({
     data.push(item);
     let search_file = "/search/history.json";
     let res = await fileUtils.writeFile(search_file, JSON.stringify(data));
-    console.log("记录写入本地文件:", res);
     wx.$router.push("/pages/search/result/index", {
       key: this.data.searchContent,
     });
@@ -87,7 +78,6 @@ Page({
     });
     let search_file = "/search/history.json";
     let res = await fileUtils.writeFile(search_file, "[]");
-    console.log("清空本地记录文件中的历史记录:", res);
   },
 
   clearSingleHistory(e) {
@@ -108,8 +98,6 @@ Page({
           _this.setData({
             searchHistory: data,
           });
-        } else if (res.cancel) {
-          console.log("用户点击取消");
         }
       },
     });
@@ -141,7 +129,6 @@ Page({
     let search_file = "/search/history.json";
     // 获取热搜排行
     let res = await commonApi.getRecentSearch();
-    console.log("热搜排行：", res);
     _this.setData({
       hotKey: res.data.data.filter((item) => {
         return item.content ?? true;
@@ -151,7 +138,6 @@ Page({
     await this.initSearchFile();
     // 读取搜索记录
     let res_read = await fileUtils.readFile(search_file);
-    console.log("搜索历史：", res_read);
     this.setData({
       searchHistory: JSON.parse(res_read.data),
     });

@@ -1,5 +1,7 @@
 // pages/search/searchUser/index.js
 import ugcApi from "../../../api/ugc";
+import { to } from "../../../utils/util";
+
 Page({
   /**
    * Page initial data
@@ -29,7 +31,14 @@ Page({
 
   // 初始化用户列表
   async initUgcPage(e) {
-    let res = await ugcApi.searchUgc(this.data.options.key, 0);
+    let [res, err] = await to(ugcApi.searchUgc(this.data.options.key, 0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       page: 0,
       ugcList: res.data.data,
@@ -46,7 +55,6 @@ Page({
       });
       return;
     }
-    console.log("搜索关键词:", e.detail);
     wx.showLoading({
       title: "稍等哦",
     });
@@ -55,8 +63,15 @@ Page({
         key: e.detail,
       },
     });
-    let res_ugc = await ugcApi.searchUgc(e.detail, 0);
-    console.log("搜索用户: ", res_ugc);
+    let [res_ugc, err_ugc] = await to(ugcApi.searchUgc(e.detail, 0));
+    if (err_ugc) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      wx.hideLoading();
+      return;
+    }
     this.setData({
       ugcList: res_ugc.data.data,
     });
@@ -78,32 +93,22 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow() {},
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide() {},
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload() {},
-
   async refreshUgcPage(e) {
-    let res = await ugcApi.searchUgc(
-      this.data.options.key,
-      0,
-      this.data.ugcList.length
+    const [res, err] = await to(
+      ugcApi.searchUgc(this.data.options.key, 0, this.data.ugcList.length)
     );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       ugcList: res.data.data,
     });
@@ -129,8 +134,17 @@ Page({
     this.setData({
       isLoading: true,
     });
-    let res = await ugcApi.searchUgc(this.data.options.key, this.data.page + 1);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(
+      ugcApi.searchUgc(this.data.options.key, this.data.page + 1)
+    );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
       return;
     }
     const ugcListNext = res.data.data;
@@ -147,9 +161,4 @@ Page({
   onReachBottom() {
     this.getNextUgcPage();
   },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage() {},
 });

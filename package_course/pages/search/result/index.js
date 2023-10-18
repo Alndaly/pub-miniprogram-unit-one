@@ -1,4 +1,5 @@
-import courseApi from "../../../api/course";
+import courseApi from "../../../../api/course";
+import { to } from "../../../../utils/util";
 
 Page({
   data: {
@@ -20,8 +21,15 @@ Page({
   },
 
   async onSearch(e) {
-    const res = await courseApi.searchCourse(this.data.search_key, 0);
-    console.log("搜索选课: ", res);
+    const [res, err] = await to(
+      courseApi.searchCourse(this.data.search_key, 0)
+    );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+    }
     const courseList = {
       total: res.data.data.total,
       list: res.data.data.list.map((item) => ({
@@ -31,11 +39,9 @@ Page({
           : "暂无均绩",
       })),
     };
-    if (res.data.code == "20000") {
-      this.setData({
-        courseList,
-      });
-    }
+    this.setData({
+      courseList,
+    });
   },
 
   addCourse(e) {
@@ -49,7 +55,7 @@ Page({
     });
   },
 
-  onLoad: async function (options) {
+  async onLoad(options) {
     wx.showLoading({
       title: "加载中",
     });
@@ -57,8 +63,13 @@ Page({
       options: options,
       search_key: options.search_key ? options.search_key : "",
     });
-    const res = await courseApi.searchCourse(options.search_key, 0);
-    console.log("搜索选课: ", res);
+    const [res, err] = await to(courseApi.searchCourse(options.search_key, 0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "none",
+      });
+    }
     const courseList = {
       total: res.data.data.total,
       list: res.data.data.list.map((item) => ({
@@ -68,26 +79,32 @@ Page({
           : "暂无均绩",
       })),
     };
-    if (res.data.code == "20000") {
-      this.setData({
-        courseList,
-      });
-    }
-    wx.hideLoading({
-      success: (res) => {},
+    this.setData({
+      courseList,
     });
+    wx.hideLoading();
   },
 
   async onPullDownRefresh() {
     wx.showLoading({
       title: "加载中...",
     });
-    const res = await courseApi.searchCourse(
-      this.data.search_key,
-      0,
-      this.data.page === 0 ? 10 : 10 * (this.data.page + 1)
+    const [res, err] = await to(
+      courseApi.searchCourse(
+        this.data.search_key,
+        0,
+        this.data.page === 0 ? 10 : 10 * (this.data.page + 1)
+      )
     );
-    console.log("获取选课：", res);
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      wx.hideLoading();
+      wx.stopPullDownRefresh();
+      return;
+    }
     const courseList = {
       total: res.data.data.total,
       list: res.data.data.list.map((item) => ({
@@ -97,14 +114,10 @@ Page({
           : "暂无均绩",
       })),
     };
-    if (res.data.code == "20000") {
-      this.setData({
-        courseList,
-      });
-    }
-    wx.hideLoading({
-      success: (res) => {},
+    this.setData({
+      courseList,
     });
+    wx.hideLoading();
     wx.stopPullDownRefresh();
   },
 
@@ -112,16 +125,15 @@ Page({
     this.setData({
       isLoading: true,
     });
-    const res = await courseApi.searchCourse(
-      this.data.search_key,
-      this.data.page + 1
+    const [res, err] = await to(
+      courseApi.searchCourse(this.data.search_key, this.data.page + 1)
     );
-    console.log("获取下一页:", res);
-    if (res.data.code != "20000") {
-      this.setData({
-        isLoading: true,
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
       });
-      return;
+      erturn;
     }
     const courseListNext = res.data.data;
     this.setData({

@@ -26,12 +26,12 @@ Page({
         content: "已经认证过啦，确定要再次认证吗？",
         success(res) {
           if (res.confirm) {
-            wx.$router.push("/pages/school/authentication/index");
+            wx.$router.push("/pages/school/authentication/home/index");
           }
         },
       });
     } else {
-      wx.$router.push("/pages/school/authentication/index");
+      wx.$router.push("/pages/school/authentication/home/index");
     }
   },
 
@@ -45,37 +45,25 @@ Page({
     wx.$router.push("/pages/myInfo/myFans/index");
   },
 
-  goAboutUs(e) {
-    wx.$router.push("/pages/protocols/introduction/introduction.js");
-  },
-
   async onShow(options) {
-    if (wx.canIUse("wx.getAccountInfoSync()")) {
-      this.setData({ version: wx.getAccountInfoSync().miniProgram.version });
-    }
-    wx.getAccountInfoSync().miniProgram.version;
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
         selected: 2,
       });
     }
     const [res_myUserInfo, err_myUserInfo] = await to(userApi.getMyUserInfo());
-    if (err_myUserInfo) {
+    const [res_location, err_location] = await to(locationUtils.getLocation());
+    if (err_myUserInfo || err_location) {
       wx.showToast({
         title: "出错啦",
         icon: "error",
       });
       return;
     }
-    const [res_location, err_location] = await to(locationUtils.getLocation());
-    if (res_location) {
-      this.setData({
-        location: res_location,
-      });
-      userApi.updateUserLocation(res_location.longitude, res_location.latitude);
-    }
     this.setData({
+      location: res_location,
       myUserInfo: res_myUserInfo.data.data,
     });
+    userApi.updateUserLocation(res_location.longitude, res_location.latitude);
   },
 });

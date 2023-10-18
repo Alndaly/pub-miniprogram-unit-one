@@ -1,6 +1,7 @@
 // pages/myInfo/myPublish/index.js
 import ugcApi from "../../../api/ugc";
 import { _ } from "../../../utils/underscore-min";
+import { to } from "../../../utils/util";
 
 Page({
   /**
@@ -30,8 +31,12 @@ Page({
     this.setData({
       isLoading: true,
     });
-    const res = await ugcApi.getMyUgc(this.data.pageDaily + 1);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(ugcApi.getMyUgc(this.data.pageDaily + 1));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "none",
+      });
       return;
     }
     const ugcListNext = res.data.data;
@@ -53,7 +58,6 @@ Page({
       title: "加载中",
     });
     const myUgcList = await ugcApi.getMyUgc(0);
-    console.log("我发布的Ugc：", myUgcList);
     this.setData({
       myUgcList: myUgcList.data.data,
     });
@@ -82,5 +86,4 @@ Page({
     });
     wx.stopPullDownRefresh();
   },
-
 });

@@ -20,7 +20,6 @@ export default {
   },
 
   push(path, params = {}) {
-    console.log("跳转页面: ", path, "传参: ", params);
     const suffix = urlEncode(params);
     // 防止某些情况下页面路径不带有/前缀
     if (!path.startsWith("/")) path = "/" + path;

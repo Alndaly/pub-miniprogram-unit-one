@@ -101,7 +101,6 @@ Page({
     let [resActivityCommentList, errActivityCommentList] = await to(
       activityApi.getActivityComment(this.data.activity.id, 0)
     );
-    console.log("评论列表更新: ", resActivityCommentList);
     this.setData({
       activityCommentList: resActivityCommentList.data.data,
       "activity.comment": this.data.activity.comment + 1,
@@ -226,7 +225,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

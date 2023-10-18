@@ -15,7 +15,6 @@ Page({
       title: "加载中...",
     });
     let res = await userApi.getCommentedMine(0);
-    console.log("获取评论我的记录: ", res);
     this.setData({
       comment: res.data.data,
     });
@@ -32,7 +31,6 @@ Page({
       1,
       this.data.page === 0 ? 20 : 20 * this.data.page
     );
-    console.log("评论我的:", res);
     let comment = res.data.data;
     this.setData({
       comment,
@@ -50,7 +48,6 @@ Page({
       isLoading: true,
     });
     let res = await userApi.getCommentedMine(this.data.page + 1);
-    console.log("评论我的: ", res);
     let commentNext = res.data.data;
     this.setData({
       "comment.list": [...this.data.comment.list, ...commentNext.list],

@@ -15,7 +15,7 @@ Page({
           width: 50,
           height: 50,
           address: item.address,
-          iconPath: "/package_map/static/images/Location.png",
+          iconPath: "/package_map/static/images/location.png",
           customCallout: {
             display: "ALWAYS",
             anchorX: 0,

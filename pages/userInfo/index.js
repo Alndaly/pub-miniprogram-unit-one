@@ -14,6 +14,9 @@ Page({
   },
 
   async onShowPublish(e) {
+    this.setData({
+      ugcRefresherTriggered: true,
+    });
     const { user_info } = this.data;
     this.setData({
       showPublishPopUp: true,
@@ -30,6 +33,7 @@ Page({
     }
     this.setData({
       ugcs: res.data.data,
+      ugcRefresherTriggered: false,
     });
   },
 
@@ -162,7 +166,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

@@ -1,9 +1,7 @@
-// pages/school/authentication/index.js
-import studentApi from "../../../api/student";
-import userUtil from "../../../utils/user";
-import userApi from "../../../api/user";
-import { to } from "../../../utils/util";
-import cache from "../../../utils/cache";
+import studentApi from "../../../../api/student";
+import userUtil from "../../../../utils/user";
+import userApi from "../../../../api/user";
+import { to } from "../../../../utils/util";
 
 Page({
   data: {},
@@ -35,14 +33,12 @@ Page({
         title: "稍等哦...",
       });
       let [res, err] = await to(studentApi.applyVerify());
-      console.log("认证成功: ", res);
       wx.hideLoading({
         success: (res) => {},
       });
       if (this.data.hasPhoneNumber && this.data.verifyMethod) {
         let res_update = await userUtil.updateLocalUserInfo();
-        console.log("更新用户信息: ", res_update);
-        wx.$router.push("/pages/school/authentication/authSuccess");
+        wx.$router.push("/pages/school/authentication/success/index");
       }
     } else {
       wx.showModal({
@@ -58,9 +54,7 @@ Page({
     wx.showLoading({
       title: "稍等哦",
     });
-    console.log("手机号获取动态令牌:", e.detail);
     let session_status = await userUtil.getSessionStatus();
-    console.log("用户session_key状态:", session_status);
     let [res, err] = [];
     if (session_status) {
       [res, err] = await to(studentApi.getPhoneNumber(e.detail));
@@ -69,7 +63,6 @@ Page({
       await userApi.updateUserSessionKey(code);
       [res, err] = await to(studentApi.getPhoneNumber(e.detail));
     }
-    console.log("手机号:", res);
     if (!res) {
       wx.showToast({
         title: "出错啦",
@@ -90,7 +83,6 @@ Page({
     const {
       data: { data },
     } = await userApi.getMyUserInfo();
-    console.log("我的个人信息: ", data);
     this.setData({
       authMethodList: res.data.data,
       verifyMethod: data.verify_method,

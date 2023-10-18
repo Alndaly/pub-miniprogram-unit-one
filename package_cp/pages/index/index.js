@@ -223,7 +223,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },
@@ -255,7 +255,6 @@ Page({
     const [res_my_user_info, err_my_user_info] = await to(
       userApi.getMyUserInfo()
     );
-    console.log("个人信息接口返回：", res_my_user_info);
     this.setData({
       myUserInfo: res_my_user_info.data.data,
     });

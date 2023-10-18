@@ -8,7 +8,6 @@ Component({
   computed: {
     font_count(data) {
       if (data.type === "textarea") {
-        console.log(data?.value);
         return data?.value?.length;
       }
       return;

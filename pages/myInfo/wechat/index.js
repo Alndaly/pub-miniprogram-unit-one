@@ -1,5 +1,6 @@
 // pages/myInfo/wechat/index.js
 import userApi from "../../../api/user";
+import { to } from "../../../utils/util";
 
 Page({
   data: {},
@@ -20,9 +21,13 @@ Page({
     wx.showLoading({
       title: "稍等哦...",
     });
-    let newWechat = this.data.wechat;
-    let res = await userApi.changeMyWeChat(newWechat);
-    if (res.data.code != "20000") {
+    const { wechat } = this.data;
+    const [res, err] = await to(userApi.changeMyWeChat(wechat));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
       return;
     }
     wx.showToast({

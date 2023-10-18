@@ -16,7 +16,6 @@ Page({
    */
   async onLoad(options) {
     const [res, err] = await to(userApi.getUserProcess());
-    console.log(res, err);
     if (err) {
       wx.showToast({
         title: "出错啦",

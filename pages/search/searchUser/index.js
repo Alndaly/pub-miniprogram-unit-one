@@ -1,5 +1,7 @@
 // pages/search/searchUser/index.js
 import userApi from "../../../api/user";
+import { to } from "../../../utils/util";
+
 Page({
   /**
    * Page initial data
@@ -29,7 +31,13 @@ Page({
 
   // 初始化用户列表
   async initUserPage(e) {
-    let res = await userApi.searchUser(this.data.options.key, 0);
+    const [res, err] = await to(userApi.searchUser(this.data.options.key, 0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+    }
     this.setData({
       page: 0,
       userList: res.data.data,
@@ -46,7 +54,6 @@ Page({
       });
       return;
     }
-    console.log("搜索关键词:", e.detail);
     wx.showLoading({
       title: "稍等哦",
     });
@@ -55,8 +62,14 @@ Page({
         key: e.detail,
       },
     });
-    let res_user = await userApi.searchUser(e.detail, 0);
-    console.log("搜索用户: ", res_user);
+    let [res_user, err_user] = await to(userApi.searchUser(e.detail, 0));
+    if (err_user) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       userList: res_user.data.data,
     });
@@ -78,32 +91,22 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow() {},
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide() {},
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload() {},
-
   async refreshUserPage(e) {
-    let res = await userApi.searchUser(
-      this.data.options.key,
-      0,
-      this.data.userList.length
+    let [res, err] = await to(
+      userApi.searchUser(this.data.options.key, 0, this.data.userList.length)
     );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       userList: res.data.data,
     });
@@ -129,12 +132,14 @@ Page({
     this.setData({
       isLoading: true,
     });
-    let res = await userApi.searchUser(
-      this.data.options.key,
-      this.data.page + 1
+    const [res, err] = await to(
+      userApi.searchUser(this.data.options.key, this.data.page + 1)
     );
-    console.log("搜索用户: ", res);
-    if (res.data.code != "20000") {
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
       return;
     }
     const userListNext = res.data.data;
@@ -152,9 +157,4 @@ Page({
   onReachBottom() {
     this.getNextUserPage();
   },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage() {},
 });

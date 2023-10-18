@@ -7,7 +7,7 @@
         "pages/comment/index",
         "pages/detail/index",
         "pages/home/index",
-        "pages/search/searchResult"
+        "pages/search/result/index"
       ]
     },
     {
@@ -44,11 +44,6 @@
     "pages/message/comments/index",
     "pages/myInfo/signature/index",
     "pages/myInfo/userName/index",
-    "pages/school/authentication/index",
-    "pages/school/authentication/photo",
-    "pages/school/authentication/email",
-    "pages/school/authentication/question",
-    "pages/school/authentication/authSuccess",
     "pages/webView/index",
     "pages/settings/index",
     "pages/school/teacher/add/index",
@@ -87,7 +82,10 @@
     "pages/wall/labelUgc/index",
     "pages/wall/ugcDetail/index",
     "pages/search/result/index",
-    "pages/search/home/index"
+    "pages/search/home/index",
+    "pages/school/authentication/success/index",
+    "pages/school/authentication/photo/index",
+    "pages/school/authentication/home/index"
   ],
   "window": {
     "navigationStyle": "custom",

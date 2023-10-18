@@ -5,9 +5,7 @@ import userUtils from "../../../utils/user";
 import { to } from "../../../utils/util";
 
 Page({
-  data: {
-    // constellations: ['白羊座', '金牛座', '双子座', '巨蟹座', '狮子座', '处女座', '天秤座', '天蝎座', '射手座', '摩羯座', '水瓶座', '双鱼座']
-  },
+  data: {},
 
   // 选取图片
   changeAvatar() {
@@ -21,18 +19,17 @@ Page({
         wx.showLoading({
           title: "稍等哦...",
         });
-        let file = {
+        const file = {
           url: res.tempFiles[0].tempFilePath,
         };
-        let [res_upload, err_upload] = await to(fileApi.uploadImage(file));
-        console.log("图片上传:", res_upload);
+        const [res_upload, err_upload] = await to(fileApi.uploadImage(file));
         if (err_upload) {
           wx.showToast({
             title: err_upload.data.message,
           });
           return;
         }
-        let [res_change, err_change] = await to(
+        const [res_change, err_change] = await to(
           userApi.changeMyAvatar(res_upload.url)
         );
         if (err_change) {
@@ -41,7 +38,6 @@ Page({
             icon: "error",
           });
         }
-        console.log("修改头像: ", res_change);
         await _this.refreshUserInfo();
         wx.showToast({
           title: "修改成功",
@@ -51,8 +47,14 @@ Page({
   },
 
   async refreshUserInfo(e) {
-    let res = await userApi.getMyUserInfo();
-    console.log("用户信息: ", res);
+    const [res, err] = await to(userApi.getMyUserInfo());
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       userInfo: res.data.data,
       "userInfo.gender": userUtils.getGender(res.data.data.gender),
@@ -72,9 +74,8 @@ Page({
 
   // 更换所在地
   async onChangeRegion(e) {
-    let res = await userApi.changeMyLocation(e.detail.value);
-    console.log("更换所在地:", res);
-    if (!res.data.code === 20000) {
+    const [res, err] = await to(userApi.changeMyLocation(e.detail.value));
+    if (err) {
       return;
     }
     this.setData({
@@ -139,10 +140,12 @@ Page({
 
   // 更新生日
   async onChangeBirthday(e) {
-    console.log(e.detail.value);
-    let res = await userApi.changeMyBirthday(e.detail.value);
-    console.log("更新生日:", res);
-    if (res.data.code !== 20000) {
+    let [res, err] = await to(userApi.changeMyBirthday(e.detail.value));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
       return;
     }
     this.setData({
@@ -155,13 +158,17 @@ Page({
   getAddress(e) {
     wx.chooseAddress({
       success: async function (res) {
-        console.log("获取地址: ", res);
         wx.showLoading({
           title: "稍等哦...",
         });
-        let res_api = await userApi.changeMyAddress(res);
-        console.log("修改收货地址: ", res_api);
-        if (res_api.data.code != "20000") {
+        const [res_address, err_address] = await to(
+          userApi.changeMyAddress(res)
+        );
+        if (err_address) {
+          wx.showToast({
+            title: "出错啦",
+            icon: "error",
+          });
           return;
         }
         wx.showToast({
@@ -178,9 +185,10 @@ Page({
     wx.showActionSheet({
       itemList,
       async success(res) {
-        let res_api = await userApi.changeMyGender(value[res.tapIndex]);
-        console.log("修改性别: ", res_api);
-        if (res_api.data.code != "20000") {
+        let [res_gender, err_gender] = await to(
+          userApi.changeMyGender(value[res.tapIndex])
+        );
+        if (err_gender) {
           wx.showToast({
             title: "出错啦",
             icon: "error",
@@ -188,11 +196,11 @@ Page({
           return;
         }
         _this.setData({
-          "userInfo.gender": userUtils.getGender(res_api.data.data.gender),
+          "userInfo.gender": userUtils.getGender(res_gender.data.data.gender),
         });
       },
-      fail(res) {
-        console.log(res);
+      fail(err) {
+        console.error(err);
       },
     });
     this.refreshUserInfo();
@@ -232,8 +240,14 @@ Page({
   },
 
   async onShow(options) {
-    let res = await userApi.getMyUserInfo();
-    console.log("用户信息: ", res);
+    const [res, err] = await to(userApi.getMyUserInfo());
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       userInfo: res.data.data,
       "userInfo.gender": userUtils.getGender(res.data.data.gender),
@@ -252,7 +266,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

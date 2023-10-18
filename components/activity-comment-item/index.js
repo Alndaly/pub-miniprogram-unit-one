@@ -75,7 +75,6 @@ Component({
       }
     },
     showUserInfo(e) {
-      console.log(this.properties.commentItem);
       // 如果是匿名发表那么不弹出用户信息
       if (this.properties.commentItem.anonymous) {
         return;

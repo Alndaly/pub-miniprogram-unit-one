@@ -37,7 +37,6 @@ Page({
       });
       return;
     }
-    console.log("搜索关键词:", e.detail);
     wx.showLoading({
       title: "稍等哦",
     });
@@ -47,9 +46,7 @@ Page({
       },
     });
     let res_ugc = await ugcApi.searchUgc(e.detail, 0, 5);
-    console.log("搜索Ugc: ", res_ugc);
     let res_user = await userApi.searchUser(e.detail, 0, 5);
-    console.log("搜索用户: ", res_user);
     this.setData({
       ugcList: res_ugc.data.data,
       userList: res_user.data.data,
@@ -146,7 +143,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

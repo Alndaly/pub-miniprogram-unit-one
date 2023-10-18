@@ -1,7 +1,6 @@
-// pages/school/authentication/photo.js
-import fileApi from "../../../api/file";
-import { to } from "../../../utils/util";
-import studentApi from "../../../api/student";
+import fileApi from "../../../../api/file";
+import { to } from "../../../../utils/util";
+import studentApi from "../../../../api/student";
 
 Page({
   data: {
@@ -14,7 +13,6 @@ Page({
       uploadStatus: "稍等哦...",
     });
     let res = await fileApi.uploadImage(file);
-    console.log("图片上传: ", res);
     const { fileList = [] } = this.data;
     fileList.push({
       ...res,
@@ -45,7 +43,6 @@ Page({
     let [res, err] = await to(
       studentApi.verifyByPhoto(this.data.fileList[0].url)
     );
-    console.log("照片方式学生认证: ", res);
     if (err) {
       wx.showToast({
         title: err.data.message,

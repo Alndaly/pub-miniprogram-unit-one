@@ -95,7 +95,7 @@ export const service = function (args) {
               resolve(checkHasToken(args));
               return;
             } else {
-              console.log("token已过期");
+              console.warn("token已过期");
               // 如果token已经过期则此处
               resolve(checkStatus(args));
               return;
@@ -138,7 +138,6 @@ async function getToken(e) {
   try {
     const code = await wx.login();
     const res_token = await userApi.initUser(code.code);
-    console.log("获取个人唯一识别Token: ", res_token);
     cache.set(
       "Authorization",
       res_token.data.data.access_token,
@@ -202,7 +201,7 @@ function updateToken(params) {
             // 纸条撕掉
             isRefreshing = true;
           } catch (error) {
-            console.log("token更新失败", error);
+            console.warn("token更新失败", error);
           }
         }
       },

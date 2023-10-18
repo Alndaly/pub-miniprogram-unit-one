@@ -1,4 +1,3 @@
-/* pages/school/authentication/questionSuccess.wxss */
 .whole {
   color: white;
   padding: 40px 20px;

@@ -1,5 +1,0 @@
-<!--pages/school/authentication/email.wxml-->
-<cu-custom isBack="true">
-  <view slot="backText">返回</view>
-  <view slot="content">学生认证</view>
-</cu-custom>

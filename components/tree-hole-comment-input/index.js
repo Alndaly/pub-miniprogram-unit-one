@@ -156,7 +156,7 @@ Component({
             "尚未通过校友认证，需要通过答题等方式获取评论等权限，现在去认证吗？",
           success(res) {
             if (res.confirm) {
-              wx.$router.push("/pages/school/authentication/index");
+              wx.$router.push("/pages/school/authentication/home/index");
             }
           },
         });

@@ -1,7 +1,0 @@
-{
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "van-progress": "/components/progress/index",
-    "van-overlay": "/components/overlay/index"
-  }
-}

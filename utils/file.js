@@ -96,9 +96,6 @@ export default {
     return new Promise(() => {
       fs.close({
         fd: res.fd,
-        success(res) {
-          console.log(res);
-        },
         fail(res) {
           reject(res);
         },
@@ -139,7 +136,6 @@ export default {
   // 查看是否存在对应文件（此处默认在用户目录wx.env.USER_DATA_PATH下搜索）
   hasFileOrPath(path) {
     const fs = wx.getFileSystemManager();
-    console.log("查看路径：" + `${wx.env.USER_DATA_PATH}` + path);
     return new Promise((resolve, reject) => {
       fs.access({
         path: `${wx.env.USER_DATA_PATH}` + path,
@@ -206,7 +202,6 @@ export default {
       fs.fstat({
         fd: fd,
         success(res) {
-          console.log(res);
           resolve(res);
         },
         fail(res) {

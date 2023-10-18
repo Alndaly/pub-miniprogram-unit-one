@@ -1,12 +1,12 @@
 // pages/myInfo/myAttention.js
-import userApi from '../../../api/user'
+import userApi from "../../../api/user";
+import { to } from "../../../utils/util";
 
 Page({
-
   data: {
     page: 0,
     focusList: [],
-    isLoading: false
+    isLoading: false,
   },
 
   toUserInfo(e) {
@@ -16,56 +16,76 @@ Page({
 
   async onLoad() {
     wx.showLoading({
-      title: '加载中...',
-    })
-    let res = await userApi.getMyFocusedUser(0)
-    console.log('我关注的用户: ', res)
-    if (res.data.code != '20000') {
-      return
+      title: "加载中...",
+    });
+    const [res, err] = await to(userApi.getMyFocusedUser(0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
+      wx.hideLoading();
+      return;
     }
     this.setData({
       focusList: res.data.data,
-      isLoading: false
-    })
-    wx.hideLoading({
-      success: (res) => {},
-    })
+      isLoading: false,
+    });
+    wx.hideLoading();
   },
 
   async onPullDownRefresh(e) {
     wx.showLoading({
-      title: '刷新中',
-    })
-    let res = await userApi.getMyFocusedUser(0, this.data.page === 0 ? 10 : (this.data.page + 1) * 10)
-    console.log('我关注的用户: ', res)
-    if (res.data.code != '20000') {
-      return
+      title: "刷新中",
+    });
+    const [res, err] = await to(
+      userApi.getMyFocusedUser(
+        0,
+        this.data.page === 0 ? 10 : (this.data.page + 1) * 10
+      )
+    );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
+      wx.stopPullDownRefresh();
+      return;
     }
     this.setData({
       focusList: res.data.data,
-      isLoading: false
-    })
-    wx.hideLoading({
-      success: (res) => {},
-    })
-    wx.stopPullDownRefresh()
+      isLoading: false,
+    });
+    wx.hideLoading();
+    wx.stopPullDownRefresh();
   },
 
   async onReachBottom() {
     this.setData({
       isLoading: true,
-    })
-    let res = await userApi.getMyFocusedUser(this.data.page + 1)
-    console.log('我关注的用户: ', res)
-    if (res.data.code != '20000') {
-      return
+    });
+    const [res, err] = await to(userApi.getMyFocusedUser(this.data.page + 1));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
+      return;
     }
-    let focusListNext = res.data.data
+    const focusListNext = res.data.data;
     this.setData({
       page: focusListNext.list.length > 0 ? this.data.page + 1 : this.data.page,
-      'focusList.list': [...this.data.focusList.list, ...focusListNext.list],
-      isLoading: false
-    })
+      "focusList.list": [...this.data.focusList.list, ...focusListNext.list],
+      isLoading: false,
+    });
   },
-
-})
+});

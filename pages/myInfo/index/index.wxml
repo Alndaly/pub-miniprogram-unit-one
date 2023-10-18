@@ -91,8 +91,6 @@
 
   <view class="content-box box">
     <van-cell title="我的帖子" is-link url="/pages/myInfo/myPublish/index" />
-    <van-cell title="我的活动" is-link url="/pages/myInfo/myActivity/index" />
-    <van-cell title="活动参与" is-link url="/pages/activity/timeLine/index" />
     <van-cell title="我关注的" is-link url="/pages/myInfo/myAttention/index" />
     <van-cell title="我的粉丝" is-link url="/pages/myInfo/myFans/index" />
     <van-cell title="最近点赞" is-link url="/pages/myInfo/myVote/index" />
@@ -118,8 +116,6 @@
   </view>
 
   <view class="content-box box">
-    <van-cell title="使用文档" is-link url="/pages/webView/index?id=4" />
-    <van-cell title="更新日志" is-link url="/pages/webView/index?id=5" />
     <button open-type="feedback">
       <view>
         更新建议
@@ -128,7 +124,7 @@
         <van-icon name="arrow" size="16" color="#969799" />
       </view>
     </button>
-    <button open-type="contact" bindcontact="handleContact">
+    <button open-type="contact">
       <view>
         联系客服
       </view>
@@ -137,8 +133,5 @@
       </view>
     </button>
     <van-cell title="更多设置" is-link url="/pages/settings/index" />
-  </view>
-  <view class="text-grey release-box" wx:if="{{version}}">
-    小程序版本号：{{version}}
   </view>
 </view>

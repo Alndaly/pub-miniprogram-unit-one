@@ -173,7 +173,7 @@ Page({
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   },
 
@@ -236,7 +236,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
     const { label_search_key } = this.data;

@@ -5,16 +5,11 @@ import { to } from "../utils/util";
 
 export default {
   loginOut() {
-    wx.clearStorage({
-      success: (res) => {
-        console.log("缓存清除成功");
-      },
-    });
+    wx.clearStorage();
   },
 
   async updateLocalUserInfo() {
     const res_info = await userApi.getMyUserInfo();
-    console.log("状态符更新后的用户信息：", res_info);
     // 将用户id和账户状态保存在缓存供之后使用，借此判断用户登陆情况
     cache.set("user_id", res_info.data.data.id);
     cache.set("nickname", res_info.data.data.nickname);
@@ -81,7 +76,6 @@ export default {
 
   checkUserAbility(ability) {
     let account_status = cache.get("account_status");
-    console.log("账户状态:", account_status);
     if (auth[account_status].indexOf(ability) != -1) {
       return false;
     }

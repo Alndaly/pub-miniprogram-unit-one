@@ -15,10 +15,8 @@ Page({
 
   // ugc成功删除事件
   onFinishDleteUgc(e) {
-    console.log("删除的帖子在列表中的序号: ", e.detail);
     const list = this.data.ugcList.list;
     const delUgc = list.splice(e.detail.index, 1);
-    console.log("删除的帖子: ", delUgc);
     this.setData({
       "ugcList.list": list,
     });

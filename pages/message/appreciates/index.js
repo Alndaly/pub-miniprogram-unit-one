@@ -17,7 +17,6 @@ Page({
       title: '加载中...',
     })
     let res = await userApi.getVotedMine(1)
-    console.log('获取点赞我的记录: ', res)
     this.setData({
       vote: res.data.data
     })
@@ -31,7 +30,6 @@ Page({
       title: '刷新中...',
     })
     let res = await userApi.getVotedMine(1, 20 * this.data.page)
-    console.log('点赞我的:', res)
     let vote = res.data.data
     this.setData({
       vote
@@ -49,7 +47,6 @@ Page({
       isLoading: true
     })
     let res = await userApi.getVotedMine(this.data.page + 1)
-    console.log('点赞我的: ', res)
     let voteNext = res.data.data
     this.setData({
       'vote.list': [...this.data.vote.list, ...voteNext.list]

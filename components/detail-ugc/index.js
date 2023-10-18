@@ -76,7 +76,7 @@ Component({
             "尚未通过校友认证，需要通过答题等方式获取评论等权限，现在去认证吗？",
           success(res) {
             if (res.confirm) {
-              wx.$router.push("/pages/school/authentication/index");
+              wx.$router.push("/pages/school/authentication/home/index");
             }
           },
         });
@@ -107,7 +107,6 @@ Component({
           icon: "error",
         });
       }
-      console.log("评论帖子的接口返回：", res_comment);
       wx.hideLoading({
         success: (res) => {},
       });
@@ -158,7 +157,7 @@ Component({
         ugcApi.voteUgc(this.properties.detail.id, this.data.detail.is_vote)
       );
       // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
-      if (res.data.code != "20000" || err) {
+      if (err) {
         this.setData({
           "detail.is_vote": !_this.data.detail.is_vote,
           "detail.vote": _this.data.detail.is_vote
@@ -209,7 +208,6 @@ Component({
         "detail.user_info.focus": !_this.data.detail.user_info.focus,
       });
       if (this.data.detail.user_info.focus) {
-        console.log("没关注，前往关注");
         const [res, err] = await to(
           userApi.focusUser(this.data.detail.user_info.id)
         );
@@ -219,7 +217,6 @@ Component({
           });
         }
       } else {
-        console.log("已关注，取消关注");
         const [res, err] = await to(
           userApi.unFocusUser(this.data.detail.user_info.id)
         );
@@ -280,15 +277,13 @@ Component({
                           res_del_ugc.data.message || err_del_ugc.data.message,
                       });
                     }
-                  } else if (res.cancel) {
-                    console.log("用户点击取消");
                   }
                 },
               });
               break;
             }
             default: {
-              console.log("异常选项");
+              console.warn("异常选项");
             }
           }
         },

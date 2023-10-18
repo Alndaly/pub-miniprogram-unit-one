@@ -1,4 +1,3 @@
-/* pages/school/authentication/index.wxss */
 .whole {
   display: flex;
   flex-direction: column;

@@ -10,7 +10,7 @@ export const subscribeNotify = async (tamplateIdList) => {
         console.log("订阅成功", res);
       },
       fail(err) {
-        console.log("订阅失败", err);
+        console.error("订阅失败", err);
       },
     })
   );

@@ -1,5 +1,6 @@
 // pages/myInfo/myFans/index.js
 import userApi from "../../../api/user";
+import { to } from "../../../utils/util";
 
 Page({
   data: {
@@ -17,9 +18,12 @@ Page({
     wx.showLoading({
       title: "加载中...",
     });
-    let res = await userApi.getMyFans(0);
-    console.log("我的粉丝: ", res);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(userApi.getMyFans(0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
       this.setData({
         isLoading: false,
       });
@@ -29,30 +33,35 @@ Page({
       fansList: res.data.data,
       isLoading: false,
     });
-    wx.hideLoading({
-      success: (res) => {},
-    });
+    wx.hideLoading();
   },
 
   async onPullDownRefresh(e) {
     wx.showLoading({
       title: "刷新中",
     });
-    let res = await userApi.getMyFans(
-      0,
-      this.data.page === 0 ? 10 : (this.data.page + 1) * 10
+    const [res, err] = await to(
+      userApi.getMyFans(
+        0,
+        this.data.page === 0 ? 10 : (this.data.page + 1) * 10
+      )
     );
-    console.log("我的粉丝: ", res);
-    if (res.data.code != "20000") {
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
+      wx.stopPullDownRefresh();
       return;
     }
     this.setData({
       fansList: res.data.data,
       isLoading: false,
     });
-    wx.hideLoading({
-      success: (res) => {},
-    });
+    wx.hideLoading();
     wx.stopPullDownRefresh();
   },
 
@@ -61,10 +70,12 @@ Page({
     this.setData({
       isLoading: true,
     });
-    let res;
-    res = await userApi.getMyFans(this.data.page + 1);
-    console.log("我的粉丝: ", res);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(userApi.getMyFans(this.data.page + 1));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
       this.setData({
         isLoading: false,
       });

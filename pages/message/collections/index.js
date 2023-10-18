@@ -17,7 +17,6 @@ Page({
       title: '加载中...',
     })
     let res = await userApi.getCollectedMine(0)
-    console.log('获取收藏我的记录: ', res)
     this.setData({
       collect: res.data.data
     })
@@ -31,7 +30,6 @@ Page({
       title: '刷新中...',
     })
     let res = await userApi.getCollectedMine(1, this.data.page === 0 ? 20 : 20 * this.data.page)
-    console.log('收藏我的:', res)
     let collect = res.data.data
     this.setData({
       collect
@@ -49,7 +47,6 @@ Page({
       isLoading: true
     })
     let res = await userApi.getCollectedMine(this.data.page + 1)
-    console.log('收藏我的: ', res)
     let collectNext = res.data.data
     this.setData({
       'collect.list': [...this.data.collect.list, ...collectNext.list],

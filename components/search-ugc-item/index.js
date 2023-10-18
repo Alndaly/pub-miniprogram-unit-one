@@ -30,7 +30,6 @@ Component({
 
   methods: {
     showUserInfo(e) {
-      console.log("用户信息：", this.data.detail.user_info);
       // 否则弹出
       wx.$router.push(`/pages/userInfo/index`, {
         user_id: this.data.detail.user_info.user_id
@@ -75,7 +74,7 @@ Component({
         ugcApi.voteUgc(this.properties.detail.id, this.data.detail.is_vote)
       );
       // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
-      if (res.data.code != "20000" || err) {
+      if (err) {
         this.setData({
           "detail.is_vote": !this.data.detail.is_vote,
           "detail.vote": this.data.detail.is_vote

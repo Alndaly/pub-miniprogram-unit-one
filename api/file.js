@@ -19,7 +19,6 @@ async function updateLocalUploadKey(params) {
   // 如果本地缓存的上传密钥已经过期了那么就刷新
   if (!cache.get("OSSAccessKeyId")) {
     let res = await getUploadKey();
-    console.log(res);
     const { OSSAccessKeyId, policy, signature } = res.data;
     cache.set("OSSAccessKeyId", OSSAccessKeyId, 3600);
     cache.set("policy", policy, 3600);

@@ -1,4 +1,3 @@
-<!--pages/school/authentication/index.wxml-->
 <cu-custom isBack="true">
   <view slot="backText" catchtap="goBack">返回</view>
   <view slot="content">校友认证</view>
@@ -24,7 +23,7 @@
     </view>
     <view class="margin-top-xs">请选择以下方式中的任意一种进行认证</view>
     <view class="my-group margin-top-sm">
-      <van-cell wx:for="{{authMethodList}}" title="{{item.title}}" label="{{item.content}}" center is-link url="{{item.page_url}}" />
+      <van-cell wx:for="{{authMethodList}}" wx:key="id" title="{{item.title}}" label="{{item.content}}" center is-link url="{{item.page_url}}" />
     </view>
   </view>
   <view class="group-box">

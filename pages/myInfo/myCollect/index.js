@@ -1,6 +1,7 @@
 // pages/myInfo/myPublish/index.js
 import ugcApi from "../../../api/ugc";
 import { _ } from "../../../utils/underscore-min";
+import { to } from "../../../utils/util";
 
 Page({
   /**
@@ -38,13 +39,19 @@ Page({
 
   // 显示用户评论
   async onShowUgcCommentAction(e) {
-    const res = await ugcApi.getUgcComment(e.detail.id);
+    const [res, err] = await to(ugcApi.getUgcComment(e.detail.id));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       showUgcCommentAction: true,
       ugcCommentList: res.data.data,
       ugcDetailOfCommentList: e.detail,
     });
-
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
         show: false,
@@ -56,8 +63,8 @@ Page({
     this.setData({
       isLoading: true,
     });
-    const res = await ugcApi.getMyCollect(this.data.pageCollect + 1);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(ugcApi.getMyCollect(this.data.pageCollect + 1));
+    if (err) {
       return;
     }
     const collectListNext = res.data.data;
@@ -81,13 +88,17 @@ Page({
     wx.showLoading({
       title: "加载中",
     });
-    const myCollectList = await ugcApi.getMyCollect(0);
-    console.log("我收藏的Ugc：", myCollectList);
+    const [res, err] = await to(ugcApi.getMyCollect(0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      wx.hideLoading();
+      return;
+    }
     this.setData({
-      myCollectList: myCollectList.data.data,
-    });
-    wx.hideLoading({
-      success: (res) => {},
+      myCollectList: res.data.data,
     });
   },
 
@@ -99,17 +110,26 @@ Page({
     wx.showLoading({
       title: "刷新中...",
     });
-    let myCollectList = await ugcApi.getMyCollect(
-      0,
-      this.data.pageCollect === 0 ? 10 : (this.data.pageCollect + 1) * 10
+    const [res, err] = await to(
+      ugcApi.getMyCollect(
+        0,
+        this.data.pageCollect === 0 ? 10 : (this.data.pageCollect + 1) * 10
+      )
     );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      wx.stopPullDownRefresh();
+      return;
+    }
     this.setData({
-      myCollectList: myCollectList.data.data,
+      myCollectList: res.data.data,
     });
     wx.showToast({
       title: "刷新成功",
     });
     wx.stopPullDownRefresh();
   },
-
 });

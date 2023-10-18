@@ -16,7 +16,6 @@ Page({
   },
 
   onLoad: async function (options) {
-    console.log("页面初始化加载信息: ", options);
     wx.getSystemInfo({
       success: (e) => {
         let custom = wx.getMenuButtonBoundingClientRect();
@@ -28,7 +27,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
     wx.showLoading({
@@ -36,7 +35,6 @@ Page({
     });
     try {
       const res = await courseApi.getHotCourseList();
-      console.log("课程热搜: ", res);
       const list = await Promise.all(
         Array.from(
           new Set(
@@ -63,7 +61,6 @@ Page({
           };
         })
       );
-      console.log("list:", list);
       const hotCourse = {
         list,
         total: list.length,
@@ -94,7 +91,7 @@ Page({
   },
 
   goSearch(e) {
-    wx.$router.push(`/package_course/pages/search/searchResult`, {
+    wx.$router.push(`/package_course/pages/search/result/idnex`, {
       search_key: this.data.search_key,
     });
   },
@@ -104,7 +101,6 @@ Page({
       title: "加载中",
     });
     const [res, err] = await to(courseApi.getHotCourseList());
-    console.log("课程热搜: ", res);
     const list = await Promise.all(
       Array.from(
         new Set(

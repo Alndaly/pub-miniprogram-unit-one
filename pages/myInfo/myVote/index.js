@@ -1,6 +1,7 @@
 // pages/myInfo/myPublish/index.js
 import ugcApi from "../../../api/ugc";
 import { _ } from "../../../utils/underscore-min";
+import { to } from "../../../utils/util";
 
 Page({
   /**
@@ -38,13 +39,18 @@ Page({
 
   // 显示用户评论
   async onShowUgcCommentAction(e) {
-    const res = await ugcApi.getUgcComment(e.detail.id);
+    const [res, err] = await to(ugcApi.getUgcComment(e.detail.id));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+    }
     this.setData({
       showUgcCommentAction: true,
       ugcCommentList: res.data.data,
       ugcDetailOfCommentList: e.detail,
     });
-
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({
         show: false,
@@ -56,8 +62,15 @@ Page({
     this.setData({
       isLoading: true,
     });
-    const res = await ugcApi.getMyVote(this.data.pageVote + 1);
-    if (res.data.code != "20000") {
+    const [res, err] = await to(ugcApi.getMyVote(this.data.pageVote + 1));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        isLoading: false,
+      });
       return;
     }
     const voteListNext = res.data.data;
@@ -78,14 +91,18 @@ Page({
     wx.showLoading({
       title: "加载中",
     });
-    const myVoteList = await ugcApi.getMyVote(0);
-    console.log("我点赞的Ugc：", myVoteList);
+    const [res, err] = await to(ugcApi.getMyVote(0));
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
-      myVoteList: myVoteList.data.data,
+      myVoteList: res.data.data,
     });
-    wx.hideLoading({
-      success: (res) => {},
-    });
+    wx.hideLoading();
   },
 
   async onReachBottom(options) {
@@ -96,12 +113,22 @@ Page({
     wx.showLoading({
       title: "刷新中...",
     });
-    let myVoteList = await ugcApi.getMyVote(
-      0,
-      this.data.pageVote === 0 ? 10 : (this.data.pageVote + 1) * 10
+    const [res, err] = await to(
+      ugcApi.getMyVote(
+        0,
+        this.data.pageVote === 0 ? 10 : (this.data.pageVote + 1) * 10
+      )
     );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      wx.stopPullDownRefresh();
+      return;
+    }
     this.setData({
-      myVoteList: myVoteList.data.data,
+      myVoteList: res.data.data,
     });
     wx.showToast({
       title: "刷新成功",

@@ -5,7 +5,7 @@ Component({
    */
   options: {
     addGlobalClass: true,
-    multipleSlots: true
+    multipleSlots: true,
   },
   /**
    * 组件的对外属性
@@ -13,38 +13,38 @@ Component({
   properties: {
     customStyle: {
       type: String,
-      value: ''
+      value: "",
     },
     isShadow: {
       type: Boolean,
-      default: true
+      default: true,
     },
     bgColor: {
       type: String,
-      default: 'bg-blblue'
+      default: "bg-blblue",
     },
     isBack: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   lifetimes: {
     attached() {
       wx.getSystemInfo({
-        success: e => {
+        success: (e) => {
           let custom = wx.getMenuButtonBoundingClientRect();
           let CustomBar = custom.bottom + custom.top - e.statusBarHeight;
           this.setData({
             CustomBar: CustomBar,
             StatusBar: e.statusBarHeight,
-            Custom: custom
-          })
+            Custom: custom,
+          });
         },
-        fail: res => {
-          console.log('获取系统信息出错', res)
-        }
-      })
-    }
+        fail: (res) => {
+          console.error("获取系统信息出错", res);
+        },
+      });
+    },
   },
   /**
    * 组件的初始数据
@@ -56,15 +56,15 @@ Component({
   methods: {
     async goBackPage() {
       try {
-        await wx.$router.back()
+        await wx.$router.back();
       } catch (e) {
-        console.log('检测到返回页面不存在，直接返回首页。错误：', e)
+        console.warn("检测到返回页面不存在，直接返回首页。错误：", e);
       }
     },
     goHomePage() {
       wx.reLaunch({
-        url: '/pages/home/index',
-      })
+        url: "/pages/home/index",
+      });
     },
-  }
-})
+  },
+});

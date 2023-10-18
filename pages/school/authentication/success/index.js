@@ -1,5 +1,4 @@
-// pages/school/authentication/questionSuccess.js
-import cache from "../../../utils/cache";
+import cache from "../../../../utils/cache";
 
 Page({
   data: {},
@@ -16,7 +15,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

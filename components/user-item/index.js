@@ -31,10 +31,6 @@ Component({
         });
         return;
       }
-      console.log("关注用户:", res);
-      if (res.data.code != "20000") {
-        return;
-      }
       this.setData({
         "detail.is_focus": true,
       });
@@ -53,10 +49,6 @@ Component({
         wx.showToast({
           title: err.data.message,
         });
-        return;
-      }
-      console.log("取消关注用户:", res);
-      if (res.data.code != "20000") {
         return;
       }
       this.setData({

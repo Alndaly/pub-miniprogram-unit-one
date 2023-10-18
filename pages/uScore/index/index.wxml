@@ -8,10 +8,6 @@
 
 <view class="whole">
 
-  <view class="banner">
-    U积分是Unit One于2023-5-10日开始推出的用户积分系统，通过在小程序内部的各类交互可以获取不同程度的积分，通过积分同学们可以换取各种福利和参与抽奖。（奖励正在准备中=。=）
-  </view>
-
   <view class="top-nav">
     <view class="nav-item {{current===0?'chosed':''}}" catchtap="showGetMethod">
       获取方式
@@ -66,16 +62,6 @@
             前往充值积分
           </view>
         </view>
-        <!-- <view class="item">
-          <view>
-            <view>
-              持续在线
-            </view>
-            <view class="tip">
-              每持续在线10分钟+0.5
-            </view>
-          </view>
-        </view> -->
       </view>
     </swiper-item>
     <swiper-item class="page-2 page">
@@ -105,31 +91,10 @@
       <view>
         <view class="item-list">
           <view class="item">
-            可使用100积分换取一次当日置顶
-          </view>
-          <view class="item">
-            可使用积分换取礼品
-          </view>
-          <view class="item">
-            可使用积分换取AI助手次数
-          </view>
-          <view class="item">
-            可使用积分参与抽奖活动
-          </view>
-          <view class="item">
             可使用积分获取额外CP匹配机会
           </view>
         </view>
       </view>
     </swiper-item>
   </swiper>
-  <view class="bottom-btn-list">
-    <view class="bottom-btn" catchtap="goScoreExchange">
-      积分兑换
-    </view>
-    <view class="bottom-btn" catchtap="goLucky">
-      去抽奖
-    </view>
-  </view>
-
 </view>

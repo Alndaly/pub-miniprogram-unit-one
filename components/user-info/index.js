@@ -17,7 +17,6 @@ Component({
   methods: {
     // 展示ugc的用户信息
     showUserInfo(e) {
-      console.log("用户信息：", this.properties.userInfo);
       // 如果是匿名发表那么不弹出用户信息
       if (this.properties.anonymous) {
         return;

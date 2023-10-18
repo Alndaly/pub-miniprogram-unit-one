@@ -374,7 +374,6 @@ Page({
         let [resUgcCommentList, errUgcCommentList] = await to(
           ugcApi.getUgcComment(_this.data.ugcDetail.id, 0, 10, order_by, desc)
         );
-        console.log("评论列表更新: ", resUgcCommentList);
         _this.setData({
           ugcCommentList: resUgcCommentList.data.data,
         });
@@ -396,7 +395,7 @@ Page({
       ugcApi.voteUgc(this.data.ugcDetail.id, this.data.ugcDetail.is_vote)
     );
     // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
-    if (res.data.code != "20000" || err) {
+    if (err) {
       this.setData({
         "ugcDetail.is_vote": !_this.data.ugcDetail.is_vote,
         "ugcDetail.vote": _this.data.ugcDetail.is_vote
@@ -424,7 +423,6 @@ Page({
         this.data.desc
       )
     );
-    console.log("评论列表更新: ", resUgcCommentList);
     this.setData({
       ugcCommentList: resUgcCommentList.data.data,
       "ugcDetail.comment": this.data.ugcDetail.comment + 1,
@@ -474,7 +472,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
     this.setData({

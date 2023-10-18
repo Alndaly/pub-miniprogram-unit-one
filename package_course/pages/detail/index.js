@@ -60,8 +60,7 @@ Page({
     if (e.detail.res.data.code != "20000") {
       return;
     }
-    let commentList = await ugcApi.getUgcComment(this.data.ugcDetail.id);
-    console.log("评论列表更新: ", commentList);
+    const commentList = await ugcApi.getUgcComment(this.data.ugcDetail.id);
     this.setData({
       commentList: commentList.data.data,
     });
@@ -131,7 +130,7 @@ Page({
         });
       },
       fail: (res) => {
-        console.log("获取系统信息出错", res);
+        console.error("获取系统信息出错", res);
       },
     });
   },

@@ -1,4 +1,3 @@
-<!--pages/school/authentication/questionSuccess.wxml-->
 <view class="whole" style="padding-top:{{CustomBar}}px;">
   <view class="whole-container">
     <view class="success-title">校友认证成功</view>

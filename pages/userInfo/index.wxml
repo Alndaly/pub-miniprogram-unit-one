@@ -34,21 +34,21 @@
     </scroll-view>
     <view class="row" wx:if="{{!(!user_info.birthday&&!user_info.city)}}">
       <view class="box" wx:if="{{user_info.birthday}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
+        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
         <view>{{user_info.birthday}}</view>
       </view>
       <view class="box" wx:if="{{user_info.city}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/home.png" />
+        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/home.png" />
         <view>{{user_info.city}} - {{user_info.district}}</view>
       </view>
     </view>
     <view class="row" wx:if="{{!(!user_info.wechat&&!user_info.qq)}}">
       <view class="box" wx:if="{{user_info.wechat}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/wechat_fill.png" />
+        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/wechat_fill.png" />
         <view>{{user_info.wechat}}</view>
       </view>
       <view class="box" wx:if="{{user_info.qq}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/qq.png" />
+        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/qq.png" />
         <view>{{user_info.qq}}</view>
       </view>
     </view>

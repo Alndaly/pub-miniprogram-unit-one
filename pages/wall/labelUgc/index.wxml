@@ -3,7 +3,7 @@
     <view class="nav">
       <van-image catch:tap="goBack" round height="1.2rem" width="1.2rem" fit="cover" lazy-load src="/static/images/back_white.png" />
       <view class="nav-title">
-        # {{label_info.title}}
+        # {{label_info.title?label_info.title:'...'}}
       </view>
     </view>
   </view>
