@@ -1,4 +1,4 @@
-import ugcApi from "../../../api/ugc";
+import ugcApi from "../../../api/post";
 import { to } from "../../../utils/util";
 import { _ } from "../../../utils/underscore-min";
 import labelApi from "../../../api/label";

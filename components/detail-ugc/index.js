@@ -2,7 +2,7 @@
 const computedBehavior = require("miniprogram-computed").behavior;
 import { emotionIcons } from "../../configs/emotion";
 import timeUtils from "../../utils/time";
-import ugcApi from "../../api/ugc";
+import ugcApi from "../../api/post";
 import userApi from "../../api/user";
 import cache from "../../utils/cache";
 import userUtils from "../../utils/user";

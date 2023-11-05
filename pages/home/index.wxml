@@ -8,7 +8,7 @@
   </view>
 </cu-custom>
 
-<scroll-view id="scroller" bindrefresherpulling="onRefresherPulling" scroll-y style="height: calc( 100vh - env(safe-area-inset-bottom) - 30px - {{CustomBar || 87}}px );" refresher-default-style="none" refresher-enabled refresher-threshold="40" upper-threshold="50" lower-threshold="100" enable-back-to-top enhanced refresher-triggered="{{refresherTriggered}}" show-scrollbar="{{true}}" bindscrolltolower="onNextPage" bindrefresherrefresh="onRefresh">
+<scroll-view id="scroller" scroll-y style="height: calc( 100vh - env(safe-area-inset-bottom) - 30px - {{CustomBar || 87}}px );" refresher-default-style="none" refresher-enabled refresher-threshold="40" upper-threshold="50" lower-threshold="100" enable-back-to-top enhanced refresher-triggered="{{refresherTriggered}}" show-scrollbar="{{true}}" bindscrolltolower="onNextPage" bindrefresherrefresh="onRefresh">
   <!-- 替换固有的刷新栏 -->
   <view slot="refresher" class="top-loading">
     <view class="top-tip">
@@ -32,60 +32,12 @@
           </view>
         </view>
       </view>
-      <image catchtap="onShowTypes" class="more-type" src="/static/images/more_type.png" mode="aspectFill" />
-    </view>
-
-    <!-- 功能栏 -->
-    <view class="center-menu">
-      <view class="menu-btn course-menu" catchtap="onGoCoursePage">
-        <view>
-          <view class="menu-title">
-            课程打分
-          </view>
-          <view class="menu-tip">
-            给选课评价
-          </view>
-        </view>
-        <van-image round fit="cover" height="40px" width="40px" lazy-load src="https://oss.kinda.info/image/202305151619494.png"></van-image>
-      </view>
-      <view class="menu-btn tree-hole-menu" catchtap="onGoTreeHolePage">
-        <view>
-          <view class="menu-title">
-            树洞
-          </view>
-          <view class="menu-tip">
-            说出你心底的烦恼
-          </view>
-        </view>
-        <van-image round fit="cover" height="40px" width="40px" lazy-load src="https://oss.weixiao.zuowu.cc/image/202307112114256.png"></van-image>
-      </view>
-      <view class="menu-btn cp-menu" catchtap="onGoCpPage">
-        <view>
-          <view class="menu-title">
-            一周CP
-          </view>
-          <view class="menu-tip">
-            邂逅你的灵魂伴侣
-          </view>
-        </view>
-        <van-image round fit="cover" height="40px" width="40px" lazy-load src="https://oss.kinda.info/image/202305181414068.png"></van-image>
-      </view>
-      <view class="menu-btn map-menu" catchtap="onGoMapPage">
-        <view>
-          <view class="menu-title">
-            校内地图
-          </view>
-          <view class="menu-tip">
-            快速导航位置
-          </view>
-        </view>
-        <van-image round fit="cover" height="40px" width="40px" lazy-load src="https://oss.weixiao.zuowu.cc/image/Map.png"></van-image>
-      </view>
+      <image catchtap="onShowLabels" class="more-type" src="/static/images/more_type.png" mode="aspectFill" />
     </view>
 
     <!-- ugc列表 -->
     <view class="ugc-list">
-      <block wx:for="{{ugcList.list}}" wx:key="id">
+      <block wx:for="{{postList.content}}" wx:key="id">
         <ugc showTop="{{false}}" showBottom="{{true}}" list-index="{{index}}" detail="{{item}}" bind:tapCommentIcon="onShowUgcCommentAction"></ugc>
       </block>
       <!-- 底部加载中 -->

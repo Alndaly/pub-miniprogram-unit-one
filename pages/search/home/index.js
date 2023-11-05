@@ -1,5 +1,4 @@
 import fileUtils from "../../../utils/file";
-import commonApi from "../../../api/common";
 import { formatTime } from "../../../utils/util";
 
 Page({
@@ -127,20 +126,6 @@ Page({
   async onShow(options) {
     const _this = this;
     let search_file = "/search/history.json";
-    // 获取热搜排行
-    let res = await commonApi.getRecentSearch();
-    _this.setData({
-      hotKey: res.data.data.filter((item) => {
-        return item.content ?? true;
-      }),
-    });
-    // 初始化搜索文件夹以及文件
-    await this.initSearchFile();
-    // 读取搜索记录
-    let res_read = await fileUtils.readFile(search_file);
-    this.setData({
-      searchHistory: JSON.parse(res_read.data),
-    });
   },
 
   async onPullDownRefresh() {

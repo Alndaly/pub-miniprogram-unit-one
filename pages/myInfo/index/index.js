@@ -7,32 +7,12 @@ import locationUtils from "../../../utils/location";
 Page({
   data: {},
 
-  goUScore(e) {
-    wx.$router.push("/pages/uScore/index/index");
-  },
-
   toCommented(e) {
     wx.$router.push("/pages/myInfo/beCommented/index");
   },
 
   toVoted(e) {
     wx.$router.push("/pages/myInfo/beVoted/index");
-  },
-
-  goAuth(e) {
-    if (this.data.myUserInfo.account_status === 2) {
-      wx.showModal({
-        title: "提醒",
-        content: "已经认证过啦，确定要再次认证吗？",
-        success(res) {
-          if (res.confirm) {
-            wx.$router.push("/pages/school/authentication/home/index");
-          }
-        },
-      });
-    } else {
-      wx.$router.push("/pages/school/authentication/home/index");
-    }
   },
 
   // 前往查看我关注的用户
@@ -62,8 +42,7 @@ Page({
     }
     this.setData({
       location: res_location,
-      myUserInfo: res_myUserInfo.data.data,
+      myUserInfo: res_myUserInfo.data,
     });
-    userApi.updateUserLocation(res_location.longitude, res_location.latitude);
   },
 });

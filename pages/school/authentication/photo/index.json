@@ -1,6 +1,0 @@
-{
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "van-uploader": "/components/uploader/index"
-  }
-}

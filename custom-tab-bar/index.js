@@ -48,22 +48,6 @@ Component({
         showPublishPopUp: false,
       });
     },
-    goPublishTreeHole(e) {
-      wx.navigateTo({
-        url: "/pages/publishV2/treeHole/index",
-      });
-      this.setData({
-        showPublishPopUp: false,
-      });
-    },
-    goPublishActivity(e) {
-      wx.navigateTo({
-        url: "/pages/publishV2/activity/index",
-      });
-      this.setData({
-        showPublishPopUp: false,
-      });
-    },
     goPublishUgc(e) {
       wx.navigateTo({
         url: "/pages/publishV2/ugc/index",

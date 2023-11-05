@@ -1,6 +1,6 @@
 // pages/userInfo/index.js
 const computedBehavior = require("miniprogram-computed").behavior;
-import ugcApi from "../../api/ugc";
+import ugcApi from "../../api/post";
 import userApi from "../../api/user";
 import { to } from "../../utils/util";
 

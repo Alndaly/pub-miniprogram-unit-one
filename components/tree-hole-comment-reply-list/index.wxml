@@ -1,4 +1,0 @@
-<!--components/tree-hole-comment-reply-list/index.wxml-->
-<view wx:for="{{replies}}" wx:key="id" class="reply-box">
-  <tree-hole-comment-reply-item topComment="{{topComment}}" style="width: 100%;" detail="{{item}}"></tree-hole-comment-reply-item>
-</view>

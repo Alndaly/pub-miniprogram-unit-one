@@ -7,7 +7,7 @@
     "van-divider": "/components/divider/index",
     "van-cell": "/components/cell/index",
     "van-cell-group": "/components/cell-group/index",
-    "mp-weixin": "/components/mp-html/index",
+    "mp-weixin": "mp-html",
     "van-image": "/components/image/index",
     "van-overlay": "/components/overlay/index"
   },

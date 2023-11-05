@@ -1,5 +1,5 @@
 // components/ugc-comment-reply-item/index.js
-import ugcApi from "../../api/ugc";
+import ugcApi from "../../api/post";
 import userUtils from "../../utils/user";
 import { to, replaceEmotions } from "../../utils/util";
 const computedBehavior = require("miniprogram-computed").behavior;

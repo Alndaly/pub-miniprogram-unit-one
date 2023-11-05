@@ -1,8 +1,0 @@
-{
-  "enablePullDownRefresh": false,
-  "disableScroll": true,
-  "usingComponents": {
-    "van-image": "/components/image/index",
-    "van-divider": "/components/divider/index"
-  }
-}

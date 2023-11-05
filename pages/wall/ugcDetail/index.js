@@ -1,16 +1,14 @@
-import ugcApi from "../../../api/ugc";
-import { removeHtmlTag, getParamsFromURL, to } from "../../../utils/util";
+import postApi from "../../../api/post";
+import { removeHtmlTag, to } from "../../../utils/util";
 import { promisify } from "../../../utils/promisify";
 import { generatePoster } from "../../../api/image";
 import { _ } from "../../../utils/underscore-min";
-import { subscribeNotify } from "../../../utils/subscribe";
 
 Page({
   data: {
     showCommentBox: false,
     commentInputFocusStatus: false,
-    order_by: "vote",
-    page: 0,
+    pageNum: 0,
     inputBottom: 0,
     commentContent: "",
     topComment: {
@@ -24,23 +22,23 @@ Page({
   async onVote(e) {
     const _this = this;
     this.setData({
-      "ugcDetail.is_vote": !_this.data.ugcDetail.is_vote,
-      "ugcDetail.vote": _this.data.ugcDetail.is_vote
-        ? _this.data.ugcDetail.vote - 1
-        : _this.data.ugcDetail.vote + 1,
+      "postDetail.isLike": !_this.data.postDetail.isLike,
+      "postDetail.vote": _this.data.postDetail.isLike
+        ? _this.data.postDetail.vote - 1
+        : _this.data.postDetail.vote + 1,
     });
     const [res, err] = await to(
-      ugcApi.voteUgc(this.data.ugcDetail.id, this.data.ugcDetail.is_vote)
+      postApi.voteUgc(this.data.postDetail.id, this.data.postDetail.isLike)
     );
     if (err) {
       this.setData({
-        "ugcDetail.is_vote": !_this.data.ugcDetail.is_vote,
-        "ugcDetail.vote": _this.data.ugcDetail.is_vote
-          ? _this.data.ugcDetail.vote + 1
-          : _this.data.ugcDetail.vote - 1,
+        "postDetail.isLike": !_this.data.postDetail.isLike,
+        "postDetail.vote": _this.data.postDetail.isLike
+          ? _this.data.postDetail.vote + 1
+          : _this.data.postDetail.vote - 1,
       });
       wx.showToast({
-        title: err.data.message,
+        title: err,
         icon: "error",
       });
     }
@@ -91,7 +89,7 @@ Page({
     if (this.data.topComment.id === -1) {
       // 评论帖子
       const [res_ugc_comment, err_ugc_comment] = await to(
-        ugcApi.commentToUgc(this.data.ugcDetail.id, this.data.commentContent)
+        postApi.commentToUgc(this.data.ugcDetail.id, this.data.commentContent)
       );
       if (err_ugc_comment) {
         wx.showToast({
@@ -103,7 +101,7 @@ Page({
     } else {
       // 评论评论
       const [res_comment_comment, err_comment_comment] = await to(
-        ugcApi.commentToComment(
+        postApi.commentToComment(
           this.data.topComment.id,
           this.data.currentComment.id,
           this.data.ugcDetail.id,
@@ -128,9 +126,6 @@ Page({
       },
       commentContent: "",
     });
-    const [res_subscribe, err_subscribe] = await subscribeNotify([
-      "EC-BKxpWTEdEBLNdMCvphbJaqRLFl8Ehok6xX9g5ZxI",
-    ]);
   },
 
   onClosePopUp(e) {
@@ -336,7 +331,7 @@ Page({
       title: "海报已保存到本地相册",
       icon: "none",
     });
-    ugcApi.shareUgc(this.data.ugcDetail.id, true);
+    postApi.shareUgc(this.data.ugcDetail.id, true);
   },
 
   showCommentOrder(e) {
@@ -372,7 +367,7 @@ Page({
           page: 0,
         });
         let [resUgcCommentList, errUgcCommentList] = await to(
-          ugcApi.getUgcComment(_this.data.ugcDetail.id, 0, 10, order_by, desc)
+          postApi.getUgcComment(_this.data.ugcDetail.id, 0, 10, order_by, desc)
         );
         _this.setData({
           ugcCommentList: resUgcCommentList.data.data,
@@ -392,7 +387,7 @@ Page({
         : _this.data.ugcDetail.vote + 1,
     });
     const [res, err] = await to(
-      ugcApi.voteUgc(this.data.ugcDetail.id, this.data.ugcDetail.is_vote)
+      postApi.voteUgc(this.data.ugcDetail.id, this.data.ugcDetail.is_vote)
     );
     // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
     if (err) {
@@ -415,7 +410,7 @@ Page({
       return;
     }
     let [resUgcCommentList, errUgcCommentList] = await to(
-      ugcApi.getUgcComment(
+      postApi.getUgcComment(
         this.data.ugcDetail.id,
         0,
         10,
@@ -445,22 +440,16 @@ Page({
     });
   },
 
-  updatePosition(inputBottom) {
-    this.setData({ inputBottom });
-  },
-
   onShow(e) {
     wx.onKeyboardHeightChange((res) => {
-      this.updatePosition(res.height);
+      this.setData({ inputBottom: res.height });
     });
   },
 
-  goUgcDetail(e) {
-    const { ugc } = e.currentTarget.dataset;
-    wx.$router.push("/pages/wall/ugcDetail/index", { ugc_id: ugc.id });
-  },
-
   async onLoad(options) {
+    this.setData({
+      options,
+    });
     wx.getSystemInfo({
       success: (e) => {
         let custom = wx.getMenuButtonBoundingClientRect();
@@ -479,29 +468,6 @@ Page({
       isLoading: true,
       refresherTriggered: true,
     });
-    const q = decodeURIComponent(options.q); // 获取到二维码原始链接内容
-    let parameters = {};
-    if (q) {
-      parameters = getParamsFromURL(q);
-    }
-    this.setData({
-      options,
-    });
-    if (parameters.id) {
-      this.setData({
-        options: { ugc_id: parameters.id },
-      });
-    } else {
-      this.setData({
-        options,
-      });
-    }
-    var pages = getCurrentPages(); //获取加载的页面
-    if (pages.length === 1) {
-      this.setData({
-        showMoreContent: true,
-      });
-    }
   },
 
   goBack() {
@@ -513,7 +479,7 @@ Page({
       isLoading: true,
     });
     const [res, err] = await to(
-      ugcApi.getUgcComment(
+      postApi.getUgcComment(
         this.data.options.ugc_id,
         this.data.page + 1,
         10,
@@ -542,10 +508,10 @@ Page({
   async onRefresh(e) {
     const { options } = this.data;
     const [resUgcDetail, errUgcDetail] = await to(
-      ugcApi.getUgcDetail(options.ugc_id)
+      postApi.getPostDetail(options.ugc_id)
     );
     const [resUgcCommentList, errUgcCommentList] = await to(
-      ugcApi.getUgcComment(
+      postApi.getUgcComment(
         options.ugc_id,
         0,
         10,
@@ -562,7 +528,7 @@ Page({
   },
 
   onShareTimeline(e) {
-    ugcApi.shareUgc(this.data.ugcDetail.id, true);
+    postApi.shareUgc(this.data.ugcDetail.id, true);
     let title = removeHtmlTag(this.data.ugcDetail.content);
     let query = `ugc_id=${this.data.ugcDetail.id}&user_id=${this.data.ugcDetail.user_info.user_id}`; // 分享后打开的页面
     return {
@@ -572,18 +538,13 @@ Page({
   },
 
   onShareAppMessage() {
-    ugcApi.shareUgc(this.data.ugcDetail.id, true);
-    let title = removeHtmlTag(this.data.ugcDetail.content);
-    let imageUrl = this.data.ugcDetail.attachments[0].link;
+    let title = removeHtmlTag(this.data.postDetail.content);
+    let imageUrl = this.data.postDetail.attachments[0].link;
     let path = `pages/wall/ugcDetail/index?ugc_id=${this.data.ugcDetail.id}&user_id=${this.data.ugcDetail.user_info.user_id}`;
     return {
       imageUrl,
       title,
       path,
     };
-  },
-
-  onGoMoreData(e) {
-    wx.$router.push("/pages/home/index");
   },
 });

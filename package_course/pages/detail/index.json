@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "van-divider": "/components/divider/index",
-    "van-image": "/components/image/index",
-    "course-comment-item": "/components/course-comment-item/index"
-  }
-}

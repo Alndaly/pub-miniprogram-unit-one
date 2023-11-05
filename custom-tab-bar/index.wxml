@@ -10,22 +10,10 @@
 <page-container round show="{{showPublishPopUp}}">
   <view class="bottom-pop-box">
     <view class="publish-types">
-      <view class="tree-hole publish-type" catchtap="goPublishTreeHole">
-        <van-image round fit="cover" height="40px" width="40px" lazy-load src="/static/images/globe_snow.png"></van-image>
-        <view>
-          树洞
-        </view>
-      </view>
       <view class="ugc publish-type" catchtap="goPublishUgc">
         <van-image fit="cover" height="40px" width="40px" lazy-load src="/static/images/xinjiantiezi.png"></van-image>
         <view>
           帖子
-        </view>
-      </view>
-      <view class="activity publish-type" catchtap="goPublishActivity">
-        <van-image fit="cover" height="40px" width="40px" lazy-load src="/static/images/activity.png"></van-image>
-        <view>
-          活动
         </view>
       </view>
     </view>

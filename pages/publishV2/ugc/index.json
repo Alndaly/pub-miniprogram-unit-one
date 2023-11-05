@@ -1,15 +1,11 @@
 {
   "usingComponents": {
     "van-field": "/components/field/index",
-    "van-checkbox": "/components/checkbox/index",
-    "van-checkbox-group": "/components/checkbox-group/index",
     "van-uploader": "/components/uploader/index",
     "van-divider": "/components/divider/index",
     "van-cell": "/components/cell/index",
     "van-cell-group": "/components/cell-group/index",
-    "mp-weixin": "/components/mp-html/index",
-    "van-image": "/components/image/index",
-    "van-overlay": "/components/overlay/index"
+    "van-image": "/components/image/index"
   },
   "enablePullDownRefresh": false
 }

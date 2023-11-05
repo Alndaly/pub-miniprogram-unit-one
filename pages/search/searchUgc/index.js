@@ -1,5 +1,5 @@
 // pages/search/searchUser/index.js
-import ugcApi from "../../../api/ugc";
+import ugcApi from "../../../api/post";
 import { to } from "../../../utils/util";
 
 Page({

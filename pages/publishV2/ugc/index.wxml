@@ -7,71 +7,54 @@
   <form class="form">
     <!-- 图片 -->
     <scroll-view class="images" scroll-x>
-      <van-uploader max-size='20971520' image-fit="aspectFill" bind:oversize="uploadOverSize" preview-size="110px" file-list="{{ ugc_attachments }}" max-count="9" sizeType="compressed" bind:click-preview="viewImage" bind:after-read="afterRead" bind:delete="delAttachment" multiple="true" />
+      <van-uploader max-size='20971520' image-fit="aspectFill" bind:oversize="uploadOverSize" preview-size="110px" file-list="{{ attachmentInfoList }}" max-count="9" sizeType="compressed" bind:click-preview="viewImage" bind:after-read="afterRead" bind:delete="delAttachment" multiple="true" />
     </scroll-view>
     <!-- 标题 -->
     <view class="title">
-      <textarea style="width: 100%;" auto-height model:value="{{ugc_title}}" placeholder="填写吸引人的标题，更容易收获赞哦" />
+      <textarea style="width: 100%;" auto-height model:value="{{title}}" placeholder="填写吸引人的标题，更容易收获赞哦" />
     </view>
     <view class="divider" />
     <!-- 内容详情 -->
     <view class="detail">
       <!-- 展示的ugc内容 -->
-      <editor id="ugc-editor" bindready="onUgcEditorReady" bindinput="inputUgcContent" value="{{ugc_detail}}" placeholder="这次分享点什么好呢..."></editor>
+      <editor id="ugc-editor" bindinput="inputPostContent" value="{{content}}" placeholder="这次分享点什么好呢..."></editor>
     </view>
     <!-- 标签 -->
     <view class="row">
       <view class="labels-box">
-        <view wx:for="{{label_info}}" wx:key="id" class="label" data-label="{{item}}" data-index="{{index}}" catchlongpress="deleteLabel">
+        <view wx:for="{{labelInfoList}}" wx:key="id" class="label" data-label="{{item}}" data-index="{{index}}" catchlongpress="onDeleteLabel">
           {{'#'+item.title}}
         </view>
-        <view class="label" catchtap="showLabelPopup">
+        <view class="label" catchtap="onShowLabelPopup">
           # 话题
         </view>
       </view>
-      <view class="ai-box">
-        <van-checkbox label-position="left" value="{{ use_gpt }}" icon-size="15px" bind:change="onChangeAiStatus">
-          <view class="text-sm">AI协助</view>
-        </van-checkbox>
-      </view>
-    </view>
-    <view class="cell-group">
-      <van-cell-group>
-        <van-cell title="{{location?location.name:'地理位置'}}" icon="location-o" is-link catchtap="getLocation" />
-      </van-cell-group>
     </view>
   </form>
 </view>
 <view class="bottom">
-  <view class="draft" catchtap="onSaveDraft">
-    <van-image fit="cover" height="25px" width="25px" src="https://oss.weixiao.zuowu.cc/image/202306291017403.png"></van-image>
-    <view>
-      保存草稿
-    </view>
-  </view>
   <view class="publish" style="background-color: #f00056;" catchtap="onPublish" hover-class="button-hover" hover-stay-time="100">
     发布
   </view>
 </view>
 
-
-<view wx:if="{{ showLabelList }}" class="box" style="top: {{CustomBar}}px; height: calc( 100vh - {{CustomBar}}px - {{keyboardHeight}}px );">
+<view wx:if="{{ showLabelPopup }}" class="box" style="top: {{CustomBar}}px; height: calc( 100vh - {{CustomBar}}px - {{keyboardHeight}}px );">
   <view class="input-box">
-    <input type="text" hold-keyboard="{{true}}" adjust-position="{{false}}" focus="{{labelSearchInputFocus}}" placeholder="搜索标签" model:value="{{label_search_key}}" bindinput="onChangeLabelSearchKey" />
+    <input type="text" hold-keyboard="{{true}}" adjust-position="{{false}}" focus="{{labelSearchInputFocus}}" placeholder="搜索标签" model:value="{{labelKeyword}}" bindinput="onChangeLabelSearchKey" />
   </view>
   <scroll-view class="label-list" bindscrolltolower="onNextLabelPage" refresher-enabled scroll-y bindrefresherrefresh="onLabelRefresh" refresher-triggered="{{labelRefresherTriggered}}" show-scrollbar="{{true}}">
-    <view wx:if="{{!labelData.name_exist && label_search_key!==''}}" class="label-item">
+    <view wx:if="{{!labelKeywordExistStatus && labelKeyword}}" class="label-item">
       <view>
-        #{{label_search_key}}
+        #{{labelKeyword}}
       </view>
-      <view class="text-grey text-sm add-box" catchtap="addNewLabel">
+      <view class="text-grey text-sm add-box" catchtap="onAddNewLabel">
         <view>
           增加该话题
         </view>
         <van-icon name="add-o" />
       </view>
     </view>
-    <view wx:for="{{labelData.label_list.list}}" wx:key="id" class="label-item" data-label="{{item}}" catchtap="addLabel">
+    <view wx:for="{{labels.content}}" wx:key="id" class="label-item" data-label="{{item}}" catchtap="onAddLabel">
       <view class="text-black">#{{item.title}}</view>
       <view class="text-grey text-sm">{{item.exposure}} 浏览</view>
     </view>
@@ -81,7 +64,7 @@
     </block>
   </scroll-view>
   <view class="label-finish-row {{keyboardHeight===0?'label-finish-row-safe-padding':'label-finish-row-no-safe-padding'}}">
-    <view class="label-finish-btn" catchtap="finishLabelChoose">
+    <view class="label-finish-btn" catchtap="onHideLabelPopup">
       取消
     </view>
   </view>

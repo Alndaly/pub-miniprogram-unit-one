@@ -1,13 +1,9 @@
 // components/ugc/index.js
 const computedBehavior = require("miniprogram-computed").behavior;
-import { emotionIcons } from "../../configs/emotion";
 import timeUtils from "../../utils/time";
-import ugcApi from "../../api/ugc";
+import postApi from "../../api/post";
 import userApi from "../../api/user";
-import cache from "../../utils/cache";
-import userUtils from "../../utils/user";
-import { replaceEmotions } from "../../utils/util";
-import { isNull, getPageUrl, checkMyUgc, to } from "../../utils/util";
+import { getPageUrl, to } from "../../utils/util";
 const app = getApp();
 
 Component({
@@ -16,22 +12,14 @@ Component({
     multipleSlots: true,
   },
   computed: {
-    computedContent(data) {
-      // 表情符号和对应图片URL的对象
-      const emoticons = emotionIcons;
-      return replaceEmotions(data?.detail?.content, emoticons);
-    },
     differTime(data) {
       let differ = "";
       if (data.detail) {
-        differ = timeUtils.differTime(data.detail.create_time);
+        differ = timeUtils.differTime(data.detail.createTime);
       } else if (data.ugcDetail) {
-        differ = timeUtils.differTime(data.ugcDetail.create_time);
+        differ = timeUtils.differTime(data.ugcDetail.createTime);
       }
       return differ;
-    },
-    isMy(data) {
-      return data.detail?.user_info?.id === cache.get("user_id");
     },
   },
 
@@ -65,62 +53,13 @@ Component({
       wx.$router.push(`/pages/userInfo/index`, { user_id: user_info.id });
     },
     nothing(e) {},
-    contentLinkTaped(e) {
-      console.log(e);
-    },
     goLabel(e) {
       const label_id = e.currentTarget.dataset.label.id;
       wx.$router.push(`/pages/wall/labelUgc/index`, { label_id: label_id });
     },
-    async onComment(e) {
-      if (!wx.$user.checkUserAbility("comment")) {
-        wx.showModal({
-          title: "提醒",
-          content:
-            "尚未通过校友认证，需要通过答题等方式获取评论等权限，现在去认证吗？",
-          success(res) {
-            if (res.confirm) {
-              wx.$router.push("/pages/school/authentication/home/index");
-            }
-          },
-        });
-        return;
-      }
-      if (isNull(this.data.commentContent)) {
-        wx.showModal({
-          title: "提醒",
-          showCancel: false,
-          content: "评论内容不能为空哦",
-        });
-        return;
-      }
-      // 此处增加交互，防止多次重复发送评论
-      wx.showLoading({
-        title: "提交中...",
-      });
-      const [res_comment, err_comment] = await to(
-        ugcApi.commentToUgc(this.data.detail.id, this.data.commentContent)
-      );
-      if (res_comment) {
-        wx.showToast({
-          title: "提交成功",
-        });
-      } else {
-        wx.showToast({
-          title: err_comment.data.message,
-          icon: "error",
-        });
-      }
-      wx.hideLoading({
-        success: (res) => {},
-      });
-      this.setData({
-        commentContent: "",
-      });
-    },
     // 浏览ugc的图片
     viewImage(e) {
-      let urls = this.data.detail.attachments.map((item) => {
+      let urls = this.data.detail.attachmentList.map((item) => {
         if (item.type === "image") {
           return item.link;
         }
@@ -131,45 +70,28 @@ Component({
       });
     },
 
-    // 打开内置地图查看位置
-    onOpenLocation() {
-      wx.openLocation({
-        latitude: this.data.detail.location.latitude,
-        longitude: this.data.detail.location.longitude,
-        scale: 13,
-      });
-    },
-
     // 点赞ugc
     async onVote() {
-      if (!userUtils.hasSignUp()) {
-        wx.showModal({
-          title: "提醒",
-          showCancel: false,
-          content: "请先登陆哦",
-        });
-        return;
-      }
       const _this = this;
       this.setData({
-        "detail.is_vote": !_this.data.detail.is_vote,
-        "detail.vote": _this.data.detail.is_vote
+        "detail.isLike": !_this.data.detail.isLike,
+        "detail.vote": _this.data.detail.isLike
           ? _this.data.detail.vote - 1
           : _this.data.detail.vote + 1,
       });
       const [res, err] = await to(
-        ugcApi.voteUgc(this.properties.detail.id, this.data.detail.is_vote)
+        postApi.likePost(this.properties.detail.id)
       );
       // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
       if (err) {
         this.setData({
-          "detail.is_vote": !_this.data.detail.is_vote,
-          "detail.vote": _this.data.detail.is_vote
+          "detail.isLike": !_this.data.detail.isLike,
+          "detail.vote": _this.data.detail.isLike
             ? _this.data.detail.vote + 1
             : _this.data.detail.vote - 1,
         });
         wx.showToast({
-          title: res.data.message || err.data.message,
+          title: err,
           icon: "error",
         });
       }
@@ -256,7 +178,7 @@ Component({
                       title: "稍等哦",
                     });
                     let [res_del_ugc, err_del_ugc] = await to(
-                      ugcApi.delUgc(ugc.id)
+                      postApi.deletePost(ugc.id)
                     );
                     if (res_del_ugc.data.code == "20000") {
                       wx.showToast({

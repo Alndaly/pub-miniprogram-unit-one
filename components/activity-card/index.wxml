@@ -1,6 +1,0 @@
-<!--components/activity-card/index.wxml-->
-<view class="center" style="width: 100%; height: {{height}}px; background-color: #FF1744;align-items: center;justify-content: center;">
-  <view class="center" style="width: 60px; height: 60px; border-radius: 30px; background-color: white; color: black;align-items: center;justify-content: center;">
-    {{index}}
-  </view>
-</view>

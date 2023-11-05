@@ -4,6 +4,27 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/publishV2/ugc/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/myInfo/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/wall/ugcDetail/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/wall/labelUgc/index",
           "query": "label_id=63",
           "launchMode": "default",

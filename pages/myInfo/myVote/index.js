@@ -1,5 +1,5 @@
 // pages/myInfo/myPublish/index.js
-import ugcApi from "../../../api/ugc";
+import ugcApi from "../../../api/post";
 import { _ } from "../../../utils/underscore-min";
 import { to } from "../../../utils/util";
 

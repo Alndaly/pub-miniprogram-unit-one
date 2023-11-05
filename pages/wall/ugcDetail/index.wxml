@@ -3,9 +3,9 @@
   <view slot="left">
     <view class="nav-left">
       <van-image catch:tap="goBack" round height="1.5rem" width="1.5rem" fit="cover" lazy-load src="/static/images/back_black.png" />
-      <view catch:tap="showUserInfo" class="user-info" wx:if="{{ugcDetail}}">
-        <van-image round height="2rem" width="2rem" fit="cover" lazy-load src="{{ugcDetail.user_info.avatar}}" />
-        <view>{{ugcDetail.user_info.nickname}}</view>
+      <view catch:tap="showUserInfo" class="user-info" wx:if="{{postDetail}}">
+        <van-image round height="2rem" width="2rem" fit="cover" lazy-load src="{{postDetail.userInfo.avatar}}" />
+        <view>{{postDetail.userInfo.nickname}}</view>
       </view>
     </view>
   </view>
@@ -16,7 +16,6 @@
   <view slot="refresher" class="top-loading">
     <van-image height="100%" width="100vw" fit="cover" lazy-load src="https://oss.kinda.info/image/202304271351492.gif" />
   </view>
-  <ugc wx:if="{{ugcDetail}}" detail="{{ugcDetail}}" isShowTime showMore="true"></ugc>
   <view class="full-divider"></view>
   <view id="comment">
     <ugc-comment-item bind:tapComment="onFocusCommentToCommentInput" wx:for="{{ugcCommentList}}" wx:key="id" commentItem="{{item}}"></ugc-comment-item>
@@ -32,22 +31,22 @@
     说点什么...
   </view>
   <view class="operate-item" catch:tap="onVote">
-    <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/{{ugcDetail.is_vote?'like_full':'like'}}.png"></van-image>
+    <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/{{postDetail.isLike?'like_full':'like'}}.png"></van-image>
     {{ugcDetail.vote?ugcDetail.vote:"点赞"}}
   </view>
   <view class="operate-item" catch:tap="onComment">
     <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/comment.png"></van-image>
-    {{ugcDetail.comment?ugcDetail.comment:"评论"}}
+    {{postDetail.comment?ugcDetail.comment:"评论"}}
   </view>
   <view class="operate-item" catch:tap="onShowSharePopup">
     <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/share.png"></van-image>
-    {{ugcDetail.share?ugcDetail.share:"分享"}}
+    分享
   </view>
 </view>
 
 <view wx:if="{{showCommentBox}}" class="comment-box" style="bottom: {{inputBottom}}px;">
   <view class="comment-input">
-    <input type="text" adjust-position="false" confirm-type="send" bindconfirm="submitComment" model:value="{{commentContent}}" focus="{{commentInputFocusStatus}}" bindblur="unFocusCommentInput" placeholder="{{currentComment.id!==-1?'回复：'+currentComment.user_info.nickname:'说点什么...'}}" />
+    <input type="text" adjust-position="false" confirm-type="send" bindconfirm="submitComment" model:value="{{commentContent}}" focus="{{commentInputFocusStatus}}" bindblur="unFocusCommentInput" placeholder="{{currentComment.id!==-1?'回复：'+currentComment.userInfo.nickname:'说点什么...'}}" />
   </view>
   <view>
     <van-image catch:tap="onSendImageComment" fit="contain" height="30px" width="30px" src="/static/images/shiliangzhinengduixiang.png" />

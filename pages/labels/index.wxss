@@ -1,0 +1,51 @@
+/* pages/labels/index.wxss */
+.whole {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.input-box {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f2f2f2;
+}
+
+.list-box {
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  overflow: auto;
+  flex: 1;
+}
+
+.label {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 5px;
+  border-radius: 20px;
+  font-size: 10px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.label-title {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.label-box {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #f2f2f2;
+}

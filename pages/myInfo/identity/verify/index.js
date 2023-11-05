@@ -3,7 +3,6 @@ import { to } from "../../../../utils/util";
 import fileApi from "../../../../api/file";
 import userApi from "../../../../api/user";
 import { _ } from "../../../../utils/underscore-min";
-import organizationApi from "../../../../api/organization";
 import timeUtils from "../../../../utils/time";
 import { subscribeNotify } from "../../../../utils/subscribe";
 import user from "../../../../api/user";

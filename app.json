@@ -1,37 +1,5 @@
 {
-  "subPackages": [
-    {
-      "root": "package_course",
-      "pages": [
-        "pages/add/index",
-        "pages/comment/index",
-        "pages/detail/index",
-        "pages/home/index",
-        "pages/search/result/index"
-      ]
-    },
-    {
-      "root": "package_cp",
-      "pages": [
-        "pages/index/index",
-        "pages/info/edit/index",
-        "pages/info/update/index"
-      ]
-    },
-    {
-      "root": "package_map",
-      "pages": [
-        "pages/home/index"
-      ]
-    },
-    {
-      "root": "package_tree_hole",
-      "pages": [
-        "pages/index/index",
-        "pages/list/index"
-      ]
-    }
-  ],
+  "subPackages": [],
   "pages": [
     "pages/home/index",
     "pages/myInfo/index/index",
@@ -45,47 +13,26 @@
     "pages/myInfo/signature/index",
     "pages/myInfo/userName/index",
     "pages/webView/index",
-    "pages/settings/index",
-    "pages/school/teacher/add/index",
     "pages/myInfo/myPublish/index",
     "pages/myInfo/myVote/index",
     "pages/myInfo/myCollect/index",
     "pages/myInfo/beVoted/index",
-    "pages/error/index",
-    "pages/types/index",
+    "pages/labels/index",
     "pages/search/searchUgc/index",
     "pages/search/searchUser/index",
-    "pages/search/searchActivity/index",
-    "pages/activity/home/index",
-    "pages/activity/detail/index",
-    "pages/activity/timeLine/index",
-    "pages/uScore/index/index",
-    "pages/uScore/exchange/index",
-    "pages/uScore/lucky/index",
     "pages/myInfo/beCommented/index",
-    "pages/uScore/topUp/index",
     "pages/publishV2/ugc/index",
-    "pages/publishV2/treeHole/index",
-    "pages/activity/users/index",
     "pages/publishV2/update/index",
     "pages/publish/fakeIndex/index",
     "pages/myInfo/identity/index/index",
     "pages/myInfo/identity/verify/index",
-    "pages/organization/add/index",
     "pages/myInfo/identity/detail/index",
-    "pages/myInfo/identity/reSend/index",
     "pages/myInfo/qq/index",
     "pages/myInfo/wechat/index",
-    "pages/publishV2/activity/index",
-    "pages/publishV2/activity/location-input",
-    "pages/myInfo/myActivity/index",
     "pages/wall/labelUgc/index",
     "pages/wall/ugcDetail/index",
     "pages/search/result/index",
-    "pages/search/home/index",
-    "pages/school/authentication/success/index",
-    "pages/school/authentication/photo/index",
-    "pages/school/authentication/home/index"
+    "pages/search/home/index"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -124,14 +71,8 @@
     "borderStyle": "white",
     "selectedColor": "#770000"
   },
-  "requiredBackgroundModes": [
-    "audio",
-    "location"
-  ],
-  "requiredPrivateInfos": [
-    "chooseAddress",
-    "getLocation"
-  ],
+  "requiredBackgroundModes": ["audio", "location"],
+  "requiredPrivateInfos": ["chooseAddress", "getLocation"],
   "permission": {
     "scope.userLocation": {
       "desc": "你的位置信息将用于社交位置分享"
@@ -142,16 +83,7 @@
     "van-icon": "/components/icon/index"
   },
   "sitemapLocation": "sitemap.json",
-  "plugins": {
-    "chooseLocation": {
-      "version": "1.0.10",
-      "provider": "wx76a9a06e5b4e693e"
-    },
-    "tencentvideo": {
-      "version": "2.3.10",
-      "provider": "wxa75efa648b60994b"
-    }
-  },
+  "plugins": {},
   "useExtendedLib": {
     "weui": true
   }

@@ -1,7 +1,0 @@
-<!--pages/uScore/lucky/index.wxml-->
-<cu-custom isBack>
-  <view slot="backText">
-    返回
-  </view>
-  <view slot="content" style="color: white; font-weight: 800;">积分抽奖</view>
-</cu-custom>

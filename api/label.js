@@ -1,10 +1,10 @@
 import { service } from "../utils/service";
-import { URL } from "../configs/base";
+import { BaseConfig } from "../configs/base";
 
 export default {
   addNewLabel(title) {
     return service({
-      url: URL.api_url + "/post/label/add",
+      url: BaseConfig.API_URL + "/label/add",
       data: {
         title,
       },
@@ -12,12 +12,40 @@ export default {
     });
   },
   // 获取标签的信息
-  getLabelInfo(label_id) {
+  getLabelInfo(id) {
     return service({
-      url: URL.api_url + "/get/label/info",
+      url: BaseConfig.API_URL + "/label/info",
       data: {
-        label_id,
+        id,
       },
+      method: "post",
+    });
+  },
+  checkLabelExistStatus(keyword) {
+    return service({
+      url: BaseConfig.API_URL + "/label/exist",
+      data: {
+        keyword,
+      },
+      method: "post",
+    });
+  },
+  getLabels(keyword, pageNum, pageSize = 20) {
+    return service({
+      url: BaseConfig.API_URL + "/label/list",
+      data: {
+        keyword,
+        pageNum,
+        pageSize,
+      },
+      method: "post",
+    });
+  },
+  getTopLabels() {
+    return service({
+      url: BaseConfig.API_URL + "/label/top",
+      data: {},
+      method: "post",
     });
   },
 };

@@ -1,362 +1,177 @@
 import { service } from "../utils/service";
-import { URL } from "../configs/base";
+import { BaseConfig } from "../configs/base";
 
 export default {
-  getUserIdentityDetail(id) {
-    return service({
-      url: URL.api_url + "/post/user/identity/detail",
-      data: {
-        id,
-      },
-      method: "POST",
-    });
-  },
-  updateUserLocation(longitude, latitude) {
-    return service({
-      url: URL.api_url + "/post/user/location/update",
-      data: {
-        latitude,
-        longitude,
-      },
-      method: "POST",
-    });
-  },
-  updateUserIdentity(id, organization_id, attachments, name, description) {
-    return service({
-      url: URL.api_url + "/post/user/identity/update",
-      data: {
-        id,
-        organization_id,
-        attachments,
-        name,
-        description,
-      },
-      method: "POST",
-    });
-  },
-  addUserIdentity(organization_id, attachments, name, description) {
-    return service({
-      url: URL.api_url + "/post/user/identity/add",
-      data: {
-        organization_id,
-        attachments,
-        name,
-        description,
-      },
-      method: "POST",
-    });
-  },
-  deleteUserIdentity(id) {
-    return service({
-      url: URL.api_url + "/post/user/identity/delete",
-      data: {
-        id,
-      },
-      method: "POST",
-    });
-  },
-  getUserIdentity(page_num, page_size) {
-    return service({
-      url: URL.api_url + "/post/user/identity",
-      data: {
-        page_num,
-        page_size,
-      },
-      method: "POST",
-    });
-  },
-  // 更新所在地
-  changeMyLocation(newLocation) {
-    const [province, city, district] = newLocation;
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        province,
-        city,
-        district,
-      },
-      method: "POST",
-    });
-  },
-
-  changeMyQq(newQq) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        qq: newQq,
-      },
-      method: "POST",
-    });
-  },
-
-  changeMyWeChat(newWeChat) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        wechat: newWeChat,
-      },
-      method: "POST",
-    });
-  },
-
-  getUserProcess() {
-    return service({
-      url: URL.api_url + "/post/user/process",
-      data: {},
-      method: "POST",
-    });
-  },
-
-  userUScoreRecord(page_num, page_size = 10) {
-    return service({
-      url: URL.api_url + "/post/user/we-score-record",
-      data: {
-        page_num,
-        page_size,
-      },
-      method: "POST",
-    });
-  },
-
-  getUserIndex() {
-    return service({
-      url: URL.api_url + "/post/user/index",
-      data: {},
-      method: "POST",
-    });
-  },
-
-  // 更新背景
-  changeMyBgImage(bg_image) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        bg_image,
-      },
-      method: "POST",
-    });
-  },
-
-  // 更新生日
-  changeMyBirthday(birthday) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        birthday,
-      },
-      method: "POST",
-    });
-  },
-
   // 获取我关注的用户列表
-  getMyFocusedUser(page, offset = 20) {
+  getMyFollowedUser(pageNum, pageSize = 20) {
     return service({
-      url: URL.api_url + "/post/user/focus",
+      url: BaseConfig.API_URL + "/user/myFollow",
       data: {
-        page: page,
-        offset: offset,
+        pageNum,
+        pageSize,
       },
       method: "POST",
     });
   },
-
   // 获取关注我的用户列表
-  getMyFans(page, offset = 20) {
+  getMyFans(pageNum, pageSize = 20) {
     return service({
-      url: URL.api_url + "/post/user/focused",
+      url: BaseConfig.API_URL + "/user/myFan",
       data: {
-        page: page,
-        offset: offset,
+        pageNum,
+        pageSize,
       },
       method: "POST",
     });
   },
-
-  checkIsNewUser(code) {
+  // 根据用户ID获取用户的帖子列表
+  getUserPost(userId, keyword, pageNum, pageSize = 10) {
     return service({
-      url: URL.api_url + "/post/user/isNewUser",
+      url: BaseConfig.API_URL + "/user/post",
       data: {
-        code,
+        userId,
+        keyword,
+        pageNum,
+        pageSize,
+      },
+    });
+  },
+  // 关注某一个用户
+  followUser(id) {
+    return service({
+      url: BaseConfig.API_URL + "/user/follow",
+      data: {
+        id,
       },
       method: "POST",
     });
   },
-
-  // 更新用户session_key
-  updateUserSessionKey(code) {
+  // 取消关注某一个用户
+  unFollowUser(id) {
     return service({
-      url: URL.api_url + "/post/user/session_key/update",
+      url: BaseConfig.API_URL + "/user/unFollow",
       data: {
-        code,
+        id,
       },
       method: "POST",
     });
   },
-
+  // 刷新token
+  refreshUserToken(refreshToken) {
+    return service({
+      url: BaseConfig.API_URL + "/user/token/refresh",
+      data: {
+        refreshToken,
+      },
+      method: "POST",
+    });
+  },
   // 用户注册
-  initUser(jsCode) {
+  getUserToken(jsCode) {
     return service({
-      url: URL.api_url + "/post/user/create",
-      method: "POST",
+      url: BaseConfig.API_URL + "/user/token",
       data: {
         code: jsCode,
       },
       method: "POST",
     });
   },
-
   // 获取我的个人信息
   getMyUserInfo(e) {
     return service({
-      url: URL.api_url + "/post/user/login",
+      url: BaseConfig.API_URL + "/user/myInfo",
       data: {},
       method: "POST",
     });
   },
-
-  // 获取别人对我的收藏记录
-  getCollectedMine(page, offset = 20) {
-    return service({
-      url: URL.api_url + "/post/user/my/collected",
-      data: {
-        page,
-        offset,
-      },
-      method: "POST",
-    });
-  },
-
-  // 获取别人对我的点赞记录
-  getVotedMine(page_num, page_size = 10) {
-    return service({
-      url: URL.api_url + "/post/user/my/voted",
-      data: {
-        page_num: page_num - 1,
-        page_size,
-      },
-      method: "POST",
-    });
-  },
-
-  // 获取别人对我的评论记录
-  getCommentedMine(page_num, page_size = 10) {
-    return service({
-      url: URL.api_url + "/post/user/my/commented",
-      data: {
-        page_num: page_num - 1,
-        page_size,
-      },
-      method: "POST",
-    });
-  },
-
-  // 关注某一个用户
-  focusUser(user_id) {
-    return service({
-      url: URL.api_url + "/post/user/action/focus",
-      data: {
-        user_id,
-        status: true,
-      },
-      method: "POST",
-    });
-  },
-
-  // 取消关注某一个用户
-  unFocusUser(user_id) {
-    return service({
-      url: URL.api_url + "/post/user/action/focus",
-      data: {
-        user_id,
-        status: false,
-      },
-      method: "POST",
-    });
-  },
-
   // 根据用户id获取用户个人信息
-  getUserInfoById(user_id) {
+  getUserInfoById(id) {
     return service({
-      url: URL.api_url + "/get/user/info",
+      url: BaseConfig.API_URL + "/user/detail",
       data: {
-        id: user_id,
+        id,
       },
     });
   },
-
-  // 更改我的性别
-  changeMyGender(gender) {
+  // 搜索用户
+  searchUser(keyword, pageNum, pageSize = 10) {
     return service({
-      url: URL.api_url + "/post/user/info/change",
+      url: BaseConfig.API_URL + "/user/search",
       data: {
-        gender,
+        keyword,
+        pageNum,
+        pageSize,
       },
-      method: "POST",
     });
   },
-
-  changeMyInfo(avatar, nickname) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        avatar,
-        nickname,
-      },
-      method: "POST",
-    });
-  },
-
-  // 更改我的头像
-  changeMyAvatar(avatar) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        avatar,
-      },
-      method: "POST",
-    });
-  },
-
-  // 更改我的昵称
-  changeMyUserName(nickname) {
-    return service({
-      url: URL.api_url + "/post/user/info/change",
-      data: {
-        nickname,
-      },
-      method: "POST",
-    });
-  },
-
   // 更改个性签名
   changeMySignature(signature) {
     return service({
-      url: URL.api_url + "/post/user/info/change",
+      url: BaseConfig.API_URL + "/user/update",
       data: {
-        signature,
+        newData: {
+          signature,
+        },
       },
       method: "POST",
     });
   },
-
-  // 搜索用户
-  searchUser(key, page, offset = 10) {
+  changeMyQq(qq) {
     return service({
-      url: URL.api_url + "/get/user",
+      url: BaseConfig.API_URL + "/user/update",
       data: {
-        key,
-        page,
-        offset,
+        newData: {
+          qq,
+        },
       },
+      method: "POST",
     });
   },
-
-  // 用户是否已关注公众号
-  getFocusOfficialAccountStatus() {
+  changeMyWeChat(wechat) {
     return service({
-      url: URL.api_url + "/get/user/official_account/focus",
-      data: {},
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newData: {
+          wechat,
+        },
+      },
+      method: "POST",
     });
   },
-
+  // 更改我的性别
+  changeMyGender(gender) {
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newData: {
+          gender,
+        },
+      },
+      method: "POST",
+    });
+  },
+  // 更改我的头像
+  changeMyAvatar(avatar) {
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newData: {
+          avatar,
+        },
+      },
+      method: "POST",
+    });
+  },
+  // 更改我的昵称
+  changeMyNickname(nickname) {
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newData: {
+          nickname,
+        },
+      },
+      method: "POST",
+    });
+  },
 };

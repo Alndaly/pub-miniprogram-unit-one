@@ -1,1 +1,0 @@
-"use strict";module.exports={copyByLongPress:!1,showLanguageName:!0,showLineNumber:!1};

@@ -23,9 +23,6 @@
       <view class="search-kind" data-kind="ugc" catchtap="goSearchKindPage">
         搜帖子
       </view>
-      <view class="search-kind" data-kind="activity" catchtap="goSearchKindPage">
-        搜活动
-      </view>
     </view>
 
   </view>

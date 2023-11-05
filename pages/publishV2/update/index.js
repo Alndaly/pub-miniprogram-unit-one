@@ -1,10 +1,9 @@
-const chooseLocation = requirePlugin("chooseLocation");
 const computedBehavior = require("miniprogram-computed").behavior;
 import { _ } from "../../../utils/underscore-min";
 import plugins from "../../../configs/plugins";
 import locationUtil from "../../../utils/location";
 import { subscribeNotify } from "../../../utils/subscribe";
-import ugcApi from "../../../api/ugc";
+import ugcApi from "../../../api/post";
 import labelApi from "../../../api/label";
 import userApi from "../../../api/user";
 import fileApi from "../../../api/file";
@@ -95,28 +94,6 @@ Page({
   onCloseLabel(e) {
     this.setData({
       showLabelList: false,
-    });
-  },
-
-  async getLocation(e) {
-    const key = plugins.PLUGIN_MAP_KEY; //使用在腾讯位置服务申请的key
-    const referer = "校嘟嘟"; //调用插件的app的名称
-    let [res, err] = await to(locationUtil.getLocation());
-    if (err) {
-      wx.showToast({
-        title: "请先通过右上角三点，选取【设置】打开地理权限",
-        icon: "none",
-      });
-      return;
-    }
-    const location = JSON.stringify({
-      latitude: res.latitude,
-      longitude: res.longitude,
-    });
-    wx.$router.push(`plugin://chooseLocation/index`, {
-      key,
-      referer,
-      location,
     });
   },
 
@@ -240,11 +217,6 @@ Page({
       },
     });
     const { label_search_key } = this.data;
-    const location = chooseLocation.getLocation(); // 如果点击确认选点按钮，则返回选点结果对象，否则返回null
-    location &&
-      this.setData({
-        location,
-      });
     let res_label = await ugcApi.getLabelData(label_search_key, 0, 20);
     const myUserInfo = await userApi.getMyUserInfo();
     this.setData({

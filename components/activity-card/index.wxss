@@ -1,4 +1,0 @@
-/* components/activity-card/index.wxss */
-:host {
-  display: block;
-}
