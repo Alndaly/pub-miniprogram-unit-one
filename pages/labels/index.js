@@ -9,37 +9,44 @@ Page({
   data: {
     isLoading: false,
     labelRefresherTriggered: false,
-    keyword: "",
+    labelKeyword: "",
     pageNum: 0,
-    labels: {
-      list: [],
-      total_size: 0,
-    },
+    labels: null,
   },
 
-  onChangeLabelSearchKey(e) {
-    const { label_search_key } = this.data;
+  onChangeLabelSearchKey() {
     this.setData({
       labelRefresherTriggered: true,
     });
-    ugcApi
-      .getLabelData(label_search_key, 0, 20)
-      .then((value) => {
-        this.setData({
-          label_list: value.data.data.label_list,
-          labelRefresherTriggered: false,
-          page_num: 0,
-        });
-      })
-      .catch((err) => {
-        wx.showToast({
-          title: "出错啦",
-          icon: "error",
-        });
-        this.setData({
-          labelRefresherTriggered: false,
-        });
+  },
+
+  async onLabelRefresh() {
+    const { labelKeyword } = this.data;
+    this.setData({
+      labelRefresherTriggered: true,
+      labelPageNum: 0,
+    });
+    const [res_labels, err_labels] = await to(
+      labelApi.getLabels(labelKeyword, 0)
+    );
+    const [res_label_exist, err_label_exist] = await to(
+      labelApi.checkLabelExistStatus(labelKeyword, 0)
+    );
+    if (err_labels || err_label_exist) {
+      wx.showToast({
+        title: "获取标签失败",
+        icon: "error",
       });
+      this.setData({
+        labelRefresherTriggered: false,
+      });
+      return;
+    }
+    this.setData({
+      labelRefresherTriggered: false,
+      labelKeywordExistStatus: res_label_exist.data,
+      labels: res_labels.data,
+    });
   },
 
   /**
@@ -56,25 +63,10 @@ Page({
           Custom: custom,
         });
       },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
-      },
     });
-    wx.showLoading({
-      title: "加载中",
-    });
-    let [res_label, err_label] = await to(ugcApi.getLabelData("", 0, 20));
-    if (err_label) {
-      wx.showToast({
-        title: "出错啦",
-        icon: "error",
-      });
-      return;
-    }
     this.setData({
-      label_list: res_label.data.data.label_list,
+      labelRefresherTriggered: true,
     });
-    wx.hideLoading();
   },
 
   goLabelPage(e) {
@@ -82,50 +74,28 @@ Page({
     wx.$router.push("/pages/wall/labelUgc/index", { label_id: label.id });
   },
 
-  async onLabelRefresh() {
-    const { label_search_key } = this.data;
-    let [res_label, err_label] = await to(
-      ugcApi.getLabelData(label_search_key, 0, 20)
-    );
-    if (err_label) {
-      wx.showToast({
-        title: "出错啦",
-        icon: "error",
-      });
-      return;
-    }
-    this.setData({
-      label_list: res_label.data.data.label_list,
-      page_num: 0,
-      labelRefresherTriggered: false,
-    });
-  },
-
   async onNextLabelPage() {
-    const { page_num, label_list, label_search_key } = this.data;
     this.setData({
-      isLoading: true,
+      isLabelLoading: true,
     });
-    let [res_label, err_label] = await to(
-      ugcApi.getLabelData(label_search_key, page_num + 1, 20)
+    const { labels, labelPageNum, labelKeyword } = this.data;
+    const [res, err] = await to(
+      labelApi.getLabels(labelKeyword, labelPageNum + 1)
     );
-    if (err_label) {
-      wx.showToast({
-        title: "出错啦",
-        icon: "error",
-      });
+    if (err) {
       this.setData({
-        isLoading: false,
+        isLabelLoading: false,
       });
       return;
     }
     this.setData({
-      label_list: {
-        list: [...label_list.list, ...res_label.data.data.label_list.list],
-        total_size: res_label.data.data.label_list.total_size,
+      labels: {
+        ...res.data,
+        content: [...labels.content, ...res.data.content],
       },
-      page_num: page_num + 1,
-      isLoading: false,
+      labelPageNum:
+        res.data.content.length > 0 ? labelPageNum + 1 : labelPageNum,
+      isLabelLoading: false,
     });
   },
 });

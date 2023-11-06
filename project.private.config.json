@@ -4,6 +4,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/labels/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/publishV2/ugc/index",
           "query": "",
           "launchMode": "default",
