@@ -33,9 +33,7 @@
   </form>
 </view>
 <view class="bottom">
-  <view class="publish" style="background-color: #f00056;" catchtap="onPublish" hover-class="button-hover" hover-stay-time="100">
-    发布
-  </view>
+  <button type="primary" class="publish" loading="{{publishStatus}}" catchtap="onPublishPost">发布</button>
 </view>
 
 <view wx:if="{{ showLabelPopup }}" class="box" style="top: {{CustomBar}}px; height: calc( 100vh - {{CustomBar}}px - {{keyboardHeight}}px );">

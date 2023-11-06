@@ -32,18 +32,18 @@ async function updateLocalUploadKey(params) {
 
 export default {
   // 上传图片
-  async uploadImage(file, ...params) {
+  async uploadImage(filePath, ...params) {
     await updateLocalUploadKey();
-    file.name = `${new Date().getTime()}${uuid(12, 16)}${
+    const fileName = `${new Date().getTime()}${uuid(12, 16)}${
       params.index ? params.index : ""
-    }.${file.url.split(".")[1]}`;
+    }.${filePath.split(".")[1]}`;
     return new Promise((resolve, reject) => {
       const uploadTask = wx.uploadFile({
         url: `https://${BaseConfig.OSS_BUCKET}.${BaseConfig.OSS_REGION}.aliyuncs.com`,
-        filePath: file.url,
+        filePath: filePath,
         name: "file", // 必须填file。
         formData: {
-          key: file.name,
+          key: fileName,
           policy: cache.get("policy"),
           OSSAccessKeyId: cache.get("OSSAccessKeyId"),
           signature: cache.get("signature"),
@@ -51,7 +51,7 @@ export default {
         success: (res) => {
           if (res.statusCode == "204") {
             resolve(
-              `https://${BaseConfig.OSS_BUCKET}.${BaseConfig.OSS_REGION}.aliyuncs.com/${file.name}`
+              `https://${BaseConfig.OSS_BUCKET}.${BaseConfig.OSS_REGION}.aliyuncs.com/${fileName}`
             );
           } else {
             reject("failed");

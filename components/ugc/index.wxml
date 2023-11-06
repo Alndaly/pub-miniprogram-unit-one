@@ -29,7 +29,7 @@
       <!-- 帖子图片 -->
       <view wx:if="{{detail.attachmentList&&detail.attachmentList.length!==0}}" class="images">
         <block wx:for="{{detail.attachmentList}}">
-          <van-image width="{{imageWidth}}" height="{{imageWidth}}" radius="5" catchtap="viewImage" data-current="{{item.link}}" wx:if="{{item.type==='image'}}" fit="cover" lazy-load src="{{item.link}}"></van-image>
+          <van-image width="{{imageWidth}}" height="{{imageWidth}}" radius="5" catchtap="viewImage" data-current="{{item.url}}" wx:if="{{item.type==='image'}}" fit="cover" lazy-load src="{{item.url}}"></van-image>
         </block>
       </view>
       <view class="labels" wx:if="{{detail.labelInfoList}}">

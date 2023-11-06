@@ -17,6 +17,7 @@ Page({
     labelPageNum: 0,
     labels: null,
     labelInfoList: [],
+    publishStatus: false,
   },
 
   onHideLabelPopup() {
@@ -43,14 +44,24 @@ Page({
     const { attachmentInfoList } = this.data;
     return new Promise((resolve, reject) => {
       fileApi
-        .uploadImage(file)
+        .uploadImage(file.thumb)
         .then((res) => {
-          attachmentInfoList[index].status = "success";
-          attachmentInfoList[index].url = res;
-          this.setData({
-            attachmentInfoList,
-          });
-          resolve(res);
+          wx.getImageInfo({
+            src: file.thumb,
+          })
+            .then((res_image) => {
+              attachmentInfoList[index].status = "success";
+              attachmentInfoList[index].url = res;
+              attachmentInfoList[index].width = res_image.width;
+              attachmentInfoList[index].height = res_image.height;
+              this.setData({
+                attachmentInfoList,
+              });
+              resolve(res);
+            })
+            .catch((err) => {
+              reject(err);
+            });
         })
         .catch((err) => reject(err));
     });
@@ -70,7 +81,7 @@ Page({
       attachmentInfoList: [...attachmentInfoList, ...fileList],
     });
     uploadTasks = fileList.map((item, index) => {
-      return this.uploadImage(item, index);
+      return this.uploadImage(item, attachmentInfoList.length + index);
     });
     Promise.all(uploadTasks)
       .then((res) => {
@@ -104,11 +115,11 @@ Page({
     const { attachmentInfoList } = this.data;
     let urls = [];
     urls = attachmentInfoList.map((item) => {
-      item.url;
+      item.thumb;
     });
     wx.previewImage({
       urls,
-      current: attachmentInfoList[e.detail.index].url,
+      current: attachmentInfoList[e.detail.index].thumb,
     });
   },
 
@@ -155,6 +166,32 @@ Page({
     const { labelInfoList } = this.data;
     labelInfoList.push(e.currentTarget.dataset.label);
     this.setData({ labelInfoList, showLabelPopup: false });
+  },
+
+  async onPublishPost(e) {
+    this.setData({
+      publishStatus: true,
+    });
+    const { labelInfoList, attachmentInfoList, title, content } = this.data;
+    const [res, err] = await to(
+      postApi.addPost(title, content, attachmentInfoList, labelInfoList)
+    );
+    if (err) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      this.setData({
+        sendingStatus: false,
+      });
+      return;
+    }
+    this.setData({
+      publishStatus: true,
+    });
+    wx.showToast({
+      title: "发布成功",
+    });
   },
 
   async onAddNewLabel(e) {

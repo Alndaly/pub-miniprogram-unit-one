@@ -118,7 +118,7 @@ Component({
     viewImage(e) {
       let urls = this.data.detail.attachments.map((item) => {
         if (item.type === "image") {
-          return item.link;
+          return item.url;
         }
       });
       wx.previewImage({

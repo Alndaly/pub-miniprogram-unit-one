@@ -61,7 +61,7 @@ Component({
     viewImage(e) {
       let urls = this.data.detail.attachmentList.map((item) => {
         if (item.type === "image") {
-          return item.link;
+          return item.url;
         }
       });
       wx.previewImage({
@@ -79,9 +79,7 @@ Component({
           ? _this.data.detail.vote - 1
           : _this.data.detail.vote + 1,
       });
-      const [res, err] = await to(
-        postApi.likePost(this.properties.detail.id)
-      );
+      const [res, err] = await to(postApi.likePost(this.properties.detail.id));
       // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
       if (err) {
         this.setData({
