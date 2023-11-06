@@ -1,10 +1,18 @@
 <!--pages/home/index.wxml-->
 <cu-custom>
   <view slot="left">
-    <view class="text-search" catchtap="goSearchPage">
-      <van-image height="25px" width="25px" fit="cover" lazy-load src="/static/images/search.png" />
-      搜索 Unit One
+    <view class="left">
+      <view class="text-search" catchtap="goSearchPage">
+        <van-image height="25px" width="25px" fit="cover" lazy-load src="/static/images/search.png" />
+        搜索 Unit One
+      </view>
+      <view>|</view>
+      <view class="type" catch:tap="onShowLabels">
+        <van-image height="25px" width="25px" fit="cover" lazy-load src="/static/images/change.png" />
+        全部帖子
+      </view>
     </view>
+
   </view>
 </cu-custom>
 
@@ -21,19 +29,6 @@
 
   <!-- 页面具体内容 -->
   <view class="page-content">
-    <!-- tab栏 -->
-    <view class="tabs-box">
-      <view class="tabs-box-container">
-        <view class="tabs" wx:for="{{tabs}}" wx:key="id">
-          <view class="tab-box" data-tab="{{item}}" catchtap="onChangeTab">
-            <view class="tab {{item.id===chosedTab.id?'chosed':''}}">
-              {{item.title}}
-            </view>
-          </view>
-        </view>
-      </view>
-      <image catchtap="onShowLabels" class="more-type" src="/static/images/more_type.png" mode="aspectFill" />
-    </view>
 
     <!-- ugc列表 -->
     <view class="ugc-list">

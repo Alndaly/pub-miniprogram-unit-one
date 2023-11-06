@@ -4,8 +4,23 @@ page {
   transform: translateZ(0);
 }
 
+.left {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.type {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #666;
+  gap: 5px;
+  font-size: 1rem;
+}
+
 .text-search {
-  font-family: "DouYu";
   display: flex;
   flex-direction: row;
   align-items: center;

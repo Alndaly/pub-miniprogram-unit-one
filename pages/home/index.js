@@ -12,7 +12,6 @@ Page({
     topTips: "松手刷新",
     isLoading: false,
     refresherTriggered: false,
-    tabs: [],
     chosedTabId: null,
     postList: {
       content: [],
@@ -47,11 +46,6 @@ Page({
 
   // 下拉刷新
   async onRefresh(e) {
-    // 先获取tab列表
-    const [resLabels, errLabels] = await to(labelApi.getTopLabels());
-    this.setData({
-      tabs: resLabels,
-    });
     // 再获取帖子
     const { chosedTabId } = this.data;
     let [res, err] = [];
