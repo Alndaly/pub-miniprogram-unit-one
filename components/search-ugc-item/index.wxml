@@ -8,7 +8,7 @@
     </view>
     <view class="ugc-info">
       <view>
-        {{detail.create_time}}
+        {{detail.createTime}}
       </view>
     </view>
   </view>
@@ -18,10 +18,10 @@
     <!-- 帖子内容 -->
     <mp-html content="{{computedContent}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
     <!-- 帖子图片 -->
-    <view class="ugc-images grid grid-square {{detail.attachments.length>2?'col-3':'col-2'}}">
-      <block wx:for="{{detail.attachments}}" wx:key="id">
-        <view class="bg-img" catchtap="viewImage" data-current="{{item.link}}">
-          <image src='{{item.link}}' mode='aspectFill'></image>
+    <view class="ugc-images grid grid-square col-3">
+      <block wx:for="{{detail.attachmentList}}" wx:key="id">
+        <view class="bg-img" catchtap="viewImage" data-current="{{item.url}}">
+          <image src='{{item.url}}' mode='aspectFill'></image>
         </view>
       </block>
     </view>
@@ -29,8 +29,8 @@
   <!-- 底部点赞和评论数据和图标 -->
   <view class="bottom">
     <view class="icon-and-number" catchtap="onVote">
-      <van-icon name="{{detail.is_vote?'good-job':'good-job-o'}}" size="18px" />
-      <view>{{detail.vote}}</view>
+      <van-icon name="{{detail.isLike?'good-job':'good-job-o'}}" size="18px" />
+      <view>{{detail.like}}</view>
     </view>
     <view class="icon-and-number" catchtap="onClickComment">
       <van-icon name="comment-o" size="18px" />

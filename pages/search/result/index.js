@@ -1,17 +1,9 @@
-import ugcApi from "../../../api/post";
+import postApi from "../../../api/post";
 import userApi from "../../../api/user";
 import { to } from "../../../utils/util";
 
 Page({
-  data: {
-    userList: {
-      list: [],
-    },
-    ugcList: {
-      list: [],
-    },
-    isLoading: false,
-  },
+  data: {},
 
   // 去往指定搜索类目
   goSearchKindPage(e) {
@@ -29,27 +21,19 @@ Page({
 
   // 确认搜索时
   async onSearch(e) {
-    if (!e.detail) {
-      wx.showModal({
-        showCancel: false,
-        title: "提示",
-        content: "请输入搜索关键词",
-      });
-      return;
-    }
-    wx.showLoading({
-      title: "稍等哦",
-    });
     this.setData({
       options: {
         key: e.detail,
       },
     });
-    let res_ugc = await ugcApi.searchUgc(e.detail, 0, 5);
-    let res_user = await userApi.searchUser(e.detail, 0, 5);
+    wx.showLoading({
+      title: "稍等哦",
+    });
+    const res_ugc = await postApi.searchPost(e.detail, 0, 5);
+    const res_user = await userApi.searchUser(e.detail, 0, 5);
     this.setData({
-      ugcList: res_ugc.data.data,
-      userList: res_user.data.data,
+      postList: res_ugc.data,
+      userList: res_user.data,
     });
     wx.hideLoading();
   },
@@ -63,71 +47,51 @@ Page({
     });
   },
 
-  // 初始化Ugc列表
-  async initUgcPage(e) {
-    let [res, err] = await to(ugcApi.searchUgc(this.data.options.key, 0, 5));
+  // 初始化Post列表
+  async initPostPage(e) {
+    const [res, err] = await to(
+      postApi.searchPost(this.data.options.key, 0, 5)
+    );
     if (err) {
       wx.showToast({
-        title: err.data.message,
+        title: "出错啦",
+        icon: "error",
       });
       return;
     }
     this.setData({
-      ugcList: res.data.data,
+      postList: res.data,
     });
   },
 
   // 初始化用户列表
   async initUserPage(e) {
-    let [res, err] = await to(userApi.searchUser(this.data.options.key, 0, 5));
+    const [res, err] = await to(
+      userApi.searchUser(this.data.options.key, 0, 5)
+    );
     if (err) {
       wx.showToast({
         title: err.data.message,
+        icon: "error",
       });
       return;
     }
     this.setData({
-      userList: res.data.data,
-    });
-  },
-
-  async refreshUgcPage(e) {
-    let [res, err] = await to(ugcApi.searchUgc(this.data.options.key, 0, 5));
-    if (err) {
-      wx.showToast({
-        title: err.data.message,
-      });
-      return;
-    }
-    this.setData({
-      ugcList: res.data.data,
-    });
-  },
-
-  async refreshUserPage(e) {
-    let [res, err] = await to(userApi.searchUser(this.data.options.key, 0, 5));
-    if (err) {
-      wx.showToast({
-        title: err.data.message,
-      });
-      return;
-    }
-    this.setData({
-      userList: res.data.data,
+      userList: res.data,
     });
   },
 
   async onLoad(options) {
+    this.setData({
+      options: options,
+    });
     if (options.key) {
       wx.showLoading({
         title: "稍等哦",
       });
     }
-    this.setData({
-      options: options,
-    });
-    await this.initUgcPage();
-    await this.initUserPage();
+    await this.initPostPage();
+    // await this.initUserPage();
     wx.hideLoading();
   },
 
@@ -142,21 +106,6 @@ Page({
           Custom: custom,
         });
       },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
-      },
     });
-  },
-
-  async onPullDownRefresh(e) {
-    wx.showLoading({
-      title: "刷新中",
-    });
-    await this.refreshUgcPage();
-    await this.refreshUserPage();
-    wx.hideLoading({
-      success: (res) => {},
-    });
-    wx.stopPullDownRefresh();
   },
 });

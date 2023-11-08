@@ -153,7 +153,9 @@ const urlEncode = (obj) => {
   let params = Object.keys(obj)
     .filter((key) => obj[key] !== null && obj[key] !== undefined)
     .map((key) => {
-      return encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]);
+      // 此处暂时不需要urlencode
+      // return encodeURIComponent(key) + "=" + encodeURIComponent(obj[key]);
+      return key + "=" + obj[key];
     })
     .join("&");
   return params;

@@ -14,7 +14,6 @@ Component({
     computedContent(data) {
       // 表情符号和对应图片URL的对象
       const emoticons = emotionIcons;
-      // return replaceEmotions(data.detail.content, emoticons)
       return replaceHighLight(
         replaceEmotions(data.detail.content, emoticons),
         data.search_key
@@ -32,15 +31,13 @@ Component({
     showUserInfo(e) {
       // 否则弹出
       wx.$router.push(`/pages/userInfo/index`, {
-        user_id: this.data.detail.user_info.user_id
-          ? this.data.detail.user_info.user_id
-          : this.data.detail.user_info.id,
+        user_id: this.data.detail.userInfo.id
       });
     },
 
     // 浏览ugc的图片
     viewImage(e) {
-      let urls = this.data.detail.attachments.map((item) => item.link);
+      const urls = this.data.detail.attachmentList.map((item) => item.url);
       wx.previewImage({
         urls,
         current: e.currentTarget.dataset.current,

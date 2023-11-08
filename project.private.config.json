@@ -4,6 +4,20 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/wall/ugcDetail/index",
+          "query": "ugc_id=4764",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/search/home/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/wall/labelUgc/index",
           "query": "label_id=28",
           "launchMode": "default",

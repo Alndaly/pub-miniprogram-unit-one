@@ -15,10 +15,10 @@
     </van-sticky>
   </view>
 
-  <view class="list-box" wx:if="{{ugcList.list.length!==0}}">
+  <view class="list-box" wx:if="{{postList.content.length}}">
     <search-result-box title="帖子列表">
       <view slot="content" class="list-item-box">
-        <view wx:for="{{ugcList.list}}" wx:key="id">
+        <view wx:for="{{postList.content}}" wx:key="id">
           <view class="ugc-item">
             <search-ugc-item detail="{{item}}" search_key="{{options.key}}"></search-ugc-item>
           </view>
@@ -29,10 +29,10 @@
       </view>
     </search-result-box>
   </view>
-  <view class="list-box" wx:if="{{userList.list.length!==0}}">
+  <view class="list-box" wx:if="{{userList.content.length}}">
     <search-result-box title="同学列表">
       <view slot="content" class="list-item-box">
-        <view wx:for="{{userList.list}}" wx:key="id">
+        <view wx:for="{{userList.content}}" wx:key="id">
           <view class="user-item">
             <user-item detail="{{item}}">
             </user-item>

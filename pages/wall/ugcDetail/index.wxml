@@ -16,6 +16,7 @@
   <view slot="refresher" class="top-loading">
     <van-image height="100%" width="100vw" fit="cover" lazy-load src="https://oss.kinda.info/image/202304271351492.gif" />
   </view>
+  <detail-ugc detail="{{postDetail}}"></detail-ugc>
   <view class="full-divider"></view>
   <view id="comment">
     <ugc-comment-item bind:tapComment="onFocusCommentToCommentInput" wx:for="{{ugcCommentList}}" wx:key="id" commentItem="{{item}}"></ugc-comment-item>
@@ -32,11 +33,11 @@
   </view>
   <view class="operate-item" catch:tap="onVote">
     <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/{{postDetail.isLike?'like_full':'like'}}.png"></van-image>
-    {{ugcDetail.vote?ugcDetail.vote:"点赞"}}
+    {{postDetail.likeCount?postDetail.likeCount:"点赞"}}
   </view>
   <view class="operate-item" catch:tap="onComment">
     <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/comment.png"></van-image>
-    {{postDetail.comment?ugcDetail.comment:"评论"}}
+    {{postDetail.commentCount?postDetail.commentCount:"评论"}}
   </view>
   <view class="operate-item" catch:tap="onShowSharePopup">
     <van-image radius="10" fit="contain" height="1.8rem" width="1.8rem" src="/static/images/share.png"></van-image>
@@ -55,19 +56,7 @@
 
 <page-container round z-index="10000" show="{{showSharePopUp}}" bind:afterleave="onClosePopUp">
   <view class="bottom-pop-box-share" wx:if="{{showSharePopUp}}">
-    <view>
-      <van-image catch:tap="onShowPosterImage" fit="contain" height="200rpx" width="200rpx" loading src="{{poster_image}}">
-        <van-loading slot="loading" type="spinner" size="20" vertical />
-      </van-image>
-    </view>
-    <van-divider></van-divider>
     <view class="share-method-boxes">
-      <view class="share-method-box" catch:tap="onShareByPoster">
-        <view class="button-image">
-          <van-image radius="10" fit="contain" height="100rpx" width="100rpx" src="/static/images/shiliangzhinengduixiang.png"></van-image>
-        </view>
-        <view class="button-label">海报分享</view>
-      </view>
       <view class="share-method-box">
         <button open-type="share" class="share-button">
           <view class="button-image">
