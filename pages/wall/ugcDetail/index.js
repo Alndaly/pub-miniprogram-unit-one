@@ -18,20 +18,23 @@ Page({
   },
 
   async onVote(e) {
-    const _this = this;
+    const { postDetail } = this.data;
+    let [res, err] = [];
+    if (postDetail.isLike)
+      [res, err] = await to(postApi.unLikePost(this.data.postDetail.id));
+    else [res, err] = await to(postApi.likePost(this.data.postDetail.id));
     this.setData({
-      "postDetail.isLike": !_this.data.postDetail.isLike,
-      "postDetail.likeCount": _this.data.postDetail.isLike
-        ? _this.data.postDetail.likeCount - 1
-        : _this.data.postDetail.likeCount + 1,
+      "postDetail.isLike": !postDetail.isLike,
+      "postDetail.likeCount": postDetail.isLike
+        ? postDetail.likeCount - 1
+        : postDetail.likeCount + 1,
     });
-    const [res, err] = await to(postApi.likePost(this.data.postDetail.id));
     if (err) {
       this.setData({
-        "postDetail.isLike": !_this.data.postDetail.isLike,
-        "postDetail.likeCount": _this.data.postDetail.isLike
-          ? _this.data.postDetail.likeCount + 1
-          : _this.data.postDetail.likeCount - 1,
+        "postDetail.isLike": postDetail.isLike,
+        "postDetail.likeCount": postDetail.isLike
+          ? postDetail.likeCount + 1
+          : postDetail.likeCount - 1,
       });
       wx.showToast({
         title: err,
