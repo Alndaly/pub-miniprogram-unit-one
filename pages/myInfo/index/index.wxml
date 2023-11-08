@@ -59,7 +59,7 @@
       </view>
       <view class="data-box vote" catchtap="toVoted">
         <view class="num">
-          {{myUserInfo.receive_vote_num?myUserInfo.receive_vote_num:0}}
+          {{myUserInfo.receiveLikeCount?myUserInfo.receiveLikeCount:0}}
         </view>
         <view class="text">
           被点赞
@@ -67,7 +67,7 @@
       </view>
       <view class="data-box comment" catchtap="toCommented">
         <view class="num">
-          {{myUserInfo.receive_comment_num?myUserInfo.receive_comment_num:0}}
+          {{myUserInfo.receiveCommentCount?myUserInfo.receiveCommentCount:0}}
         </view>
         <view class="text">
           被评论

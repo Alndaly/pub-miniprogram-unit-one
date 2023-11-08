@@ -91,6 +91,7 @@ export default {
       data: {
         id,
       },
+      method: "POST",
     });
   },
   // 搜索用户

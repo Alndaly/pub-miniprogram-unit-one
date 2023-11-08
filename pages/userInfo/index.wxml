@@ -1,6 +1,6 @@
 <view class="bg-top">
   <map wx:if="{{user_info.location}}" enable-scroll="{{false}}" style="width: 100%;height: 100%;" id="maps" scale="{{16}}" show-location latitude="{{user_info.location.latitude}}" longitude="{{user_info.location.longitude}}"></map>
-  <van-image wx:else="{{user_info.location}}" fit="cover" height="100%" width="100%" lazy-load src="{{user_info.bg_image}}"></van-image>
+  <van-image wx:else="{{user_info.location}}" fit="cover" height="100%" width="100%" lazy-load src="{{user_info.bgAttachment}}"></van-image>
 </view>
 <view class="whole-page">
   <view class="header-box box">
@@ -15,43 +15,6 @@
     <view class="nickname">
       {{user_info.nickname?user_info.nickname:"..."}}
     </view>
-    <view class="center-info">
-      <view class="score">
-        <view>
-          U积分:
-        </view>
-        <view>
-          {{myUserInfo.we_score?myUserInfo.we_score:0}}
-        </view>
-      </view>
-    </view>
-    <scroll-view scroll-x wx:if="{{user_info.identities.total_size}}">
-      <view class="identities-box">
-        <view class="identity-box" wx:for="{{user_info.identities.list}}" wx:key="id">
-          {{item.organization_info.name}} - {{item.identity_info.name}}
-        </view>
-      </view>
-    </scroll-view>
-    <view class="row" wx:if="{{!(!user_info.birthday&&!user_info.city)}}">
-      <view class="box" wx:if="{{user_info.birthday}}">
-        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
-        <view>{{user_info.birthday}}</view>
-      </view>
-      <view class="box" wx:if="{{user_info.city}}">
-        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/home.png" />
-        <view>{{user_info.city}} - {{user_info.district}}</view>
-      </view>
-    </view>
-    <view class="row" wx:if="{{!(!user_info.wechat&&!user_info.qq)}}">
-      <view class="box" wx:if="{{user_info.wechat}}">
-        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/wechat_fill.png" />
-        <view>{{user_info.wechat}}</view>
-      </view>
-      <view class="box" wx:if="{{user_info.qq}}">
-        <van-image lazy-load width="20" height="20" fit="cover" src="/static/images/qq.png" />
-        <view>{{user_info.qq}}</view>
-      </view>
-    </view>
     <view class="signature-box">
       <view class="signature">
         <image class="quote" src="/static/images/quote.png" mode="aspectFill" />
@@ -61,7 +24,7 @@
     <view class="data">
       <view class="data-box collect" catchtap="onShowPublish">
         <view class="num">
-          {{user_info.publish_num?user_info.publish_num:0}}
+          {{user_info.postCount?user_info.postCount:0}}
         </view>
         <view class="text">
           TA发布的
@@ -69,7 +32,7 @@
       </view>
       <view class="data-box vote">
         <view class="num">
-          {{user_info.receive_vote_num?user_info.receive_vote_num:0}}
+          {{user_info.receive_vote_num?user_info.receiveLikeCount:0}}
         </view>
         <view class="text">
           被点赞
@@ -77,7 +40,7 @@
       </view>
       <view class="data-box comment">
         <view class="num">
-          {{user_info.receive_comment_num?user_info.receive_comment_num:0}}
+          {{user_info.receive_comment_num?user_info.receiveCommentCount:0}}
         </view>
         <view class="text">
           被评论

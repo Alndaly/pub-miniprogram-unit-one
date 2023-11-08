@@ -1,15 +1,16 @@
 // pages/userInfo/index.js
-const computedBehavior = require("miniprogram-computed").behavior;
 import ugcApi from "../../api/post";
 import userApi from "../../api/user";
 import { to } from "../../utils/util";
+
+const computedBehavior = require("miniprogram-computed").behavior;
 
 Page({
   behaviors: [computedBehavior],
   data: {
     ugcRefresherTriggered: false,
     showPublishPopUp: false,
-    page_num: 0,
+    pageNum: 0,
     isLoading: false,
   },
 
@@ -87,7 +88,7 @@ Page({
     this.setData({
       focusLoading: true,
     });
-    const [res, err] = await to(userApi.focusUser(this.data.user_info.id));
+    const [res, err] = await to(userApi.followUser(this.data.user_info.id));
     if (err) {
       wx.showToast({
         title: "出错啦",
@@ -146,7 +147,7 @@ Page({
       return;
     }
     this.setData({
-      user_info: res.data.data,
+      user_info: res.data,
     });
   },
 
@@ -164,9 +165,6 @@ Page({
           StatusBar: e.statusBarHeight,
           Custom: custom,
         });
-      },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
       },
     });
   },

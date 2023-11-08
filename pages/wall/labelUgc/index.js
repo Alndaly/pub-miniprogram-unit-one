@@ -1,4 +1,4 @@
-import ugcApi from "../../../api/post";
+import postApi from "../../../api/post";
 import { to } from "../../../utils/util";
 import { _ } from "../../../utils/underscore-min";
 import labelApi from "../../../api/label";
@@ -6,24 +6,9 @@ import labelApi from "../../../api/label";
 Page({
   data: {
     inputBottom: 0,
-    page: 0,
+    pageNum: 0,
     label_info: {},
-    // barOpacity是顶部的透明度
-    barOpacity: 0,
     refresherTriggered: false,
-  },
-
-  // ugc成功删除事件
-  onFinishDleteUgc(e) {
-    const list = this.data.ugcList.list;
-    const delUgc = list.splice(e.detail.index, 1);
-    this.setData({
-      "ugcList.list": list,
-    });
-  },
-
-  async goSearchPage() {
-    await wx.$router.push("/pages/search/home/index");
   },
 
   onShow(options) {
@@ -38,7 +23,9 @@ Page({
       console.error(err);
     }
     wx.onKeyboardHeightChange((res) => {
-      this.updatePosition(res.height);
+      this.setData({
+        inputBottom: res.height,
+      });
     });
   },
 
@@ -46,15 +33,9 @@ Page({
     wx.$router.back();
   },
 
-  updatePosition(inputBottom) {
-    this.setData({ inputBottom });
-  },
-
   async onLoad(options) {
     this.setData({
       options: options,
-    });
-    this.setData({
       refresherTriggered: true,
     });
   },
@@ -64,14 +45,14 @@ Page({
       isLoading: true,
     });
     const [res, err] = await to(
-      ugcApi.searchLabelUgc("", this.data.options.label_id, "create_time", 0)
+      postApi.searchLabelPost(this.data.options.label_id, "", 0)
     );
     const [res_label, err_label] = await to(
       labelApi.getLabelInfo(this.data.options.label_id)
     );
     this.setData({
-      label_info: res_label.data.data,
-      ugcList: res.data.data,
+      label_info: res_label.data,
+      postList: res.data,
     });
     if (err || err_label) {
       wx.showToast({
@@ -90,11 +71,10 @@ Page({
       isLoading: true,
     });
     const [res, err] = await to(
-      ugcApi.searchLabelUgc(
-        "",
+      postApi.searchLabelPost(
         this.data.options.label_id,
-        "create_time",
-        this.data.page + 1
+        "",
+        this.data.pageNum + 1
       )
     );
     if (err) {
@@ -104,10 +84,14 @@ Page({
       });
       return;
     }
-    const ugcListNext = res.data.data;
+    const postListNext = res.data;
     this.setData({
-      "ugcList.list": [...this.data.ugcList.list, ...ugcListNext.list],
-      page: res.data.data.list.length > 0 ? this.data.page + 1 : this.data.page,
+      postList: {
+        ...res.data,
+        content: [...this.data.postList.content, ...postListNext.content],
+      },
+      pageNum:
+        res.data.content.length > 0 ? this.data.pageNum + 1 : this.data.pageNum,
       isLoading: false,
     });
   },

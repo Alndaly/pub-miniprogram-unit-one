@@ -4,15 +4,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/labels/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/publishV2/ugc/index",
-          "query": "",
+          "pathName": "pages/wall/labelUgc/index",
+          "query": "label_id=28",
           "launchMode": "default",
           "scene": null
         },
@@ -20,20 +13,6 @@
           "name": "",
           "pathName": "pages/myInfo/index/index",
           "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/wall/ugcDetail/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/wall/labelUgc/index",
-          "query": "label_id=63",
           "launchMode": "default",
           "scene": null
         }
