@@ -19,7 +19,7 @@
   <detail-ugc detail="{{postDetail}}"></detail-ugc>
   <view class="full-divider"></view>
   <view id="comment">
-    <ugc-comment-item bind:tapComment="onFocusCommentToCommentInput" wx:for="{{ugcCommentList}}" wx:key="id" commentItem="{{item}}"></ugc-comment-item>
+    <ugc-comment-item bind:tapComment="onFocusCommentToCommentInput" wx:for="{{ugcCommentList.content}}" wx:key="id" commentItem="{{item}}"></ugc-comment-item>
     <!-- 底部加载中 -->
     <block wx:if="{{isLoading}}">
       <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />

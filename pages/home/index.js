@@ -1,7 +1,6 @@
 // pages/home/index.js
 import { to } from "../../utils/util";
 import postApi from "../../api/post";
-import labelApi from "../../api/label";
 import { _ } from "../../utils/underscore-min";
 
 Page({

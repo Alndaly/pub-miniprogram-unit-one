@@ -146,14 +146,6 @@ Page({
     });
   },
 
-  onShowPosterImage(e) {
-    const { poster_image } = this.data;
-    wx.previewImage({
-      urls: [poster_image],
-      current: poster_image,
-    });
-  },
-
   // 接收到评论组件返回的成功信号
   async onSubmitCommentResult(e) {
     if (e.detail.res.data.code != "20000") {
@@ -258,18 +250,15 @@ Page({
     const [resPostDetail, errPostDetail] = await to(
       postApi.getPostDetail(options.ugc_id)
     );
-    // const [resUgcCommentList, errUgcCommentList] = await to(
-    //   postApi.getUgcComment(
-    //     options.ugc_id,
-    //     0,
-    //     10,
-    //     this.data.order_by,
-    //     this.data.desc
-    //   )
-    // );
+    const [resPostCommentList, errPostCommentList] = await to(
+      postApi.getComment(
+        options.ugc_id,
+        0,
+      )
+    );
     this.setData({
       postDetail: resPostDetail.data,
-      // ugcCommentList: resUgcCommentList.data.data,
+      ugcCommentList: resPostCommentList.data,
       refresherTriggered: false,
       isLoading: false,
     });
