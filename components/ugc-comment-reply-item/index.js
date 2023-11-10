@@ -1,10 +1,10 @@
 // components/ugc-comment-reply-item/index.js
-import ugcApi from "../../api/post";
-import userUtils from "../../utils/user";
+import postApi from "../../api/post";
 import { to, replaceEmotions } from "../../utils/util";
-const computedBehavior = require("miniprogram-computed").behavior;
 import { emotionIcons } from "../../configs/emotion";
 import timeUtils from "../../utils/time";
+
+const computedBehavior = require("miniprogram-computed").behavior;
 
 Component({
   behaviors: [computedBehavior],
@@ -13,7 +13,7 @@ Component({
   },
   computed: {
     differTime(data) {
-      const differ = timeUtils.differTime(data.detail.create_time);
+      const differ = timeUtils.differTime(data.detail.createTime);
       return differ;
     },
     computedContent(data) {
@@ -58,37 +58,16 @@ Component({
       this.triggerEvent("tapComment", myEventDetail, myEventOption);
     },
     async onVoteComment(e) {
-      if (!userUtils.hasSignUp()) {
-        wx.showModal({
-          title: "提醒",
-          showCancel: false,
-          content: "请先登陆哦",
-        });
-        return;
-      }
-      const _this = this;
+      const { detail } = this.data;
       this.setData({
-        "detail.is_vote": !_this.data.detail.is_vote,
-        "detail.vote_num": _this.data.detail.is_vote
-          ? _this.data.detail.vote_num - 1
-          : _this.data.detail.vote_num + 1,
+        "detail.isLike": !detail.isLike,
+        "detail.likeCount": detail.isLike
+          ? detail.likeCount - 1
+          : detail.likeCount + 1,
       });
       const comment = e.currentTarget.dataset.comment;
-      const [res, err] = await to(
-        ugcApi.voteComment(comment.id, this.data.detail.is_vote)
-      );
-      if (err) {
-        this.setData({
-          "detail.is_vote": !_this.data.detail.is_vote,
-          "detail.vote_num": _this.data.detail.is_vote
-            ? _this.data.detail.vote_num + 1
-            : _this.data.detail.vote_num - 1,
-        });
-        wx.showToast({
-          title: err.data.message,
-          icon: "error",
-        });
-      }
+      if (detail.isLike) await to(postApi.likeComment(comment.id));
+      else await to(postApi.unLikeComment(comment.id));
     },
   },
 });

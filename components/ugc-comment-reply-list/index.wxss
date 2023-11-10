@@ -2,3 +2,8 @@
 .reply-box {
   width: 100%;
 }
+
+.text-sub {
+  color: #666;
+  font-size: 1em;
+}

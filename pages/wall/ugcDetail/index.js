@@ -19,28 +19,14 @@ Page({
 
   async onVote(e) {
     const { postDetail } = this.data;
-    let [res, err] = [];
-    if (postDetail.isLike)
-      [res, err] = await to(postApi.unLikePost(this.data.postDetail.id));
-    else [res, err] = await to(postApi.likePost(this.data.postDetail.id));
     this.setData({
       "postDetail.isLike": !postDetail.isLike,
       "postDetail.likeCount": postDetail.isLike
         ? postDetail.likeCount - 1
         : postDetail.likeCount + 1,
     });
-    if (err) {
-      this.setData({
-        "postDetail.isLike": postDetail.isLike,
-        "postDetail.likeCount": postDetail.isLike
-          ? postDetail.likeCount + 1
-          : postDetail.likeCount - 1,
-      });
-      wx.showToast({
-        title: err,
-        icon: "error",
-      });
-    }
+    if (postDetail.isLike) await to(postApi.likePost(this.data.postDetail.id));
+    else await to(postApi.unLikePost(this.data.postDetail.id));
   },
 
   async onSendImageComment(e) {
@@ -87,12 +73,12 @@ Page({
     });
     if (this.data.topComment.id === -1) {
       // 评论帖子
-      const [res_ugc_comment, err_ugc_comment] = await to(
-        postApi.commentToUgc(this.data.ugcDetail.id, this.data.commentContent)
+      const [res_post_comment, err_post_comment] = await to(
+        postApi.commentPost(this.data.postDetail.id, this.data.commentContent)
       );
-      if (err_ugc_comment) {
+      if (err_post_comment) {
         wx.showToast({
-          title: err_ugc_comment.data.message,
+          title: err_post_comment,
           icon: "error",
         });
         return;
@@ -100,16 +86,16 @@ Page({
     } else {
       // 评论评论
       const [res_comment_comment, err_comment_comment] = await to(
-        postApi.commentToComment(
+        postApi.commentPostComment(
+          this.data.postDetail.id,
           this.data.topComment.id,
           this.data.currentComment.id,
-          this.data.ugcDetail.id,
           this.data.commentContent
         )
       );
       if (err_comment_comment) {
         wx.showToast({
-          title: err_comment_comment.data.message,
+          title: err_comment_comment,
           icon: "error",
         });
         return;
@@ -125,6 +111,7 @@ Page({
       },
       commentContent: "",
     });
+    await this.onRefresh();
   },
 
   onClosePopUp(e) {
@@ -143,26 +130,6 @@ Page({
   async onShowSharePopup(e) {
     this.setData({
       showSharePopUp: true,
-    });
-  },
-
-  // 接收到评论组件返回的成功信号
-  async onSubmitCommentResult(e) {
-    if (e.detail.res.data.code != "20000") {
-      return;
-    }
-    let [resUgcCommentList, errUgcCommentList] = await to(
-      postApi.getUgcComment(
-        this.data.ugcDetail.id,
-        0,
-        10,
-        this.data.order_by,
-        this.data.desc
-      )
-    );
-    this.setData({
-      ugcCommentList: resUgcCommentList.data.data,
-      "ugcDetail.comment": this.data.ugcDetail.comment + 1,
     });
   },
 
@@ -219,28 +186,29 @@ Page({
       isLoading: true,
     });
     const [res, err] = await to(
-      postApi.getUgcComment(
-        this.data.options.ugc_id,
-        this.data.page + 1,
-        10,
-        this.data.order_by,
-        this.data.desc
-      )
+      postApi.getComment(this.data.options.ugc_id, this.data.pageNum + 1)
     );
-    if (res.data.code != "20000" || err) {
+    if (err) {
       this.setData({
         isLoading: false,
       });
       wx.showToast({
-        title: res.data.message || err.data.message,
-        icon: "err",
+        title: err,
+        icon: "error",
       });
       return;
     }
-    const ugcCommentListNext = res.data.data;
+    const ugcCommentListNext = res.data;
     this.setData({
-      ugcCommentList: [...this.data.ugcCommentList, ...ugcCommentListNext],
-      page: res.data.data.length > 0 ? this.data.page + 1 : this.data.page,
+      ugcCommentList: {
+        ...ugcCommentListNext,
+        content: [
+          ...this.data.ugcCommentList.content,
+          ...ugcCommentListNext.content,
+        ],
+      },
+      pageNum:
+        res.data.content.length > 0 ? this.data.pageNum + 1 : this.data.pageNum,
       isLoading: false,
     });
   },
@@ -251,10 +219,7 @@ Page({
       postApi.getPostDetail(options.ugc_id)
     );
     const [resPostCommentList, errPostCommentList] = await to(
-      postApi.getComment(
-        options.ugc_id,
-        0,
-      )
+      postApi.getComment(options.ugc_id, 0)
     );
     this.setData({
       postDetail: resPostDetail.data,

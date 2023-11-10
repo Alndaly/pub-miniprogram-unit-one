@@ -112,12 +112,13 @@ export default {
     });
   },
   // 评论Ugc的评论
-  commentPostComment(postId, parentId, content) {
+  commentPostComment(postId, parentId, replyToId, content) {
     return service({
-      url: BaseConfig.API_URL + "/post/ugc/comment",
+      url: BaseConfig.API_URL + "/post/comment/comment/add",
       data: {
         postId,
         parentId,
+        replyToId,
         content,
       },
       method: "POST",

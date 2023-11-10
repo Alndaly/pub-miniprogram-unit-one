@@ -1,4 +1,5 @@
 <!--components/ugc-comment-reply-list/index.wxml-->
-<view wx:for="{{replies}}" wx:key="id" class="reply-box">
+<view wx:for="{{replies.content}}" wx:key="id" class="reply-box">
   <ugc-comment-reply-item style="width: 100%;" detail="{{item}}" topComment="{{topComment}}"></ugc-comment-reply-item>
 </view>
+<view class="text-sub" wx:if="{{replies.content.length<replies.totalElements}}" catch:tap="showMoreComment">展示更多</view>

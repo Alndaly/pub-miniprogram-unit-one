@@ -3,7 +3,7 @@ const computedBehavior = require("miniprogram-computed").behavior;
 import { emotionIcons } from "../../configs/emotion";
 import userUtils from "../../utils/user";
 import timeUtils from "../../utils/time";
-import ugcApi from "../../api/post";
+import postApi from "../../api/post";
 import { to } from "../../utils/util";
 import { replaceEmotions } from "../../utils/util";
 Component({
@@ -22,7 +22,7 @@ Component({
   },
   computed: {
     differTime(data) {
-      const differ = timeUtils.differTime(data.commentItem.create_time);
+      const differ = timeUtils.differTime(data.commentItem.createTime);
       return differ;
     },
     computedContent(data) {
@@ -31,8 +31,6 @@ Component({
       return replaceEmotions(data?.commentItem?.content, emoticons);
     },
   },
-
-  lifetimes: {},
 
   /**
    * Component initial data
@@ -44,44 +42,21 @@ Component({
    */
   methods: {
     async onVoteComment(e) {
-      if (!userUtils.hasSignUp()) {
-        wx.showModal({
-          title: "提醒",
-          showCancel: false,
-          content: "请先登陆哦",
-        });
-        return;
-      }
-      const _this = this;
+      const { commentItem } = this.data;
       this.setData({
-        "commentItem.is_vote": !_this.data.commentItem.is_vote,
-        "commentItem.vote_num": _this.data.commentItem.is_vote
-          ? _this.data.commentItem.vote_num - 1
-          : _this.data.commentItem.vote_num + 1,
+        "commentItem.isLike": !commentItem.isLike,
+        "commentItem.likeCount": commentItem.isLike
+          ? commentItem.likeCount - 1
+          : commentItem.likeCount + 1,
       });
       const comment = e.currentTarget.dataset.comment;
-      const [res, err] = await to(
-        ugcApi.voteComment(comment.id, this.data.commentItem.is_vote)
-      );
-      if (err) {
-        this.setData({
-          "commentItem.is_vote": !_this.data.commentItem.is_vote,
-          "commentItem.vote_num": _this.data.commentItem.is_vote
-            ? _this.data.commentItem.vote_num + 1
-            : _this.data.commentItem.vote_num - 1,
-        });
-        wx.showToast({
-          title: err.data.message,
-          icon: "error",
-        });
+      if (commentItem.isLike) {
+        await to(postApi.likeComment(comment.id));
+      } else {
+        await to(postApi.unLikeComment(comment.id));
       }
     },
     showUserInfo(e) {
-      // 如果是匿名发表那么不弹出用户信息
-      if (this.properties.commentItem.anonymous) {
-        return;
-      }
-      // 否则弹出
       const { id: user_id } = e.currentTarget.dataset;
       wx.$router.push(`/pages/userInfo/index`, { user_id });
     },

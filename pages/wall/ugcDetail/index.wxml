@@ -47,7 +47,7 @@
 
 <view wx:if="{{showCommentBox}}" class="comment-box" style="bottom: {{inputBottom}}px;">
   <view class="comment-input">
-    <input type="text" adjust-position="false" confirm-type="send" bindconfirm="submitComment" model:value="{{commentContent}}" focus="{{commentInputFocusStatus}}" bindblur="unFocusCommentInput" placeholder="{{currentComment.id!==-1?'回复：'+currentComment.userInfo.nickname:'说点什么...'}}" />
+    <input type="text" adjust-position="false" confirm-type="send" bindconfirm="submitComment" model:value="{{commentContent}}" focus="{{commentInputFocusStatus}}" bindblur="unFocusCommentInput" placeholder="{{currentComment.id!==-1?'回复：'+currentComment.fromUserInfo.nickname:'说点什么...'}}" />
   </view>
   <view>
     <van-image catch:tap="onSendImageComment" fit="contain" height="30px" width="30px" src="/static/images/shiliangzhinengduixiang.png" />
