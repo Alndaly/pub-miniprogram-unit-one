@@ -1,17 +1,5 @@
 {
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "pages/myInfo/myAttention/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        }
-      ]
-    }
-  },
+  "condition": {},
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false,

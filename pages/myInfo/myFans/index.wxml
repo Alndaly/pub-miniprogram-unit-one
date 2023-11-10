@@ -4,7 +4,7 @@
   <view slot="content">我的粉丝</view>
 </cu-custom>
 
-<block wx:if="{{!fansList.list.length}}">
+<block wx:if="{{!fans.content.length}}">
   <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
     <view class='text-content'>
       <view class='margin-top-sm'>还没有粉丝哦～</view>
@@ -16,7 +16,7 @@
   <view class="cu-card dynamic">
     <view class="cu-item shadow">
       <view class="cu-list menu-avatar">
-        <view wx:for="{{fansList.list}}" wx:key="id" wx:for-item="item" class="cu-item">
+        <view wx:for="{{fans.content}}" wx:key="id" wx:for-item="item" class="cu-item">
           <view data-id="{{item.id}}" bindtap="toUserInfo" class="cu-avatar round lg" style="background-image:url({{item.avatar}});">
           </view>
           <view data-id="{{item.id}}" bindtap="toUserInfo" class="content flex-sub">
