@@ -3,7 +3,7 @@
   <view slot="backText">返回</view>
   <view slot="content">我的关注</view>
 </cu-custom>
-<block wx:if="{{!focusList.list.length}}">
+<block wx:if="{{!follows.content.length}}">
   <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
     <view class='text-content'>
       <view class='margin-top-sm'>还没有关注哦～</view>
@@ -15,7 +15,7 @@
   <view class="cu-card dynamic">
     <view class="cu-item shadow">
       <view class="cu-list menu-avatar">
-        <view wx:key="index" wx:for="{{focusList.list}}" wx:for-item="item" class="cu-item">
+        <view wx:key="index" wx:for="{{follows.content}}" wx:for-item="item" class="cu-item">
           <view data-id="{{item.id}}" bindtap="toUserInfo" class="cu-avatar round lg" style="background-image:url({{item.avatar}});">
           </view>
           <view data-id="{{item.id}}" bindtap="toUserInfo" class="content flex-sub">

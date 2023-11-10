@@ -4,13 +4,13 @@ import { to } from "../../../utils/util";
 
 Page({
   data: {
-    page: 0,
-    focusList: [],
+    pageNum: 0,
+    follows: null,
     isLoading: false,
   },
 
   toUserInfo(e) {
-    const { id } = e.currentTarget.dataset.id;
+    const { id } = e.currentTarget.dataset;
     wx.$router.push("/pages/userInfo/index", { user_id: id });
   },
 
@@ -18,10 +18,10 @@ Page({
     wx.showLoading({
       title: "加载中...",
     });
-    const [res, err] = await to(userApi.getMyFocusedUser(0));
+    const [res, err] = await to(userApi.getMyFollowedUser(0));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       this.setData({
@@ -31,7 +31,7 @@ Page({
       return;
     }
     this.setData({
-      focusList: res.data.data,
+      follows: res.data,
       isLoading: false,
     });
     wx.hideLoading();
@@ -41,15 +41,10 @@ Page({
     wx.showLoading({
       title: "刷新中",
     });
-    const [res, err] = await to(
-      userApi.getMyFocusedUser(
-        0,
-        this.data.page === 0 ? 10 : (this.data.page + 1) * 10
-      )
-    );
+    const [res, err] = await to(userApi.getMyFollowedUser(0));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       this.setData({
@@ -59,21 +54,23 @@ Page({
       return;
     }
     this.setData({
-      focusList: res.data.data,
+      follows: res.data,
       isLoading: false,
+      pageNum: 0,
     });
     wx.hideLoading();
     wx.stopPullDownRefresh();
   },
 
   async onReachBottom() {
+    const { pageNum, follows } = this.data;
     this.setData({
       isLoading: true,
     });
-    const [res, err] = await to(userApi.getMyFocusedUser(this.data.page + 1));
+    const [res, err] = await to(userApi.getMyFollowedUser(pageNum + 1));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       this.setData({
@@ -81,10 +78,13 @@ Page({
       });
       return;
     }
-    const focusListNext = res.data.data;
+    const followsNext = res.data;
     this.setData({
-      page: focusListNext.list.length > 0 ? this.data.page + 1 : this.data.page,
-      "focusList.list": [...this.data.focusList.list, ...focusListNext.list],
+      pageNum: followsNext.content.length > 0 ? pageNum + 1 : pageNum,
+      follows: {
+        ...followsNext,
+        content: [...follows.content, ...followsNext.content],
+      },
       isLoading: false,
     });
   },

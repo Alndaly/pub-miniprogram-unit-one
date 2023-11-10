@@ -1,5 +1,4 @@
 // pages/userInfo/index.js
-import postApi from "../../api/post";
 import userApi from "../../api/user";
 import { to } from "../../utils/util";
 
