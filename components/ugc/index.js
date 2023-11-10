@@ -68,28 +68,14 @@ Component({
     // 点赞ugc
     async onVote() {
       const { detail } = this.data;
-      let [res, err] = [];
-      if (detail.isLike)
-        [res, err] = await to(postApi.unLikePost(this.data.detail.id));
-      else [res, err] = await to(postApi.likePost(this.data.detail.id));
       this.setData({
         "detail.isLike": !detail.isLike,
         "detail.likeCount": detail.isLike
           ? detail.likeCount - 1
           : detail.likeCount + 1,
       });
-      if (err) {
-        this.setData({
-          "detail.isLike": detail.isLike,
-          "detail.likeCount": detail.isLike
-            ? detail.likeCount + 1
-            : detail.likeCount - 1,
-        });
-        wx.showToast({
-          title: err,
-          icon: "error",
-        });
-      }
+      if (detail.isLike) await to(postApi.likePost(this.data.detail.id));
+      else await to(postApi.unLikePost(this.data.detail.id));
     },
 
     showComment(e) {

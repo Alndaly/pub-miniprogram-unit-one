@@ -15,7 +15,7 @@
     <van-image height="100%" width="100vw" fit="cover" lazy-load src="https://oss.kinda.info/image/202304271351492.gif" />
   </view>
   <view class="ugc-list">
-    <ugc wx:for="{{postList.content}}" showBottom="{{true}}" wx:key="id" list-index="{{index}}" class="ugc-list" detail="{{item}}" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
+    <ugc wx:for="{{postList.content}}" showBottom="{{true}}" wx:key="id" list-index="{{index}}" class="ugc-list" detail="{{item}}"></ugc>
   </view>
   <!-- 底部加载中 -->
   <block wx:if="{{isLoading}}">
