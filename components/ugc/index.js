@@ -86,7 +86,8 @@ Component({
     },
 
     toDetail(e) {
-      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id: ugc.id });
+      const { detail } = this.data;
+      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id: detail.id });
     },
 
     moreOperate(e) {

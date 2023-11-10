@@ -8,39 +8,12 @@
       <view class="avatar">
         <van-image round lazy-load width="110" height="110" fit="cover" src="{{myUserInfo.avatar}}" />
       </view>
-      <view wx:if="{{myUserInfo.gender!==0}}" class="gender">
-        <image class="gender-icon" src="/static/images/{{myUserInfo.gender===1?'nanxing':'nvxing'}}.png" mode="aspectFill" />
+      <view wx:if="{{myUserInfo.gender}}" class="gender">
+        <image class="gender-icon" src="/static/images/{{myUserInfo.gender==='男'?'nanxing':'nvxing'}}.png" mode="aspectFill" />
       </view>
     </view>
     <view class="nickname">
       {{myUserInfo.nickname}}
-    </view>
-    <scroll-view scroll-x wx:if="{{myUserInfo.identities.total_size}}">
-      <view class="identities-box">
-        <view class="identity-box" wx:for="{{myUserInfo.identities.list}}" wx:key="id">
-          {{item.organization_info.name}} - {{item.identity_info.name}}
-        </view>
-      </view>
-    </scroll-view>
-    <view class="row" wx:if="{{!(!myUserInfo.birthday&&!myUserInfo.city)}}">
-      <view class="box" wx:if="{{myUserInfo.birthday}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
-        <view>{{myUserInfo.birthday}}</view>
-      </view>
-      <view class="box" wx:if="{{myUserInfo.city}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/home.png" />
-        <view>{{myUserInfo.city}} - {{myUserInfo.district}}</view>
-      </view>
-    </view>
-    <view class="row" wx:if="{{!(!myUserInfo.wechat&&!myUserInfo.qq)}}">
-      <view class="box" wx:if="{{myUserInfo.wechat}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/wechat_fill.png" />
-        <view>{{myUserInfo.wechat}}</view>
-      </view>
-      <view class="box" wx:if="{{myUserInfo.qq}}">
-        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/qq.png" />
-        <view>{{myUserInfo.qq}}</view>
-      </view>
     </view>
     <view class="signature-box">
       <view class="signature">
