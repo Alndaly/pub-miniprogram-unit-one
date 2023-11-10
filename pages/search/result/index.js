@@ -29,8 +29,15 @@ Page({
     wx.showLoading({
       title: "稍等哦",
     });
-    const res_ugc = await postApi.searchPost(e.detail, 0, 5);
-    const res_user = await userApi.searchUser(e.detail, 0, 5);
+    const [res_ugc, err_ugc] = await to(postApi.searchPost(e.detail, 0, 5));
+    const [res_user, err_user] = await to(userApi.searchUser(e.detail, 0, 5));
+    if (err_ugc || err_user) {
+      wx.showToast({
+        title: "出错啦",
+        icon: "error",
+      });
+      return;
+    }
     this.setData({
       postList: res_ugc.data,
       userList: res_user.data,
@@ -71,7 +78,7 @@ Page({
     );
     if (err) {
       wx.showToast({
-        title: err.data.message,
+        title: err,
         icon: "error",
       });
       return;
@@ -91,7 +98,7 @@ Page({
       });
     }
     await this.initPostPage();
-    // await this.initUserPage();
+    await this.initUserPage();
     wx.hideLoading();
   },
 

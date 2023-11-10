@@ -7,10 +7,8 @@ Page({
    * Page initial data
    */
   data: {
-    userList: {
-      list: [],
-    },
-    page: 0,
+    userList: null,
+    pageNum: 0,
   },
 
   /**
@@ -39,21 +37,13 @@ Page({
       });
     }
     this.setData({
-      page: 0,
-      userList: res.data.data,
+      pageNum: 0,
+      userList: res.data,
     });
   },
 
   // 确认搜索时
   async onSearch(e) {
-    if (!e.detail) {
-      wx.showModal({
-        showCancel: false,
-        title: "提示",
-        content: "请输入搜索关键词",
-      });
-      return;
-    }
     wx.showLoading({
       title: "稍等哦",
     });
@@ -62,7 +52,7 @@ Page({
         key: e.detail,
       },
     });
-    let [res_user, err_user] = await to(userApi.searchUser(e.detail, 0));
+    const [res_user, err_user] = await to(userApi.searchUser(e.detail, 0));
     if (err_user) {
       wx.showToast({
         title: "出错啦",
@@ -71,7 +61,7 @@ Page({
       return;
     }
     this.setData({
-      userList: res_user.data.data,
+      userList: res_user.data,
     });
     wx.hideLoading();
   },
@@ -90,16 +80,11 @@ Page({
           Custom: custom,
         });
       },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
-      },
     });
   },
 
   async refreshUserPage(e) {
-    let [res, err] = await to(
-      userApi.searchUser(this.data.options.key, 0, this.data.userList.length)
-    );
+    const [res, err] = await to(userApi.searchUser(this.data.options.key, 0));
     if (err) {
       wx.showToast({
         title: "出错啦",
@@ -108,6 +93,7 @@ Page({
       return;
     }
     this.setData({
+      pageNum: 0,
       userList: res.data.data,
     });
   },
@@ -128,13 +114,11 @@ Page({
 
   // 获取用户列表的下一页
   async getNextUserPage(e) {
-    const _this = this;
+    const { pageNum, options } = this.data;
     this.setData({
       isLoading: true,
     });
-    const [res, err] = await to(
-      userApi.searchUser(this.data.options.key, this.data.page + 1)
-    );
+    const [res, err] = await to(userApi.searchUser(options.key, pageNum + 1));
     if (err) {
       wx.showToast({
         title: "出错啦",
@@ -142,11 +126,13 @@ Page({
       });
       return;
     }
-    const userListNext = res.data.data;
+    const userListNext = res.data;
     this.setData({
-      "userList.list": [...this.data.userList.list, ...userListNext.list],
-      page:
-        userListNext.list.length > 0 ? _this.data.page + 1 : _this.data.page,
+      userList: {
+        ...userListNext,
+        content: [...userList.content, ...userListNext.content],
+      },
+      pageNum: userListNext.content.length > 0 ? pageNum + 1 : pageNum,
       isLoading: false,
     });
   },

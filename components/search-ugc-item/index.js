@@ -1,9 +1,10 @@
 // components/search-ugc-item/index.js
-const computedBehavior = require("miniprogram-computed").behavior;
 import { emotionIcons } from "../../configs/emotion";
 import { replaceEmotions, replaceHighLight } from "../../utils/util";
-import ugcApi from "../../api/post";
-import { getPageUrl } from "../../utils/util";
+import postApi from "../../api/post";
+import { to } from "../../utils/util";
+
+const computedBehavior = require("miniprogram-computed").behavior;
 
 Component({
   options: {
@@ -31,7 +32,7 @@ Component({
     showUserInfo(e) {
       // 否则弹出
       wx.$router.push(`/pages/userInfo/index`, {
-        user_id: this.data.detail.userInfo.id
+        user_id: this.data.detail.userInfo.id,
       });
     },
 
@@ -51,38 +52,21 @@ Component({
     },
 
     toDetail(e) {
-      const currentPageUrl = getPageUrl();
-      if (currentPageUrl == "/pages/wall/ugcDetail/index") {
-        return;
-      }
-      let ugc = this.data.detail;
-      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id: ugc.id });
+      const { detail } = this.data;
+      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id: detail.id });
     },
 
     // 点赞ugc
     async onVote() {
+      const { detail } = this.data;
       this.setData({
-        "detail.is_vote": !this.data.detail.is_vote,
-        "detail.vote": this.data.detail.is_vote
-          ? this.data.detail.vote - 1
-          : this.data.detail.vote + 1,
+        "detail.isLike": !detail.isLike,
+        "detail.likeCount": detail.isLike
+          ? detail.likeCount - 1
+          : detail.likeCount + 1,
       });
-      const [res, err] = await to(
-        ugcApi.voteUgc(this.properties.detail.id, this.data.detail.is_vote)
-      );
-      // 如果接口返回结果不为20000，那么就重新将点赞恢复成原来的状态
-      if (err) {
-        this.setData({
-          "detail.is_vote": !this.data.detail.is_vote,
-          "detail.vote": this.data.detail.is_vote
-            ? this.data.detail.vote - 1
-            : this.data.detail.vote + 1,
-        });
-        wx.showToast({
-          title: res.data.message,
-          icon: "error",
-        });
-      }
+      if (detail.isLike) await to(postApi.likePost(detail.id));
+      else await to(postApi.unLikePost(detail.id));
     },
   },
 });

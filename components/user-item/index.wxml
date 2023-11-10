@@ -5,15 +5,14 @@
     <view class="center">
       <view class="center-top">
         <view class="username">{{detail.nickname}}</view>
-        <view class="school">{{detail.university}}</view>
       </view>
-      <view class="signature">{{detail.signature}}</view>
+      <view class="signature">{{detail.signature?detail.signature:'这个人很懒，什么都没写。'}}</view>
     </view>
   </view>
-  <view wx:if="{{!detail.is_focus}}" class="focus right" catchtap="focusTa">
+  <view wx:if="{{!detail.isFollow}}" class="focus right" catchtap="followUser">
     <view>关注</view>
   </view>
-  <view wx:else class="right focused" catchtap="unFocusTa">
+  <view wx:else class="right focused" catchtap="unFollowUser">
     <view>取关</view>
   </view>
 </view>

@@ -3,8 +3,8 @@
   <!-- 顶部用户信息和帖子分类信息 -->
   <view class="top">
     <view class="userinfo" catchtap="showUserInfo">
-      <view class="avatar" style="background-image: url({{detail.user_info.avatar}});"></view>
-      <view class="username">{{detail.user_info.nickname}}</view>
+      <view class="avatar" style="background-image: url({{detail.userInfo.avatar}});"></view>
+      <view class="username">{{detail.userInfo.nickname}}</view>
     </view>
     <view class="ugc-info">
       <view>
@@ -30,11 +30,11 @@
   <view class="bottom">
     <view class="icon-and-number" catchtap="onVote">
       <van-icon name="{{detail.isLike?'good-job':'good-job-o'}}" size="18px" />
-      <view>{{detail.like}}</view>
+      <view>{{detail.likeCount}}</view>
     </view>
     <view class="icon-and-number" catchtap="onClickComment">
       <van-icon name="comment-o" size="18px" />
-      <view>{{detail.comment}}</view>
+      <view>{{detail.commentCount}}</view>
     </view>
   </view>
 </view>

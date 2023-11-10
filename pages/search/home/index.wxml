@@ -10,3 +10,19 @@
     搜索
   </view>
 </van-search>
+<view class="whole">
+  <!-- 区分多种搜索 -->
+  <view class="box">
+    <view class="title">
+      搜索指定内容
+    </view>
+    <view class="search-kinds">
+      <view class="search-kind" data-kind="user" catchtap="goSearchKindPage">
+        搜同学
+      </view>
+      <view class="search-kind" data-kind="ugc" catchtap="goSearchKindPage">
+        搜帖子
+      </view>
+    </view>
+  </view>
+</view>

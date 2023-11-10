@@ -103,6 +103,7 @@ export default {
         pageNum,
         pageSize,
       },
+      method: "POST",
     });
   },
   // 更改个性签名

@@ -15,8 +15,8 @@
       </van-search>
     </van-sticky>
   </view>
-  <view class="list-box" wx:if="{{userList.list && userList.list.length!==0}}">
-    <view wx:for="{{userList.list}}" wx:key="id">
+  <view class="list-box" wx:if="{{userList.content && userList.content.length!==0}}">
+    <view wx:for="{{userList.content}}" wx:key="id">
       <view class="user-item">
         <user-item detail="{{item}}">
         </user-item>

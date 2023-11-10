@@ -20,19 +20,20 @@ Component({
     },
 
     // 关注用户
-    async focusTa(e) {
+    async followUser(e) {
       wx.showLoading({
         title: "稍等哦...",
       });
-      let [res, err] = await to(userApi.focusUser(this.data.detail.id));
+      const [res, err] = await to(userApi.followUser(this.data.detail.id));
       if (err) {
         wx.showToast({
-          title: err.data.message,
+          title: err,
+          icon: "error",
         });
         return;
       }
       this.setData({
-        "detail.is_focus": true,
+        "detail.isFollow": true,
       });
       wx.showToast({
         title: "关注成功",
@@ -40,19 +41,19 @@ Component({
     },
 
     // 取消关注用户
-    async unFocusTa(e) {
+    async unFollowUser(e) {
       wx.showLoading({
         title: "稍等哦...",
       });
-      let [res, err] = await to(userApi.unFocusUser(this.data.detail.id));
+      const [res, err] = await to(userApi.unFollowUser(this.data.detail.id));
       if (err) {
         wx.showToast({
-          title: err.data.message,
+          title: err,
         });
         return;
       }
       this.setData({
-        "detail.is_focus": false,
+        "detail.isFollow": false,
       });
       wx.showToast({
         title: "取关成功",

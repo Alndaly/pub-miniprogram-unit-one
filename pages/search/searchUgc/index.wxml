@@ -15,8 +15,8 @@
       </van-search>
     </van-sticky>
   </view>
-  <view class="list-box" wx:if="{{ugcList && ugcList.list.length!==0}}">
-    <view wx:for="{{ugcList.list}}" wx:key="id">
+  <view class="list-box" wx:if="{{postList && postList.content.length!==0}}">
+    <view wx:for="{{postList.content}}" wx:key="id">
       <view class="ugc-item">
         <search-ugc-item detail="{{item}}" search_key="{{options.key}}"></search-ugc-item>
       </view>

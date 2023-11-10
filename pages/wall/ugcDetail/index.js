@@ -121,9 +121,9 @@ Page({
   },
 
   showUserInfo() {
-    const { ugcDetail } = this.data;
+    const { postDetail } = this.data;
     wx.$router.push(`/pages/userInfo/index`, {
-      user_id: ugcDetail.user_info.id,
+      user_id: postDetail.userInfo.id,
     });
   },
 
