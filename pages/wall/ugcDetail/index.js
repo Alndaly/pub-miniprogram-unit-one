@@ -78,7 +78,7 @@ Page({
       );
       if (err_post_comment) {
         wx.showToast({
-          title: err_post_comment,
+          title: err_post_comment.data,
           icon: "error",
         });
         return;
@@ -95,7 +95,7 @@ Page({
       );
       if (err_comment_comment) {
         wx.showToast({
-          title: err_comment_comment,
+          title: err_comment_comment.data,
           icon: "error",
         });
         return;
@@ -193,7 +193,7 @@ Page({
         isLoading: false,
       });
       wx.showToast({
-        title: err,
+        title: err.data,
         icon: "error",
       });
       return;

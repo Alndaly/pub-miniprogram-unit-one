@@ -4,6 +4,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/userInfo/index",
+          "query": "user_id=103908",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/search/searchUgc/index",
           "query": "key=1",
           "launchMode": "default",

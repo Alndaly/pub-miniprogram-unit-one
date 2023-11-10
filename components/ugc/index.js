@@ -120,7 +120,7 @@ Component({
                     );
                     if (err_del_post) {
                       wx.showToast({
-                        title: err_del_post,
+                        title: err_del_post.data,
                         icon: "error",
                       });
                       return;

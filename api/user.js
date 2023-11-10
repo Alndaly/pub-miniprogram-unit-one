@@ -25,15 +25,16 @@ export default {
     });
   },
   // 根据用户ID获取用户的帖子列表
-  getUserPost(userId, keyword, pageNum, pageSize = 10) {
+  getUserPost(id, keyword, pageNum, pageSize = 10) {
     return service({
       url: BaseConfig.API_URL + "/user/post",
       data: {
-        userId,
+        id,
         keyword,
         pageNum,
         pageSize,
       },
+      method: "POST",
     });
   },
   // 关注某一个用户

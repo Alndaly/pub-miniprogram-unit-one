@@ -78,7 +78,7 @@ Page({
     );
     if (err) {
       wx.showToast({
-        title: err,
+        title: err.data,
         icon: "error",
       });
       return;

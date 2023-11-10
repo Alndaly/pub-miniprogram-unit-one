@@ -27,7 +27,7 @@ Component({
       const [res, err] = await to(userApi.followUser(this.data.detail.id));
       if (err) {
         wx.showToast({
-          title: err,
+          title: err.data,
           icon: "error",
         });
         return;
@@ -48,7 +48,7 @@ Component({
       const [res, err] = await to(userApi.unFollowUser(this.data.detail.id));
       if (err) {
         wx.showToast({
-          title: err,
+          title: err.data,
         });
         return;
       }

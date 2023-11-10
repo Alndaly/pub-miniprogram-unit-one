@@ -32,7 +32,7 @@
       </view>
       <view class="data-box vote">
         <view class="num">
-          {{user_info.receive_vote_num?user_info.receiveLikeCount:0}}
+          {{user_info.receiveLikeCount?user_info.receiveLikeCount:0}}
         </view>
         <view class="text">
           被点赞
@@ -40,7 +40,7 @@
       </view>
       <view class="data-box comment">
         <view class="num">
-          {{user_info.receive_comment_num?user_info.receiveCommentCount:0}}
+          {{user_info.receiveCommentCount?user_info.receiveCommentCount:0}}
         </view>
         <view class="text">
           被评论
@@ -57,16 +57,16 @@
 </view>
 
 <view class="bottom">
-  <button class="focus-btn" type="primary" wx:if="{{!user_info.is_focus&&!isMine}}" loading="{{focusLoading}}" catchtap="focusTa">关注TA
+  <button class="focus-btn" type="primary" wx:if="{{!user_info.isFollow}}" loading="{{focusLoading}}" catchtap="focusTa">关注TA
   </button>
-  <button class="unfocus-btn" type="warn" wx:if="{{user_info.is_focus&&!isMine}}" loading="{{unFocusLoading}}" catchtap="unFocusTa">取消关注
+  <button class="unfocus-btn" type="warn" wx:if="{{user_info.isFollow}}" loading="{{unFocusLoading}}" catchtap="unFocusTa">取消关注
   </button>
 </view>
 
 <page-container round z-index="10000" show="{{showPublishPopUp}}">
   <view class="bottom-pop-box">
-    <scroll-view class="ugc-list-box" bindscrolltolower="onNextUgcPage" refresher-enabled scroll-y bindrefresherrefresh="onUgcRefresh" refresher-triggered="{{ugcRefresherTriggered}}" show-scrollbar>
-      <view style="margin-bottom: 10px;" wx:for="{{ugcs.list}}" wx:key="id">
+    <scroll-view class="ugc-list-box" bindscrolltolower="onNextPostPage" refresher-enabled scroll-y bindrefresherrefresh="onPostRefresh" refresher-triggered="{{postRefresherTriggered}}" show-scrollbar>
+      <view style="margin-bottom: 10px;" wx:for="{{posts.content}}" wx:key="id">
         <ugc detail="{{item}}"></ugc>
       </view>
       <!-- 底部加载中 -->

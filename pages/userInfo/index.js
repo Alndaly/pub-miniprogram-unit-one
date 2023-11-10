@@ -1,5 +1,5 @@
 // pages/userInfo/index.js
-import ugcApi from "../../api/post";
+import postApi from "../../api/post";
 import userApi from "../../api/user";
 import { to } from "../../utils/util";
 
@@ -8,7 +8,7 @@ const computedBehavior = require("miniprogram-computed").behavior;
 Page({
   behaviors: [computedBehavior],
   data: {
-    ugcRefresherTriggered: false,
+    postRefresherTriggered: false,
     showPublishPopUp: false,
     pageNum: 0,
     isLoading: false,
@@ -16,69 +16,65 @@ Page({
 
   async onShowPublish(e) {
     this.setData({
-      ugcRefresherTriggered: true,
+      postRefresherTriggered: true,
     });
     const { user_info } = this.data;
     this.setData({
       showPublishPopUp: true,
     });
-    const [res, err] = await to(
-      ugcApi.getUserUgc(user_info.id, 0, 10, "create_time")
-    );
+    const [res, err] = await to(userApi.getUserPost(user_info.id, "", 0));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      ugcs: res.data.data,
-      ugcRefresherTriggered: false,
+      posts: res.data,
+      postRefresherTriggered: false,
     });
   },
 
-  async onUgcRefresh(e) {
+  async onPostRefresh(e) {
     const { user_info } = this.data;
     this.setData({
       showPublishPopUp: true,
     });
-    const [res, err] = await to(
-      ugcApi.getUserUgc(user_info.id, 0, 10, "create_time")
-    );
+    const [res, err] = await to(userApi.getUserPost(user_info.id, "", 0));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      ugcRefresherTriggered: false,
-      ugcs: res.data.data,
-      page_num: 0,
+      postRefresherTriggered: false,
+      posts: res.data,
+      pageNum: 0,
     });
   },
 
-  async onNextUgcPage(e) {
+  async onNextPostPage(e) {
     this.setData({
       isLoading: true,
     });
-    const { user_info, page_num, ugcs } = this.data;
+    const { user_info, pageNum, posts } = this.data;
     const [res, err] = await to(
-      ugcApi.getUserUgc(user_info.id, page_num + 1, 10, "create_time")
+      userApi.getUserPost(user_info.id, "", pageNum + 1)
     );
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      ugcs: {
-        list: [...ugcs.list, ...res.data.data.list],
-        total_size: res.data.data.total_size,
+      posts: {
+        ...res.data,
+        content: [...posts.content, ...res.data.content],
       },
       isLoading: false,
     });
@@ -91,7 +87,7 @@ Page({
     const [res, err] = await to(userApi.followUser(this.data.user_info.id));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       this.setData({
@@ -101,7 +97,7 @@ Page({
     }
     this.setData({
       focusLoading: false,
-      "user_info.is_focus": true,
+      "user_info.isFollow": true,
     });
   },
 
@@ -122,7 +118,7 @@ Page({
     }
     this.setData({
       unFocusLoading: false,
-      "user_info.is_focus": false,
+      "user_info.isFollow": false,
     });
   },
 
