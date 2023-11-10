@@ -92,31 +92,29 @@ Component({
 
     moreOperate(e) {
       const _this = this;
-      let ugc = this.data.detail;
-      let itemList = [];
-      // 如果是我发布的ugc
-      if (checkMyUgc(ugc)) {
-        itemList = itemList.concat(["编辑", "删除"]);
-      }
+      const { detail } = this.data;
+      const itemList = ["编辑", "删除"];
       wx.showActionSheet({
         itemList: itemList,
         success: async function (res) {
           switch (itemList[res.tapIndex]) {
             case "编辑": {
-              wx.$router.push("/pages/publishV2/update/index", { id: ugc.id });
+              wx.$router.push("/pages/publishV2/update/index", {
+                id: detail.id,
+              });
               break;
             }
             case "删除": {
               wx.showModal({
                 title: "提示",
-                content: "确认删除吗？（此操作不可撤销）",
+                content: "确认删除吗？",
                 success: async function (res) {
                   if (res.confirm) {
                     wx.showLoading({
                       title: "稍等哦",
                     });
                     const [res_del_post, err_del_post] = await to(
-                      postApi.deletePost(ugc.id)
+                      postApi.deletePost(detail.id)
                     );
                     if (err_del_post) {
                       wx.showToast({
@@ -128,15 +126,9 @@ Component({
                     wx.showToast({
                       title: "删除成功",
                     });
-                    if (getPageUrl() === "/pages/wall/ugcDetail/index") {
-                      setTimeout(() => {
-                        wx.$router.back();
-                      }, 1000);
-                    } else {
-                      _this.triggerEvent("onDeleteUgc", {
-                        index: _this.data.listIndex,
-                      });
-                    }
+                    _this.triggerEvent("onDeleteUgc", {
+                      index: _this.data.listIndex,
+                    });
                   }
                 },
               });

@@ -1,5 +1,5 @@
 // pages/myInfo/myPublish/index.js
-import ugcApi from "../../../api/post";
+import postApi from "../../../api/post";
 import { _ } from "../../../utils/underscore-min";
 import { to } from "../../../utils/util";
 
@@ -8,44 +8,31 @@ Page({
    * Page initial data
    */
   data: {
-    pageDaily: 0,
+    pageNum: 0,
     isLoading: false,
-    myUgcList: [],
-  },
-  // 关闭用户评论弹窗
-  onCloseUgcCommentAction(e) {
-    this.setData({
-      showUgcCommentAction: false,
-      ugcDetailOfCommentList: null,
-    });
-    setTimeout(() => {
-      if (typeof this.getTabBar === "function" && this.getTabBar()) {
-        this.getTabBar().setData({
-          show: true,
-        });
-      }
-    }, 300);
+    posts: null,
   },
 
-  async getNextDaily() {
+  async getNext() {
+    const { pageNum, posts } = this.data;
     this.setData({
       isLoading: true,
     });
-    const [res, err] = await to(ugcApi.getMyUgc(this.data.pageDaily + 1));
+    const [res, err] = await to(postApi.searchMyPost("", pageNum + 1));
     if (err) {
       wx.showToast({
-        title: "出错啦",
-        icon: "none",
+        title: err.data,
+        icon: "error",
       });
       return;
     }
-    const ugcListNext = res.data.data;
+    const postsNext = res.data;
     this.setData({
-      "myUgcList.list": [...this.data.myUgcList.list, ...ugcListNext.list],
-      pageDaily:
-        ugcListNext.list.length > 0
-          ? this.data.pageDaily + 1
-          : this.data.pageDaily,
+      posts: {
+        ...postsNext,
+        content: [...posts.content, ...postsNext.content],
+      },
+      pageNum: postsNext.content.length > 0 ? pageNum + 1 : pageNum,
       isLoading: false,
     });
   },
@@ -57,9 +44,15 @@ Page({
     wx.showLoading({
       title: "加载中",
     });
-    const myUgcList = await ugcApi.getMyUgc(0);
+    const [res, err] = await to(postApi.searchMyPost("", 0));
+    if (err) {
+      wx.showToast({
+        title: err.data,
+        icon: "error",
+      });
+    }
     this.setData({
-      myUgcList: myUgcList.data.data,
+      posts: res.data,
     });
     wx.hideLoading({
       success: (res) => {},
@@ -67,19 +60,30 @@ Page({
   },
 
   async onReachBottom(options) {
-    this.getNextDaily();
+    this.getNext();
+  },
+
+  async onFinishDleteUgc(e) {
+    const { posts } = this.data;
+    posts.content.splice(e.detail.index, 1);
+    this.setData({
+      posts,
+    });
   },
 
   async onPullDownRefresh() {
     wx.showLoading({
       title: "刷新中...",
     });
-    let myUgcList = await ugcApi.getMyUgc(
-      0,
-      this.data.pageDaily === 0 ? 10 : (this.data.pageDaily + 1) * 10
-    );
+    const [res, err] = await to(postApi.searchMyPost("", 0));
+    if (err) {
+      wx.showToast({
+        title: err.data,
+        icon: "error",
+      });
+    }
     this.setData({
-      myUgcList: myUgcList.data.data,
+      posts: res.data,
     });
     wx.showToast({
       title: "刷新成功",

@@ -5,7 +5,7 @@
 </cu-custom>
 
 <view class="ugc-list">
-  <ugc showTop="{{true}}" wx:for="{{myUgcList.list}}" wx:key="id" list-index="{{index}}" detail="{{item}}" bind:tapCommentIcon="onShowUgcCommentAction" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
+  <ugc showTop="{{true}}" wx:for="{{posts.content}}" wx:key="id" list-index="{{index}}" detail="{{item}}" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
 </view>
 
 <!-- 底部加载中 -->
