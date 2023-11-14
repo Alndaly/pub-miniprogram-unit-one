@@ -9,11 +9,11 @@ Page({
     wx.showLoading({
       title: "稍等哦...",
     });
-    const newUserName = this.data.username;
-    const [res, err] = await to(userApi.changeMyUserName(newUserName));
+    const { nickname } = this.data;
+    const [res, err] = await to(userApi.changeMyNickname(nickname));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
@@ -25,7 +25,7 @@ Page({
 
   clearUserName(e) {
     this.setData({
-      username: "",
+      nickname: "",
     });
   },
 
@@ -34,7 +34,7 @@ Page({
     const eventChannel = this.getOpenerEventChannel();
     eventChannel.on("acceptDataFromOpenerPage", function (data) {
       _this.setData({
-        username: data.data,
+        nickname: data.data,
       });
     });
   },

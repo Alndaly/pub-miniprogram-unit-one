@@ -1,24 +1,5 @@
 {
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "pages/myInfo/beCommented/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "",
-          "pathName": "pages/myInfo/beVoted/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        }
-      ]
-    }
-  },
+  "condition": {},
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false,

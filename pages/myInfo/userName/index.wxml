@@ -6,13 +6,13 @@
 <view class="whole">
   <view class="editor-box">
     <view class="input-box">
-      <input class="username" auto-focus placeholder="编辑昵称" placeholder-style="  line-height: 40px;" model:value="{{username}}" />
+      <input class="username" auto-focus placeholder="编辑昵称" placeholder-style="  line-height: 40px;" model:value="{{nickname}}" />
       <view class="right-icon" catchtap="clearUserName">
         <van-icon name="cross" size="15" color="gray" />
       </view>
 
     </view>
-    <view class="input-length">{{username.length}}</view>
+    <view class="input-length">{{nickname.length}}</view>
   </view>
   <view class="my-button" catchtap="submitChange" hover-class="my-button-hover">
     保存

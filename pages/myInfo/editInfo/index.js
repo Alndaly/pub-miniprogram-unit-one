@@ -1,5 +1,3 @@
-// pages/myInfo/editInfo.js
-
 import userApi from "../../../api/user";
 import fileApi from "../../../api/file";
 import { to } from "../../../utils/util";
@@ -22,19 +20,22 @@ Page({
         const file = {
           url: res.tempFiles[0].tempFilePath,
         };
-        const [res_upload, err_upload] = await to(fileApi.uploadImage(file));
+        const [res_upload, err_upload] = await to(
+          fileApi.uploadImage(file.url)
+        );
         if (err_upload) {
           wx.showToast({
-            title: err_upload.data.message,
+            title: err_upload.data,
+            icon: "error",
           });
           return;
         }
         const [res_change, err_change] = await to(
-          userApi.changeMyAvatar(res_upload.url)
+          userApi.changeMyAvatar(res_upload)
         );
         if (err_change) {
           wx.showToast({
-            title: err_change.data.message,
+            title: err_change.data,
             icon: "error",
           });
         }
@@ -50,14 +51,13 @@ Page({
     const [res, err] = await to(userApi.getMyUserInfo());
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      userInfo: res.data.data,
-      "userInfo.gender": userUtils.getGender(res.data.data.gender),
+      userInfo: res.data,
     });
   },
 
@@ -69,18 +69,6 @@ Page({
           data: this.data.userInfo.nickname,
         });
       },
-    });
-  },
-
-  // 更换所在地
-  async onChangeRegion(e) {
-    const [res, err] = await to(userApi.changeMyLocation(e.detail.value));
-    if (err) {
-      return;
-    }
-    this.setData({
-      userInfo: res.data.data,
-      "userInfo.gender": userUtils.getGender(res.data.data.gender),
     });
   },
 
@@ -99,22 +87,24 @@ Page({
         wx.showLoading({
           title: "稍等哦...",
         });
-        let file = {
+        const file = {
           url: res.tempFiles[0].tempFilePath,
         };
-        let [res_upload, err_upload] = await to(fileApi.uploadImage(file));
+        const [res_upload, err_upload] = await to(
+          fileApi.uploadImage(file.url)
+        );
         if (err_upload) {
           wx.showToast({
-            title: err_upload.data.message,
+            title: err_upload.data,
           });
           return;
         }
-        let [res_change, err_change] = await to(
-          userApi.changeMyBgImage(res_upload.url)
+        const [res_change, err_change] = await to(
+          userApi.changeMyBgImage(res_upload)
         );
         if (err_change) {
           wx.showToast({
-            title: err_change.data.message,
+            title: err_change.data,
             icon: "error",
           });
         }
@@ -140,70 +130,44 @@ Page({
 
   // 更新生日
   async onChangeBirthday(e) {
-    let [res, err] = await to(userApi.changeMyBirthday(e.detail.value));
+    const date = new Date(e.detail.value);
+    const timestamp = date.getTime();
+    const [res, err] = await to(userApi.changeMyBirthday(timestamp));
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      userInfo: res.data.data,
-      "userInfo.gender": userUtils.getGender(res.data.data.gender),
-    });
-  },
-
-  // 更换收货地址
-  getAddress(e) {
-    wx.chooseAddress({
-      success: async function (res) {
-        wx.showLoading({
-          title: "稍等哦...",
-        });
-        const [res_address, err_address] = await to(
-          userApi.changeMyAddress(res)
-        );
-        if (err_address) {
-          wx.showToast({
-            title: "出错啦",
-            icon: "error",
-          });
-          return;
-        }
-        wx.showToast({
-          title: "更新成功",
-        });
-      },
+      userInfo: res.data,
     });
   },
 
   changeGender(e) {
     const _this = this;
-    let itemList = ["男", "女", "不展示"];
-    let value = ["1", "2", "0"];
+    const itemList = ["男", "女", "不展示"];
     wx.showActionSheet({
       itemList,
       async success(res) {
-        let [res_gender, err_gender] = await to(
-          userApi.changeMyGender(value[res.tapIndex])
+        wx.showLoading({
+          title: "稍等哦",
+        });
+        const [res_gender, err_gender] = await to(
+          userApi.changeMyGender(itemList[res.tapIndex])
         );
         if (err_gender) {
           wx.showToast({
-            title: "出错啦",
+            title: err_gender.data,
             icon: "error",
           });
           return;
         }
-        _this.setData({
-          "userInfo.gender": userUtils.getGender(res_gender.data.data.gender),
-        });
-      },
-      fail(err) {
-        console.error(err);
+        wx.hideLoading();
+        _this.refreshUserInfo();
       },
     });
-    this.refreshUserInfo();
   },
 
   goSignature(e) {
@@ -243,14 +207,13 @@ Page({
     const [res, err] = await to(userApi.getMyUserInfo());
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       return;
     }
     this.setData({
-      userInfo: res.data.data,
-      "userInfo.gender": userUtils.getGender(res.data.data.gender),
+      userInfo: res.data,
     });
   },
 

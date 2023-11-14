@@ -127,12 +127,23 @@ export default {
       method: "POST",
     });
   },
+  changeMyBgImage(bgAttachment){
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newUserData: {
+          bgAttachment,
+        },
+      },
+      method: "POST",
+    });
+  },
   // 更改个性签名
   changeMySignature(signature) {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           signature,
         },
       },
@@ -143,8 +154,19 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           qq,
+        },
+      },
+      method: "POST",
+    });
+  },
+  changeMyBirthday(birthday) {
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newUserData: {
+          birthday,
         },
       },
       method: "POST",
@@ -154,7 +176,7 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           wechat,
         },
       },
@@ -166,7 +188,7 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           gender,
         },
       },
@@ -178,7 +200,7 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           avatar,
         },
       },
@@ -190,7 +212,7 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
-        newData: {
+        newUserData: {
           nickname,
         },
       },
