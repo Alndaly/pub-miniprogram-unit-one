@@ -1,11 +1,11 @@
 <!--pages/myInfo/beCommented/index.wxml-->
-<cu-custom isBack>
+<cu-custom isBack bgColor="bg-white">
   <view slot="backText">返回</view>
   <view slot="content">被评论</view>
 </cu-custom>
 <view class="whole-page">
   <view class="commented-list">
-    <commented-item commented_item="{{item}}" wx:for="{{commented.list}}" wx:key="id" />
+    <commented-item commented_item="{{item}}" wx:for="{{list.content}}" wx:key="id" />
     <!-- 底部加载中 -->
     <block wx:if="{{isLoading}}">
       <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />

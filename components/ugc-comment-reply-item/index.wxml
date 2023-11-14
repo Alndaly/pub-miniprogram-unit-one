@@ -1,5 +1,5 @@
 <!--components/ugc-comment-reply-item/index.wxml-->
-<view class="whole">
+<view class="whole" id="{{detail.id}}">
   <view class="reply-avatar">
     <van-image round fit="cover" height="30px" width="30px" lazy-load src="{{detail.fromUserInfo.avatar}}" catchtap="showUserInfo" data-user_id="{{detail.fromUserInfo.id}}"></van-image>
   </view>

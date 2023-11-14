@@ -1,7 +1,7 @@
 // pages/myInfo/editInfo.js
+
 import userApi from "../../../api/user";
 import fileApi from "../../../api/file";
-import userUtils from "../../../utils/user";
 import { to } from "../../../utils/util";
 
 Page({
@@ -265,9 +265,6 @@ Page({
           Custom: custom,
         });
       },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
-      },
     });
   },
 
@@ -276,11 +273,7 @@ Page({
       title: "刷新中...",
     });
     this.refreshUserInfo();
-    wx.hideLoading({
-      success: (res) => {},
-    });
-    wx.stopPullDownRefresh({
-      success: (res) => {},
-    });
+    wx.hideLoading();
+    wx.stopPullDownRefresh();
   },
 });

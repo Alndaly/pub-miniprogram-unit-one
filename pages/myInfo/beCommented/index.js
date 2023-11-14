@@ -1,7 +1,7 @@
-// pages/myInfo/beCommented/index.js
-const computedBehavior = require("miniprogram-computed").behavior;
 import { to } from "../../../utils/util";
 import userApi from "../../../api/user";
+
+const computedBehavior = require("miniprogram-computed").behavior;
 
 Page({
   behaviors: [computedBehavior],
@@ -10,46 +10,25 @@ Page({
    */
   data: {
     isLoading: false,
-    page_num: 1,
+    pageNum: 0,
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   async onLoad(options) {
-    const [res, err] = await to(userApi.getCommentedMine(1));
+    const [res, err] = await to(userApi.searchCommentMeLog(0));
     if (err) {
       wx.showToast({
-        title: err.data.message,
+        title: err.data,
         icon: "error",
       });
       return;
     }
-    let commented = res.data.data;
     this.setData({
-      commented,
+      list: res.data,
     });
   },
-
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady() {},
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow() {},
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide() {},
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload() {},
 
   /**
    * Page event handler function--Called when user drop down
@@ -58,18 +37,17 @@ Page({
     wx.showLoading({
       title: "刷新中",
     });
-    const [res, err] = await to(userApi.getCommentedMine(1));
+    const [res, err] = await to(userApi.searchCommentMeLog(0));
     if (err) {
       wx.showToast({
-        title: err.data.message,
+        title: err.data,
         icon: "error",
       });
       return;
     }
-    let commented = res.data.data;
     this.setData({
-      commented,
-      page_num: 1,
+      list: res.data,
+      pageNum: 0,
     });
     wx.hideLoading();
     wx.stopPullDownRefresh();
@@ -82,11 +60,11 @@ Page({
     this.setData({
       isLoading: true,
     });
-    const { page_num, commented } = this.data;
-    const [res, err] = await to(userApi.getCommentedMine(page_num + 1));
+    const { pageNum, list } = this.data;
+    const [res, err] = await to(userApi.searchCommentMeLog(pageNum + 1));
     if (err) {
       wx.showToast({
-        title: err.data.message,
+        title: err.data,
         icon: "error",
       });
       this.setData({
@@ -94,20 +72,14 @@ Page({
       });
       return;
     }
-    let commented_next = res.data.data;
-    let newCommented = {
-      list: [...commented.list, ...commented_next.list],
-      total_size: commented_next.total_size,
-    };
+    const listNext = res.data;
     this.setData({
-      commented: newCommented,
-      page_num: page_num + 1,
+      list: {
+        ...listNext,
+        content: [...list.content, ...listNext.content],
+      },
+      pageNum: listNext.content.length > 0 ? pageNum + 1 : pageNum,
       isLoading: false,
     });
   },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage() {},
 });

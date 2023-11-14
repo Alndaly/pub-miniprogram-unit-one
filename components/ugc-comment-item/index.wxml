@@ -1,5 +1,5 @@
 <!--components/ugc-comment-item/index.wxml-->
-<view class="whole">
+<view class="whole" id="{{commentItem.id}}">
   <!-- 用户头像 -->
   <view class="avatar-box">
     <view data-id="{{commentItem.fromUserInfo.id}}" class="avatar" style="background-image:url({{commentItem.fromUserInfo.avatar}});" catchtap="showUserInfo"></view>

@@ -1,13 +1,23 @@
 /* components/voted-item/index.wxss */
-
 .voted-item {
   border-radius: 10px;
   background-color: white;
   display: flex;
   flex-direction: row;
-  gap: 10px;
   justify-content: space-between;
   padding: 10px;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.content-box {
+  padding: 10px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
 }
 
 .nickname {

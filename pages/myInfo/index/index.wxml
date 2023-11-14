@@ -24,7 +24,7 @@
     <view class="data">
       <view class="data-box collect" catchtap="toViewed">
         <view class="num">
-          {{myUserInfo.receive_view_num?myUserInfo.receive_view_num:0}}
+          {{myUserInfo.receiveExposureCount?myUserInfo.receiveExposureCount:0}}
         </view>
         <view class="text">
           被浏览

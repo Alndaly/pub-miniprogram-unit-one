@@ -215,12 +215,23 @@ Page({
 
   async onRefresh(e) {
     const { options } = this.data;
+    let [resPostCommentList, errPostCommentList] = [];
     const [resPostDetail, errPostDetail] = await to(
       postApi.getPostDetail(options.ugc_id)
     );
-    const [resPostCommentList, errPostCommentList] = await to(
-      postApi.getComment(options.ugc_id, 0)
-    );
+    if (options.topCommentId) {
+      [resPostCommentList, errPostCommentList] = await to(
+        postApi.getPostCommentExceptComment(
+          options.ugc_id,
+          options.topCommentId,
+          0
+        )
+      );
+    } else {
+      [resPostCommentList, errPostCommentList] = await to(
+        postApi.getComment(options.ugc_id, 0)
+      );
+    }
     this.setData({
       postDetail: resPostDetail.data,
       ugcCommentList: resPostCommentList.data,

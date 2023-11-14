@@ -7,15 +7,15 @@ Component({
   computed: {
     poster(data) {
       let image = "";
-      if (data.commented_item && data.commented_item.images) {
-        image = data.commented_item.images.split(",")[0];
+      if (data.commented_item && data.commented_item.attachmentList) {
+        image = data.commented_item.attachmentList[0].url;
       }
       return image;
     },
     differTime(data) {
       let differ = "";
-      if (data.commented_item) {
-        differ = timeUtils.differTime(data.commented_item.create_time);
+      if (data.commented_item.comment.createTime) {
+        differ = timeUtils.differTime(data.commented_item.comment.createTime);
       }
       return differ;
     },
@@ -36,9 +36,24 @@ Component({
    * Component methods
    */
   methods: {
-    goUgcDetail(e) {
-      const { ugc_id } = e.currentTarget.dataset;
-      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id });
+    goUserInfo(e) {
+      const { commented_item } = this.data;
+      wx.$router.push(
+        `/pages/userInfo/index?user_id=${commented_item.comment.fromUserInfo.id}`
+      );
+    },
+    goDetail(e) {
+      const { commented_item } = this.data;
+      if (commented_item.toType === "post") {
+        wx.$router.push(`/pages/wall/ugcDetail/index`, {
+          ugc_id: commented_item.post.id,
+        });
+      } else if (commented_item.toType === "comment") {
+        wx.$router.push(`/pages/wall/ugcDetail/index`, {
+          ugc_id: commented_item.post.id,
+          topCommentId: commented_item.comment.id,
+        });
+      }
     },
   },
 });

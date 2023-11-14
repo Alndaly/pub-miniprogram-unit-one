@@ -2,6 +2,26 @@ import { service } from "../utils/service";
 import { BaseConfig } from "../configs/base";
 
 export default {
+  searchLikeMeLog(pageNum, pageSize = 10) {
+    return service({
+      url: BaseConfig.API_URL + "/user/liked",
+      data: {
+        pageNum,
+        pageSize,
+      },
+      method: "POST",
+    });
+  },
+  searchCommentMeLog(pageNum, pageSize = 10) {
+    return service({
+      url: BaseConfig.API_URL + "/user/commented",
+      data: {
+        pageNum,
+        pageSize,
+      },
+      method: "POST",
+    });
+  },
   // 获取我关注的用户列表
   getMyFollowedUser(pageNum, pageSize = 20) {
     return service({

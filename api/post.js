@@ -173,6 +173,27 @@ export default {
       method: "POST",
     });
   },
+  getPostCommentDetailWithParent(id) {
+    return service({
+      url: BaseConfig.API_URL + "/post/comment/detail",
+      data: {
+        id,
+      },
+      method: "POST",
+    });
+  },
+  getPostCommentExceptComment(id, topId, pageNum, pageSize = 10) {
+    return service({
+      url: BaseConfig.API_URL + "/post/comment/list/top",
+      data: {
+        id,
+        topId,
+        pageNum,
+        pageSize,
+      },
+      method: "POST",
+    });
+  },
   // 获取我点赞的Ugc
   getMyLiked(keyword, pageNum, pageSize = 10) {
     return service({

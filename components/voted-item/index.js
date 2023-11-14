@@ -1,21 +1,22 @@
 // components/voted-item/index.js
-const computedBehavior = require("miniprogram-computed").behavior;
 import timeUtils from "../../utils/time";
+
+const computedBehavior = require("miniprogram-computed").behavior;
 
 Component({
   behaviors: [computedBehavior],
   computed: {
     poster(data) {
-      let image = "";
-      if (data.voted_item && data.voted_item.images) {
-        image = data.voted_item.images.split(",")[0];
+      if (data.voted_item && data.voted_item.attachmentList) {
+        const image = data.voted_item.attachmentList[0].url;
+        return image;
       }
-      return image;
+      return null;
     },
     differTime(data) {
       let differ = "";
       if (data.voted_item) {
-        differ = timeUtils.differTime(data.voted_item.update_time);
+        differ = timeUtils.differTime(data.voted_item.createTime);
       }
       return differ;
     },
@@ -36,9 +37,24 @@ Component({
    * Component methods
    */
   methods: {
-    goUgcDetail(e) {
-      const { ugc_id } = e.currentTarget.dataset;
-      wx.$router.push(`/pages/wall/ugcDetail/index`, { ugc_id: ugc_id });
+    goUserInfo(e) {
+      const { voted_item } = this.data;
+      wx.$router.push(
+        `/pages/userInfo/index?user_id=${voted_item.userInfo.id}`
+      );
+    },
+    goDetail(e) {
+      const { voted_item } = this.data;
+      if (voted_item.toType === "post") {
+        wx.$router.push(`/pages/wall/ugcDetail/index`, {
+          ugc_id: voted_item.post.id,
+        });
+      } else if (voted_item.toType === "comment") {
+        wx.$router.push(`/pages/wall/ugcDetail/index`, {
+          ugc_id: voted_item.post.id,
+          topCommentId: voted_item.comment.id,
+        });
+      }
     },
   },
 });

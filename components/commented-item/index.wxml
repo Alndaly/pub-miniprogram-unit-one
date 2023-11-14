@@ -1,10 +1,10 @@
 <!--components/commented-item/index.wxml-->
-<view class="commented-item" catchtap="goUgcDetail" data-ugc_id="{{commented_item.ugc_id}}">
+<view class="commented-item" catchtap="goDetail">
   <view class="left">
-    <van-image radius="10" fit="cover" height="60px" width="60px" lazy-load src="{{commented_item.user_info.avatar}}"></van-image>
+    <van-image catch:tap="goUserInfo" radius="10" fit="cover" height="60px" width="60px" lazy-load src="{{commented_item.comment.fromUserInfo.avatar}}"></van-image>
     <view class="center">
-      <view class="nickname">{{commented_item.user_info.nickname}}</view>
-      <view class="comment-content">{{commented_item.content}}</view>
+      <view class="nickname">{{commented_item.comment.fromUserInfo.nickname}}</view>
+      <view class="comment-content">{{commented_item.comment.content}}</view>
       <view class="time">{{differTime}}</view>
     </view>
   </view>
