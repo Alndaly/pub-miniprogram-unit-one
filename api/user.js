@@ -150,6 +150,20 @@ export default {
       method: "POST",
     });
   },
+  changeMyLocation(longitude, latitude) {
+    return service({
+      url: BaseConfig.API_URL + "/user/update",
+      data: {
+        newUserData: {
+          location: {
+            longitude,
+            latitude,
+          },
+        },
+      },
+      method: "POST",
+    });
+  },
   changeMyQq(qq) {
     return service({
       url: BaseConfig.API_URL + "/user/update",
@@ -223,6 +237,17 @@ export default {
     return service({
       url: BaseConfig.API_URL + "/user/privacy",
       data: {},
+      method: "POST",
+    });
+  },
+  updateUserPrivacyLocation(location) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          location,
+        },
+      },
       method: "POST",
     });
   },

@@ -13,6 +13,22 @@ Page({
     isLoading: false,
   },
 
+  goUserLocation(e) {
+    const { user_info } = this.data;
+    wx.openLocation({
+      latitude: user_info.locationInfo.latitude,
+      longitude: user_info.locationInfo.longitude,
+    });
+  },
+
+  onViewAvatar(e) {
+    const { user_info } = this.data;
+    wx.previewImage({
+      urls: [user_info.avatar],
+      current: user_info.avatar,
+    });
+  },
+
   async onShowPublish(e) {
     this.setData({
       postRefresherTriggered: true,

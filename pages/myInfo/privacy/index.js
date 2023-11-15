@@ -35,6 +35,9 @@ Page({
       case "qq":
         [res, err] = await to(userApi.updateUserPrivacyQq(e.detail.value));
         break;
+      case "location":
+        [res, err] = await to(userApi.updateUserPrivacyLocation(e.detail.value));
+        break;
       case "birthday":
         [res, err] = await to(
           userApi.updateUserPrivacyBirthday(e.detail.value)

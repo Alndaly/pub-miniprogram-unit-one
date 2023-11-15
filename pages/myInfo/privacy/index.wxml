@@ -7,6 +7,11 @@
 <view class="whole">
   <van-cell-group title="资料卡展示" border="{{false}}">
     <view class="bg-white box">
+      <van-cell center title="当前位置">
+        <view slot="right-icon" class="right">
+          <switch checked="{{location}}" data-type="location" bindchange="onChange" />
+        </view>
+      </van-cell>
       <van-cell center title="我的性别">
         <view slot="right-icon" class="right">
           <switch checked="{{gender}}" data-type="gender" bindchange="onChange" />

@@ -1,11 +1,11 @@
-<view class="bg-top">
-  <map wx:if="{{user_info.location}}" enable-scroll="{{false}}" style="width: 100%;height: 100%;" id="maps" scale="{{16}}" show-location latitude="{{user_info.location.latitude}}" longitude="{{user_info.location.longitude}}"></map>
+<view class="bg-top" catch:tap="goUserLocation">
+  <map wx:if="{{user_info.locationInfo}}" enable-scroll="{{false}}" style="width: 100%;height: 100%;" id="maps" scale="{{16}}" show-location latitude="{{user_info.locationInfo.latitude}}" longitude="{{user_info.locationInfo.longitude}}"></map>
   <van-image wx:else="{{user_info.location}}" fit="cover" height="100%" width="100%" lazy-load src="{{user_info.bgAttachment}}"></van-image>
 </view>
 <view class="whole-page">
   <view class="header-box box">
     <view class="avatar-box">
-      <view class="avatar">
+      <view class="avatar" catch:tap="onViewAvatar">
         <van-image round lazy-load width="110" height="110" fit="cover" src="{{user_info.avatar}}" />
       </view>
       <view wx:if="{{user_info.gender}}" class="gender">

@@ -44,5 +44,9 @@ Page({
       location: res_location,
       myUserInfo: res_myUserInfo.data,
     });
+    await userApi.changeMyLocation(
+      res_location.longitude,
+      res_location.latitude
+    );
   },
 });
