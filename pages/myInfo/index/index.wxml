@@ -15,6 +15,22 @@
     <view class="nickname">
       {{myUserInfo.nickname}}
     </view>
+    <view class="row" wx:if="{{myUserInfo.birthday}}">
+      <view class="box" wx:if="{{myUserInfo.birthday}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
+        <view>{{myUserInfo.birthday}}</view>
+      </view>
+    </view>
+    <view class="row" wx:if="{{!(!myUserInfo.wechat&&!user_info.qq)}}">
+      <view class="box" wx:if="{{myUserInfo.wechat}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/wechat-fill.png" />
+        <view>{{myUserInfo.wechat}}</view>
+      </view>
+      <view class="box" wx:if="{{myUserInfo.qq}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/QQ.png" />
+        <view>{{myUserInfo.qq}}</view>
+      </view>
+    </view>
     <view class="signature-box">
       <view class="signature">
         <image class="quote" src="/static/images/quote.png" mode="aspectFill" />
@@ -58,6 +74,7 @@
 
   <view class="content-box box">
     <van-cell title="编辑资料" is-link url="/pages/myInfo/editInfo/index" />
+    <van-cell title="隐私设置" is-link url="/pages/myInfo/privacy/index" />
   </view>
 
   <view class="content-box box">

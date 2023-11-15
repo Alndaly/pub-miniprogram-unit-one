@@ -4,11 +4,19 @@
   <view slot="content">我的帖子</view>
 </cu-custom>
 
-<view class="ugc-list">
-  <ugc showTop="{{true}}" wx:for="{{posts.content}}" wx:key="id" list-index="{{index}}" detail="{{item}}" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
-</view>
-
-<!-- 底部加载中 -->
-<block wx:if="{{isLoading}}">
-  <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />
+<block wx:if="{{!posts.content.length}}">
+  <view class='text-center margin-xl bg-white padding-xl radius shadow-lg'>
+    <view class='text-content'>
+      <view class='margin-top-sm'>还没有发布过帖子哦～</view>
+    </view>
+  </view>
+</block>
+<block wx:else>
+  <view class="ugc-list">
+    <ugc showTop="{{true}}" wx:for="{{posts.content}}" wx:key="id" list-index="{{index}}" detail="{{item}}" bind:onDeleteUgc="onFinishDleteUgc"></ugc>
+  </view>
+  <!-- 底部加载中 -->
+  <block wx:if="{{isLoading}}">
+    <van-image height="80px" width="100vw" fit="cover" src="https://oss.kinda.info/image/loading.gif" />
+  </block>
 </block>

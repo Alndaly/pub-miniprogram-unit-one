@@ -306,3 +306,8 @@
   width: 23px;
   height: 23px;
 }
+
+.exposure {
+  margin-top: 10px;
+  color: #ccc;
+}

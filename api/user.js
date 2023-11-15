@@ -127,7 +127,7 @@ export default {
       method: "POST",
     });
   },
-  changeMyBgImage(bgAttachment){
+  changeMyBgImage(bgAttachment) {
     return service({
       url: BaseConfig.API_URL + "/user/update",
       data: {
@@ -214,6 +214,68 @@ export default {
       data: {
         newUserData: {
           nickname,
+        },
+      },
+      method: "POST",
+    });
+  },
+  getUserPrivacy() {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy",
+      data: {},
+      method: "POST",
+    });
+  },
+  updateUserPrivacyQq(qq) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          qq,
+        },
+      },
+      method: "POST",
+    });
+  },
+  updateUserPrivacyWechat(wechat) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          wechat,
+        },
+      },
+      method: "POST",
+    });
+  },
+  updateUserPrivacyBirthday(birthday) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          birthday,
+        },
+      },
+      method: "POST",
+    });
+  },
+  updateUserPrivacyWechat(wechat) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          wechat,
+        },
+      },
+      method: "POST",
+    });
+  },
+  updateUserPrivacyGender(gender) {
+    return service({
+      url: BaseConfig.API_URL + "/user/privacy/update",
+      data: {
+        newUserPrivacy: {
+          gender,
         },
       },
       method: "POST",

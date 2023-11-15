@@ -1,0 +1,33 @@
+<!--pages/myInfo/privacy-setting/index.wxml-->
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">隐私设置</view>
+</cu-custom>
+
+<view class="whole">
+  <van-cell-group title="资料卡展示" border="{{false}}">
+    <view class="bg-white box">
+      <van-cell center title="我的性别">
+        <view slot="right-icon" class="right">
+          <switch checked="{{gender}}" data-type="gender" bindchange="onChange" />
+        </view>
+      </van-cell>
+      <van-cell center title="我的微信">
+        <view slot="right-icon" class="right">
+          <switch checked="{{wechat}}" data-type="wechat" bindchange="onChange" />
+        </view>
+      </van-cell>
+      <van-cell center title="我的QQ">
+        <view slot="right-icon" class="right">
+          <switch checked="{{qq}}" data-type="qq" bindchange="onChange" />
+        </view>
+      </van-cell>
+      <van-cell center title="我的生日">
+        <view slot="right-icon" class="right">
+          <switch checked="{{birthday}}" data-type="birthday" bindchange="onChange" />
+        </view>
+      </van-cell>
+    </view>
+  </van-cell-group>
+
+</view>

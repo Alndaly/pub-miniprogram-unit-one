@@ -1,5 +1,5 @@
 <!--pages/myInfo/myAttention.wxml-->
-<cu-custom isBack>
+<cu-custom isBack bgColor="bg-white">
   <view slot="backText">返回</view>
   <view slot="content">我的关注</view>
 </cu-custom>

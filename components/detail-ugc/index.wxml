@@ -19,6 +19,7 @@
       <view class="labels" wx:if="{{detail.labelInfoList}}">
         <view class="label" wx:for="{{detail.labelInfoList}}" wx:key="id" data-label="{{item}}" catchtap="goLabel">{{item.title}}</view>
       </view>
+      <view class="exposure">浏览 {{detail.exposure}}</view>
     </view>
   </view>
   <slot name="bottom"></slot>

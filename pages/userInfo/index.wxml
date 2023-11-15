@@ -9,11 +9,27 @@
         <van-image round lazy-load width="110" height="110" fit="cover" src="{{user_info.avatar}}" />
       </view>
       <view wx:if="{{user_info.gender}}" class="gender">
-        <image class="gender-icon" src="/static/images/{{user_info.gender===1?'nanxing':'nvxing'}}.png" mode="aspectFill" />
+        <image class="gender-icon" src="/static/images/{{user_info.gender==='男'?'nanxing':'nvxing'}}.png" mode="aspectFill" />
       </view>
     </view>
     <view class="nickname">
       {{user_info.nickname?user_info.nickname:"..."}}
+    </view>
+    <view class="row" wx:if="{{user_info.birthday}}">
+      <view class="box" wx:if="{{user_info.birthday}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/birthday.png" />
+        <view>{{user_info.birthday}}</view>
+      </view>
+    </view>
+    <view class="row" wx:if="{{!(!user_info.wechat&&!user_info.qq)}}">
+      <view class="box" wx:if="{{user_info.wechat}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/wechat-fill.png" />
+        <view>{{user_info.wechat}}</view>
+      </view>
+      <view class="box" wx:if="{{user_info.qq}}">
+        <van-image round lazy-load width="20" height="20" fit="cover" src="/static/images/QQ.png" />
+        <view>{{user_info.qq}}</view>
+      </view>
     </view>
     <view class="signature-box">
       <view class="signature">
