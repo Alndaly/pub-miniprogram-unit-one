@@ -19,7 +19,7 @@
     <mp-html content="{{computedContent}}" copy-link="false" selectable="true" bindlinktap="contentLinkTaped" />
     <!-- 帖子图片 -->
     <view class="ugc-images grid grid-square col-3">
-      <block wx:for="{{detail.attachmentList}}" wx:key="id">
+      <block wx:for="{{detail.attachmentInfoList}}" wx:key="id">
         <view class="bg-img" catchtap="viewImage" data-current="{{item.url}}">
           <image src='{{item.url}}' mode='aspectFill'></image>
         </view>

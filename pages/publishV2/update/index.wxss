@@ -213,7 +213,6 @@ page {
   flex: 1;
   color: white;
   font-family: 'DouYu';
-  padding: 15px;
   border-radius: 50px;
   display: flex;
   justify-content: center;

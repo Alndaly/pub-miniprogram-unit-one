@@ -54,7 +54,7 @@ Component({
     },
     // 浏览ugc的图片
     viewImage(e) {
-      let urls = this.data.detail.attachmentList.map((item) => {
+      let urls = this.data.detail.attachmentInfoList.map((item) => {
         if (item.type === "image") {
           return item.url;
         }

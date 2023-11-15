@@ -7,8 +7,8 @@ Component({
   behaviors: [computedBehavior],
   computed: {
     poster(data) {
-      if (data.voted_item && data.voted_item.attachmentList) {
-        const image = data.voted_item.attachmentList[0].url;
+      if (data.voted_item && data.voted_item.attachmentInfoList) {
+        const image = data.voted_item.attachmentInfoList[0].url;
         return image;
       }
       return null;

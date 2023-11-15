@@ -11,8 +11,8 @@
         <mp-html content="{{computedContent}}" copy-link="false" selectable="true" />
       </view>
       <!-- 帖子图片 -->
-      <view wx:if="{{detail.attachmentList.length}}" class="images">
-        <block wx:for="{{detail.attachmentList}}" wx:key="id">
+      <view wx:if="{{detail.attachmentInfoList.length}}" class="images">
+        <block wx:for="{{detail.attachmentInfoList}}" wx:key="id">
           <van-image width="{{imageWidth}}" height="{{imageWidth}}" radius="5" catchtap="viewImage" data-current="{{item.url}}" wx:if="{{item.type==='image'}}" fit="cover" lazy-load src="{{item.url}}"></van-image>
         </block>
       </view>

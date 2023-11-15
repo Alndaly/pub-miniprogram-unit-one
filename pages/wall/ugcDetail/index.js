@@ -253,7 +253,7 @@ Page({
   onShareAppMessage() {
     const { postDetail } = this.data;
     const title = removeHtmlTag(postDetail.content);
-    const imageUrl = postDetail.attachmentList[0].url;
+    const imageUrl = postDetail.attachmentInfoList[0].url;
     const path = `pages/wall/ugcDetail/index?ugc_id=${postDetail.id}`;
     return {
       imageUrl,

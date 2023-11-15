@@ -140,7 +140,7 @@ export default {
   // 修改帖子
   updatePost(id, title, content, attachmentInfoList, labelInfoList) {
     return service({
-      url: BaseConfig.API_URL + "/post/ugc/update",
+      url: BaseConfig.API_URL + "/post/update",
       data: {
         id,
         title,

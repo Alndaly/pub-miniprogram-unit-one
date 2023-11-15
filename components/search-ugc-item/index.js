@@ -38,7 +38,7 @@ Component({
 
     // 浏览ugc的图片
     viewImage(e) {
-      const urls = this.data.detail.attachmentList.map((item) => item.url);
+      const urls = this.data.detail.attachmentInfoList.map((item) => item.url);
       wx.previewImage({
         urls,
         current: e.currentTarget.dataset.current,

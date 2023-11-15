@@ -1,5 +1,17 @@
 {
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "pages/publishV2/update/index",
+          "query": "id=4764",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false,

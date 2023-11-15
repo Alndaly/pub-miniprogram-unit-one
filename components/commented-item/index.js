@@ -7,8 +7,8 @@ Component({
   computed: {
     poster(data) {
       let image = "";
-      if (data.commented_item && data.commented_item.attachmentList) {
-        image = data.commented_item.attachmentList[0].url;
+      if (data.commented_item && data.commented_item.attachmentInfoList) {
+        image = data.commented_item.attachmentInfoList[0].url;
       }
       return image;
     },

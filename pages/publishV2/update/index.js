@@ -1,81 +1,182 @@
-const computedBehavior = require("miniprogram-computed").behavior;
 import { _ } from "../../../utils/underscore-min";
-import plugins from "../../../configs/plugins";
-import locationUtil from "../../../utils/location";
-import { subscribeNotify } from "../../../utils/subscribe";
-import ugcApi from "../../../api/post";
+import postApi from "../../../api/post";
 import labelApi from "../../../api/label";
 import userApi from "../../../api/user";
 import fileApi from "../../../api/file";
 import { to } from "../../../utils/util";
-import timeUtils from "../../../utils/time";
 
 Page({
-  behaviors: [computedBehavior],
-  computed: {},
   /**
    * Page initial data
    */
   data: {
     keyboardHeight: 0,
-    submitCondition: 0,
-    showLabelList: false,
+    content: null,
+    title: "",
+    showLabelPopup: false,
     showAddLabelButton: false,
-    labelData: {
-      label_list: {
-        list: [],
-        total_size: 0,
-      },
-      name_exist: true,
-    },
     isLabelLoading: false,
-    label_search_key: "",
-    label_page: 0,
     labelRefresherTriggered: false,
+    attachmentInfoList: [],
+    labelPageNum: 0,
+    labels: null,
+    labelInfoList: [],
+    publishStatus: false,
   },
 
-  deleteLabel(e) {
+  onReady() {
+    wx.getSystemInfo({
+      success: (e) => {
+        let custom = wx.getMenuButtonBoundingClientRect();
+        let CustomBar = custom.bottom + custom.top - e.statusBarHeight;
+        this.setData({
+          CustomBar: CustomBar,
+          StatusBar: e.statusBarHeight,
+          Custom: custom,
+        });
+      },
+    });
+  },
+
+  async onShow(e) {
+    wx.onKeyboardHeightChange((res) => {
+      this.setData({ keyboardHeight: res.height });
+    });
+    const [res_labels, err_labels] = await to(labelApi.getLabels("", 0));
+    const [res_label_exist, err_label_exist] = await to(
+      labelApi.checkLabelExistStatus("", 0)
+    );
+    if (err_labels || err_label_exist) {
+      wx.showToast({
+        title: "获取标签失败",
+        icon: "error",
+      });
+      return;
+    }
+    this.setData({
+      labelKeywordExistStatus: res_label_exist.data,
+      labels: res_labels.data,
+    });
+  },
+
+  async onLoad(options) {
+    wx.showLoading({
+      title: "加载中",
+    });
+    this.setData({
+      options,
+    });
+    const [resPost, errPost] = await to(postApi.getPostDetail(options.id));
+    if (errPost) {
+      wx.showToast({
+        title: errPost.data,
+        icon: "error",
+      });
+      return;
+    }
+    const { title, attachmentInfoList, labelInfoList, content } = resPost.data;
+    this.setData({
+      title,
+      attachmentInfoList,
+      labelInfoList,
+      content,
+    });
+    wx.createSelectorQuery()
+      .select("#ugc-editor")
+      .context(function (res) {
+        res.context.setContents({
+          html: content,
+        });
+      })
+      .exec();
+    wx.hideLoading();
+  },
+
+  // 输入内容
+  inputPostContent(e) {
+    this.setData({
+      content: e.detail.html,
+    });
+  },
+
+  onHideLabelPopup() {
+    this.setData({
+      showLabelPopup: false,
+    });
+  },
+
+  onShowLabelPopup(e) {
+    this.setData({
+      showLabelPopup: true,
+      labelSearchInputFocus: true,
+    });
+  },
+
+  onChangeLabelSearchKey() {
+    this.setData({
+      labelRefresherTriggered: true,
+    });
+  },
+
+  async onLabelRefresh() {
+    const { labelKeyword } = this.data;
+    this.setData({
+      labelRefresherTriggered: true,
+      labelPageNum: 0,
+    });
+    const [res_labels, err_labels] = await to(
+      labelApi.getLabels(labelKeyword, 0)
+    );
+    const [res_label_exist, err_label_exist] = await to(
+      labelApi.checkLabelExistStatus(labelKeyword, 0)
+    );
+    if (err_labels || err_label_exist) {
+      wx.showToast({
+        title: "获取标签失败",
+        icon: "error",
+      });
+      this.setData({
+        labelRefresherTriggered: false,
+      });
+      return;
+    }
+    this.setData({
+      labelRefresherTriggered: false,
+      labelKeywordExistStatus: res_label_exist.data,
+      labels: res_labels.data,
+    });
+  },
+
+  onDeleteLabel(e) {
     const _this = this;
     const { label, index } = e.currentTarget.dataset;
     wx.showModal({
       title: "提醒",
-      content: "确认删除这一标签吗？",
+      content: `确认删除标签${label.title}吗？`,
       complete: (res) => {
-        if (res.cancel) {
-        }
         if (res.confirm) {
-          const { ugc } = _this.data;
-          ugc.label_info.splice(index, 1);
+          const { labelInfoList } = _this.data;
+          labelInfoList.splice(index, 1);
           _this.setData({
-            ugc,
+            labelInfoList,
           });
         }
       },
     });
   },
 
-  onUgcEditorReady() {
-    const _this = this;
-    const query = wx.createSelectorQuery(); //创建节点查询器
-    query.in(this).select("#ugc-editor").context(); //选择id=editor的节点，获取节点内容信息
-    query.exec(function (res) {
-      _this.editorCtx = res[0].context;
-    });
+  onAddLabel(e) {
+    const { labelInfoList } = this.data;
+    labelInfoList.push(e.currentTarget.dataset.label);
+    this.setData({ labelInfoList, showLabelPopup: false });
   },
 
-  async showLabelPopup(e) {
-    this.setData({
-      showLabelList: true,
-      labelSearchInputFocus: true,
-    });
-  },
-
-  async addNewLabel(e) {
+  async onAddNewLabel(e) {
     wx.showLoading({
       title: "稍等哦",
     });
-    const { label_search_key } = this.data;
-    const [res, err] = await to(labelApi.addNewLabel(label_search_key));
+    const { labelKeyword } = this.data;
+    const [res, err] = await to(labelApi.addNewLabel(labelKeyword));
     if (err) {
       wx.showToast({
         title: "出错啦",
@@ -91,46 +192,34 @@ Page({
     });
   },
 
-  onCloseLabel(e) {
+  async onNextLabelPage(e) {
     this.setData({
-      showLabelList: false,
+      isLabelLoading: true,
     });
-  },
-
-  // 输入内容
-  inputUgcContent(e) {
-    const { ugc } = this.data;
-    ugc.content = e.detail.html;
+    const { labels, labelPageNum, labelKeyword } = this.data;
+    const [res, err] = await to(
+      labelApi.getLabels(labelKeyword, labelPageNum + 1)
+    );
+    if (err) {
+      this.setData({
+        isLabelLoading: false,
+      });
+      return;
+    }
     this.setData({
-      ugc,
-    });
-  },
-
-  onChangeAiStatus(e) {
-    const { ugc } = this.data;
-    ugc.use_gpt = e.detail;
-    this.setData({
-      ugc,
-    });
-  },
-
-  async uploadImage(file, index) {
-    const { ugc } = this.data;
-    const [res, err] = await to(fileApi.uploadImage(file));
-    ugc.attachments[index].status = "success";
-    ugc.attachments[index].height = res.height;
-    ugc.attachments[index].width = res.width;
-    ugc.attachments[index].attachment_url = res.url;
-    ugc.attachments[index].attachment_type = res.type;
-    this.setData({
-      ugc,
+      labels: {
+        ...res.data,
+        content: [...labels.content, ...res.data.content],
+      },
+      labelPageNum:
+        res.data.content.length > 0 ? labelPageNum + 1 : labelPageNum,
+      isLabelLoading: false,
     });
   },
 
   async afterRead(e) {
     let fileList = e.detail.file;
-    const { ugc } = this.data;
-    const origin_attachments_length = ugc.attachments.length;
+    const { attachmentInfoList } = this.data;
     fileList = fileList.map((item) => {
       return {
         ...item,
@@ -138,12 +227,11 @@ Page({
       };
     });
     let uploadTasks = [];
-    ugc.attachments = [...ugc.attachments, ...fileList];
     this.setData({
-      ugc,
+      attachmentInfoList: [...attachmentInfoList, ...fileList],
     });
     uploadTasks = fileList.map((item, index) => {
-      return this.uploadImage(item, origin_attachments_length + index);
+      return this.uploadImage(item, attachmentInfoList.length + index);
     });
     Promise.all(uploadTasks)
       .then((res) => {
@@ -156,7 +244,7 @@ Page({
 
   // 删除附件
   delAttachment(e) {
-    const { ugc } = this.data;
+    const { attachmentInfoList } = this.data;
     wx.showModal({
       title: "提醒",
       content: "确定要删除这张照片吗？",
@@ -164,9 +252,9 @@ Page({
       confirmText: "确定",
       success: (res) => {
         if (res.confirm) {
-          ugc.attachments.splice(e.detail.index, 1);
+          attachmentInfoList.splice(e.detail.index, 1);
           this.setData({
-            ugc,
+            attachmentInfoList,
           });
         }
       },
@@ -174,14 +262,41 @@ Page({
   },
 
   viewImage(e) {
-    const { ugc } = this.data;
+    const { attachmentInfoList } = this.data;
     let urls = [];
-    urls = ugc.attachments.map((item) => {
-      item.url;
+    urls = attachmentInfoList.map((item) => {
+      item.thumb;
     });
     wx.previewImage({
       urls,
-      current: ugc.attachments[e.detail.index].url,
+      current: attachmentInfoList[e.detail.index].thumb,
+    });
+  },
+
+  async uploadImage(file, index) {
+    const { attachmentInfoList } = this.data;
+    return new Promise((resolve, reject) => {
+      fileApi
+        .uploadImage(file.thumb)
+        .then((res) => {
+          wx.getImageInfo({
+            src: file.thumb,
+          })
+            .then((res_image) => {
+              attachmentInfoList[index].status = "success";
+              attachmentInfoList[index].url = res;
+              attachmentInfoList[index].width = res_image.width;
+              attachmentInfoList[index].height = res_image.height;
+              this.setData({
+                attachmentInfoList,
+              });
+              resolve(res);
+            })
+            .catch((err) => {
+              reject(err);
+            });
+        })
+        .catch((err) => reject(err));
     });
   },
 
@@ -192,245 +307,35 @@ Page({
     });
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  async onShow() {
-    wx.onKeyboardHeightChange((res) => {
-      this.setData({ keyboardHeight: res.height });
-    });
+  async onUpdatePost(e) {
     this.setData({
-      isLabelLoading: true,
+      publishStatus: true,
     });
-    wx.getSystemInfo({
-      success: (e) => {
-        let custom = wx.getMenuButtonBoundingClientRect();
-        let CustomBar = custom.bottom + custom.top - e.statusBarHeight;
-        this.setData({
-          CustomBar: CustomBar,
-          StatusBar: e.statusBarHeight,
-          Custom: custom,
-        });
-      },
-      fail: (res) => {
-        console.error("获取系统信息出错", res);
-      },
-    });
-    const { label_search_key } = this.data;
-    let res_label = await ugcApi.getLabelData(label_search_key, 0, 20);
-    const myUserInfo = await userApi.getMyUserInfo();
-    this.setData({
-      myUserInfo: myUserInfo.data.data,
-      labelData: res_label.data.data,
-      isLabelLoading: false,
-    });
-  },
-
-  async onLabelRefresh() {
-    const { label_search_key } = this.data;
-    this.setData({
-      showAddLabelButton: false,
-      labelRefresherTriggered: true,
-      label_page: 0,
-    });
-    const [res_label, err_label] = await to(
-      ugcApi.getLabelData(label_search_key, 0, 20)
-    );
-    if (err_label) {
-      wx.showToast({
-        title: "出错啦",
-        icon: "error",
-      });
-      this.setData({
-        labelRefresherTriggered: false,
-      });
-      return;
-    }
-    this.setData({
-      labelData: res_label.data.data,
-      labelRefresherTriggered: false,
-    });
-    if (res_label.data.data.total_size === 0) {
-      this.setData({
-        showAddLabelButton: true,
-      });
-    }
-  },
-
-  onChangeLabelSearchKey: _.throttle(function (options) {
-    const { label_search_key } = this.data;
-    this.setData({
-      labelRefresherTriggered: true,
-      showAddLabelButton: false,
-    });
-    ugcApi
-      .getLabelData(label_search_key, 0)
-      .then((value) => {
-        this.setData({
-          labelData: value.data.data,
-          labelRefresherTriggered: false,
-        });
-        if (value.data.data.total_size === 0) {
-          // 如果搜索不到标签，那么允许用户增加新标签
-          this.setData({
-            showAddLabelButton: true,
-          });
-        }
-      })
-      .catch((err) => {
-        wx.showToast({
-          title: "出错啦",
-          icon: "error",
-        });
-        this.setData({
-          labelRefresherTriggered: false,
-        });
-      });
-  }, 500),
-
-  addLabel(e) {
-    const { ugc } = this.data;
-    let findSame = false;
-    ugc.label_info.forEach((item, index) => {
-      if (item.id == e.currentTarget.dataset.label.id) {
-        findSame = true;
-        return;
-      }
-    });
-    if (findSame) {
-      this.onCloseLabel();
-      return;
-    }
-    ugc.label_info.push(e.currentTarget.dataset.label);
-    this.setData({
-      ugc,
-    });
-    this.onCloseLabel();
-  },
-
-  finishLabelChoose(e) {
-    this.setData({
-      showLabelList: false,
-      labelSearchInputFocus: false,
-    });
-  },
-
-  async onNextLabelPage() {
-    this.setData({
-      isLabelLoading: true,
-    });
-    const { labelData, label_page, label_search_key } = this.data;
-    const [res_label, err_label] = await to(
-      ugcApi.getLabelData(label_search_key, label_page + 1, 20)
-    );
-    if (err_label) {
-      this.setData({
-        isLabelLoading: false,
-      });
-      return;
-    }
-    this.setData({
-      labelData: {
-        label_list: {
-          list: [
-            ...labelData.label_list.list,
-            ...res_label.data.data.label_list.list,
-          ],
-          total_size: res_label.data.data.label_list.total_size,
-        },
-        name_exist: res_label.data.data.name_exist,
-      },
-      label_page: label_page + 1,
-      isLabelLoading: false,
-    });
-  },
-
-  inputUgcTitle(e) {
-    const { ugc } = this.data;
-    ugc.title = e.detail.value;
-    this.setData({
-      ugc,
-    });
-  },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
-  async onLoad(options) {
-    wx.showLoading({
-      title: "加载中",
-    });
-    this.setData({
-      options,
-    });
-    const [res_ugc_detail, err_ugc_detail] = await to(
-      ugcApi.getUgcDetail(options.id)
-    );
-    if (err_ugc_detail) {
-      wx.showToast({
-        title: "出错啦",
-        icon: "error",
-      });
-      return;
-    }
-    this.setData({
-      ugc: {
-        ...res_ugc_detail.data.data,
-        attachments: res_ugc_detail.data.data.attachments.map((item) => {
-          return {
-            ...item,
-            url: item.link,
-            attachment_type: item.type,
-            attachment_url: item.link,
-          };
-        }),
-      },
-      location: res_ugc_detail.data.data.location,
-    });
-    wx.createSelectorQuery()
-      .select("#ugc-editor")
-      .context(function (res) {
-        res.context.setContents({
-          html: res_ugc_detail.data.data.content,
-        });
-      })
-      .exec();
-    wx.hideLoading();
-  },
-
-  async onUpdate(e) {
-    if (this.submitCondition === 1) return;
-    await subscribeNotify([
-      "EC-BKxpWTEdEBLNdMCvphbJaqRLFl8Ehok6xX9g5ZxI",
-      "LzeRLb2idVMGSMygd0YcCeVs-zQDENaqM7-RrTgGcpk",
-    ]);
-    wx.showLoading({
-      title: "提交中",
-    });
-    this.setData({
-      submitCondition: 1,
-    });
-    const { ugc, location } = this.data;
+    const {
+      options: { id },
+      title,
+      content,
+      attachmentInfoList,
+      labelInfoList,
+    } = this.data;
     const [res, err] = await to(
-      ugcApi.updateMyUgc({
-        ...ugc,
-        location,
-      })
+      postApi.updatePost(id, title, content, attachmentInfoList, labelInfoList)
     );
     if (err) {
       wx.showToast({
-        title: "出错啦",
+        title: err.data,
         icon: "error",
       });
       this.setData({
-        submitCondition: 0,
+        publishStatus: false,
       });
       return;
     }
-    wx.showToast({
-      title: "更新成功",
+    this.setData({
+      publishStatus: false,
     });
-    await timeUtils.sleep(500);
-    wx.$router.push("/pages/home/index");
+    wx.showToast({
+      title: '更新成功',
+    })
   },
 });
