@@ -1,8 +1,14 @@
 # 开源高校小程序
 
-![](https://docs.zuowu.cc/images/qr_code.png)
+经改版，本项目已不需要自己部署后段，改为开放接口api，开发者可以自行决定调用哪些接口。
 
-> 本项目需要配合高校项目后端使用，开源版后端还在开发中...
+若需要独立部署，请直接联系我。
+
+## 官网：https://unit-one.top
+
+## DEMO
+
+![](https://docs.zuowu.cc/images/qr_code.png)
 
 ## Developer
 

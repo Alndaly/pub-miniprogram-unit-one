@@ -3,6 +3,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/myInfo/index/index",
+          "pathName": "pages/myInfo/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/myInfo/beCommented/index",
           "pathName": "pages/myInfo/beCommented/index",
           "query": "",
