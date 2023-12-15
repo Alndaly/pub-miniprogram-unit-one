@@ -6,7 +6,7 @@
     </view>
     <view class="center">
       <view class="nickname">{{voted_item.userInfo.nickname}}</view>
-      <view class="vote-content">点赞了你的{{voted_item.post?'帖子':'评论'}}</view>
+      <view class="vote-content">点赞了你的{{voted_item.toType==='post'?'帖子':'评论'}}</view>
       <view class="content-box">
         <mp-html wx:if="{{voted_item.toType==='post'}}" content="{{voted_item.post.content}}"></mp-html>
         <view wx:if="{{voted_item.toType==='comment'}}">{{voted_item.comment.content}}</view>

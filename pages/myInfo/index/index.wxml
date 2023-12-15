@@ -1,6 +1,6 @@
 <view class="bg-top">
   <map wx:if="{{location.latitude}}" enable-scroll="{{false}}" style="width: 100%;height: 100%;" id="maps" scale="{{16}}" show-location latitude="{{location.latitude}}" longitude="{{location.longitude}}"></map>
-  <van-image wx:else="{{location.latitude}}" fit="cover" height="100%" width="100%" lazy-load src="https://oss.kinda.info/image/202308041001262.jpg"></van-image>
+  <van-image wx:else="{{location.latitude}}" fit="cover" height="100%" width="100%" lazy-load src="{{myUserInfo.bgAttachment}}"></van-image>
 </view>
 <view class="whole-page">
   <view class="header-box box">

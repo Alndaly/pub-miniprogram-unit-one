@@ -31,7 +31,6 @@ Page({
         selected: 2,
       });
     }
-    const [res_myUserInfo, err_myUserInfo] = await to(userApi.getMyUserInfo());
     const [res_location, err_location] = await to(locationUtils.getLocation());
     if (err_myUserInfo || err_location) {
       wx.showToast({
@@ -40,6 +39,7 @@ Page({
       });
       return;
     }
+    const [res_myUserInfo, err_myUserInfo] = await to(userApi.getMyUserInfo());
     this.setData({
       location: res_location,
       myUserInfo: res_myUserInfo.data,
