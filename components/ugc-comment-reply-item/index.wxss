@@ -45,6 +45,10 @@
 .nickname {
   font-size: 14px;
   color: rgba(173, 173, 173, 1);
+  white-space: nowrap;   /* 禁止文本换行 */
+  overflow: hidden;      /* 隐藏溢出的内容 */
+  text-overflow: ellipsis; /* 显示省略号 */
+  max-width: 5rem;           /* 设置元素宽度，确保在一行内 */
 }
 
 .user-info {

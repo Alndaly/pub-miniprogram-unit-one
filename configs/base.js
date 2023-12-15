@@ -1,8 +1,11 @@
 const version = {
   // 本地开发
   develop: {
-    SIGNATURE_URL: "http://127.0.0.1:8010",
+    UNIT_ONE_APP_ID: 6,
+    // SIGNATURE_URL: "http://127.0.0.1:8010",
+    SIGNATURE_URL: "https://upload.unit-one.top",
     API_URL: "http://127.0.0.1:8001",
+    // API_URL: "https://api.unit-one.top",
     OSS_BUCKET: "unit-one",
     OSS_REGION: "oss-cn-beijing",
     // https://www.imgrender.cn 海报生成服务的apikey

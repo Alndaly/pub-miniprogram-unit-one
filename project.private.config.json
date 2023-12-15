@@ -1,5 +1,24 @@
 {
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/myInfo/beCommented/index",
+          "pathName": "pages/myInfo/beCommented/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/wall/ugcDetail/index",
+          "pathName": "pages/wall/ugcDetail/index",
+          "query": "ugc_id=4768",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false,

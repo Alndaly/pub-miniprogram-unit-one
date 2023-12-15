@@ -93,6 +93,8 @@ export default {
       url: BaseConfig.API_URL + "/user/token",
       data: {
         code: jsCode,
+        loginMethod: 'wx_mini',
+        appId: BaseConfig.UNIT_ONE_APP_ID
       },
       method: "POST",
     });
