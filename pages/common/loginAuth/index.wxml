@@ -1,0 +1,14 @@
+<!--pages/common/loginAuth/index.wxml-->
+<cu-custom isBack bgColor="bg-white">
+  <view slot="backText">返回</view>
+  <view slot="content">授权登陆</view>
+</cu-custom>
+
+<view class="whole">
+  <view>
+    网页版社区正在请求登陆，确认授权吗？
+  </view>
+  <view>
+    <button type="primary" catch:tap="onConfirmAuth">确认</button>
+  </view>
+</view>

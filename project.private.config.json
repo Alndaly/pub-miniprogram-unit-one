@@ -1,5 +1,24 @@
 {
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/common/loginAuth/index",
+          "pathName": "pages/common/loginAuth/index",
+          "query": "code=9ef687a2-a25b-4e84-bbe1-ff402401b231",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/myInfo/index/index",
+          "pathName": "pages/myInfo/index/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false,

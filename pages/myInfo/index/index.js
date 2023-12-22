@@ -25,6 +25,21 @@ Page({
     wx.$router.push("/pages/myInfo/myFans/index");
   },
 
+  async onScanCode(e) {
+    const [res, err] = await to(wx.scanCode());
+    if (err) {
+      wx.showToast({
+        title: err.errMsg,
+        icon: "none",
+      });
+      return;
+    }
+    const data = JSON.parse(res.result);
+    if (data.action == "login") {
+      wx.$router.push("/pages/common/loginAuth/index", { code: data.data });
+    }
+  },
+
   async onShow(options) {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
       this.getTabBar().setData({

@@ -33,7 +33,8 @@
     "pages/wall/ugcDetail/index",
     "pages/search/result/index",
     "pages/search/home/index",
-    "pages/myInfo/privacy/index"
+    "pages/myInfo/privacy/index",
+    "pages/common/loginAuth/index"
   ],
   "window": {
     "navigationStyle": "custom",

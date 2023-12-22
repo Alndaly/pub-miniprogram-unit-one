@@ -66,6 +66,10 @@
   </view>
 
   <view class="content-box box">
+    <van-cell title="打开扫码" is-link catch:tap="onScanCode" />
+  </view>
+
+  <view class="content-box box">
     <van-cell title="我的帖子" is-link url="/pages/myInfo/myPublish/index" />
     <van-cell title="我关注的" is-link url="/pages/myInfo/myAttention/index" />
     <van-cell title="我的粉丝" is-link url="/pages/myInfo/myFans/index" />

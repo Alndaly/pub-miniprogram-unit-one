@@ -1,0 +1,9 @@
+/* pages/common/loginAuth/index.wxss */
+.whole {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: env(safe-area-inset-bottom);
+  font-size: 1rem;
+}
